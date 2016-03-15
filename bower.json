@@ -1,0 +1,22 @@
+{
+  "name": "smart-town-admin",
+  "description": "smart-town-admin",
+  "main": "server.js",
+  "authors": [
+    "Xavier Serrano <zombispormedio007@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/Zombispormedio/smart-town-admin",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public//bower_components/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+   
+  }
+}
