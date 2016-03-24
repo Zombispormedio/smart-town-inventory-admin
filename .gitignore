@@ -1,5 +1,6 @@
 node_modules/
 public/bower_components/
+public/vendor/
 *.brackets.json
 /.ntvs_analysis.dat
 /pickyourday-api.njsproj
