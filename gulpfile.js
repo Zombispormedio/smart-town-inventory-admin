@@ -51,4 +51,8 @@ gulp.task("build-template-cache", function(){
 });
 
 
-gulp.task("default", ["bower", "clean","build-js", "build-css"]);
+gulp.task("build", ["clean","build-js", "build-css"]);
+
+gulp.task("default", function(){
+   return gulp.watch(["public/app/**/*.js", "public/app/views/**/*.html", "public/app/assets/stylesheets/scss/**/*.scss"], ["build"]); 
+});
