@@ -9,7 +9,7 @@ var gulp = require('gulp'),
 var ngHtml2Js = require("gulp-ng-html2js");
 
 gulp.task("clean", function(cb) {
-    del(['public/dist','public/app/.template-cache.js' ], cb);
+    del(['public/dist','public/app/assets/templates/template-cache.js' ], cb);
 });
 
 
@@ -21,7 +21,7 @@ gulp.task("bower", function() {
 
 });
 
-gulp.task("build-js", function() {
+gulp.task("build-js",["build-template-cache"], function() {
     return gulp.src("public/app/**/*.js")
         .pipe(sourcemaps.init())
         .pipe(concat("bundle.min.js"))
@@ -46,9 +46,9 @@ gulp.task("build-css", function() {
 gulp.task("build-template-cache", function(){
     return gulp.src("public/app/views/**/*.html")
     .pipe(ngHtml2Js({moduleName:"Application", prefix:"/views/"}))
-    .pipe(concat(".template-cache.js"))
-    .pipe(gulp.dest("./public/app"));
+    .pipe(concat("template-cache.js"))
+    .pipe(gulp.dest("./public/app/assets/templates/"));
 });
 
 
-gulp.task("default", ["bower", "clean", "build-template-cache","build-js", "build-css"]);
+gulp.task("default", ["bower", "clean","build-js", "build-css"]);

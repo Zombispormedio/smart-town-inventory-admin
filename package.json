@@ -14,7 +14,6 @@
     "del": "2.2.0",
     "express": "4.0.0",
     "gulp": "3.9.1",
-    "gulp-cachebust": "0.0.6",
     "gulp-concat": "2.6.0",
     "gulp-install": "0.6.0",
     "gulp-minify-css": "1.2.4",
@@ -30,7 +29,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "postinstall": "node ./node_modules/bower/bin/bower install --force-latest"
+    "postinstall": "node ./node_modules/bower/bin/gulp"
   },
   "repository": {
     "type": "git",
