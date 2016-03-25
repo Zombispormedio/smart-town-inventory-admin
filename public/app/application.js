@@ -1,2 +1,2 @@
-var app = angular.module('Application', ['ui.router', "ngResource", 'ngMaterial']);
+var app = angular.module('Application', ['ui.router', "ngResource", 'ngMaterial', 'ngStorage']);
 
