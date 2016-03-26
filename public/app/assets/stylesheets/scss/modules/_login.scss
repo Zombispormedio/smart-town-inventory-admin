@@ -1,7 +1,7 @@
 #login-body{
 
 
-    h2{
+    h2, h3{
         text-align: center;
         twemoji{
             img:{
@@ -10,17 +10,20 @@
         }
     }
 
+    
+    
     md-card{
         background-color: $yellow;
         md-content{
             background-color: $yellow;
         }
 
-
-
-
-
         md-input-container{
+            
+            md-icon{
+                font-size: 1.5em;
+            }
+            
             &:not(.md-input-focused):not(.md-input-invalid), &:not(.md-input-focused){
                 .md-input, label{
 
@@ -37,14 +40,6 @@
 
 
         }
-
-
-
-
-
-
-
-
 
 
 

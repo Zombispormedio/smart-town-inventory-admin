@@ -2,17 +2,18 @@
 <div  layout="row" layout-align="center center" layout-fill id="login-body" md-theme="loginTheme">
 
 
-    <div layout="column" flex-gt-md="30" flex-xs="50" flex-gt-xs="50" layout-padding>
+    <div layout="column" flex-gt-md="35" flex-xs="50" flex-gt-xs="50" layout-padding>
 
         <div layout="row" layout-align="center center">
             <h2><twemoji>&#x1F3E1;</twemoji><br>Smart Town Administration</h2>
         </div>
 
         <md-card layout="row" >
-           
-               <form name="loginForm" flex layout="column" layout-align="center stretch">
+            <form name="loginForm" flex layout="column" layout-align="center stretch" layout-padding layout-margin>
+                <h3 flex>Log in to your account</h3>
                 <md-input-container  class="md-block" flex>
                     <label>Email</label>
+
                     <input type="email" required name="email" ng-model="user.email" ng-pattern="/^.+@.+\..+$/" >
                     <div ng-messages="loginForm.email.$error" multiple md-auto-hide="false" ng-if='loginForm.email.$dirty'>
                         <div ng-message="required">This is required.</div>
@@ -23,6 +24,7 @@
                 </md-input-container>
                 <md-input-container   class="md-block" flex>
                     <label>Password</label>
+
                     <input ng-model="user.password" type="password" name="password" required>
                     <div ng-messages="loginForm.password.$error" md-auto-hide="false" ng-if="loginForm.password.$dirty">
                         <div ng-message="required">This is required.</div>
@@ -34,9 +36,9 @@
 
                     </div>
                 </md-input-container>
-                                
-                </form>
-            
+
+            </form>
+
         </md-card>
 
 
