@@ -1,0 +1,40 @@
+
+<div  layout="row" layout-align="center center" layout-fill id="login-body" md-theme="loginTheme">
+
+
+ <div layout="column" flex-gt-md="30" flex-xs="50" flex-gt-xs="50" layout-padding>
+
+        <div layout="row" layout-align="center center">
+            <h2><twemoji>&#x1F3E1;</twemoji>Smart Town Administration</h2>
+        </div>
+
+        <md-card layout="row" >
+            <md-content flex layout=column>
+                <md-input-container  class="md-block" flex>
+                    <label>Email</label>
+                    <input ng-model="user.email">
+                </md-input-container>
+                <md-input-container   class="md-block" flex>
+                    <label>Password</label>
+                    <input ng-model="user.password" type="password">
+                </md-input-container>
+                <md-input-container layout-align="center center" flex>
+                    <div layout="row" layout-sm="column" layout-margin>
+                        <md-button class="md-raised" flex="50" flex-sm="100">Login</md-button>
+                        <md-button class="md-raised md-primary" flex="50" flex-sm="100">Register</md-button>
+                    </div>
+                </md-input-container>
+            </md-content>
+        </md-card>
+
+
+        <div layout="row" layout-align="center center">
+            <h5><i class="fa fa-copyright"></i> Smart Town 2016</h5>
+        </div>
+
+
+    </div>
+
+</div>
+
+

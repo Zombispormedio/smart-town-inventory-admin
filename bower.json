@@ -21,6 +21,9 @@
     "angular-material": "^1.0.6",
     "angular-resource": "^1.5.2",
     "angular-ui-router": "^0.2.18",
-    "ngstorage": "^0.3.10"
+    "ngstorage": "^0.3.10",
+    "font-awesome": "^4.5.0",
+    "angular-twemoji": "^0.0.8",
+    "twemoji": "^2.0.5"
   }
 }

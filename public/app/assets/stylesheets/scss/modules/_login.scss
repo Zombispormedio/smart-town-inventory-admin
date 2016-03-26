@@ -1,3 +1,30 @@
-a{
-    color:$purple;
+#login-body{
+
+
+    h2{
+        twemoji{
+            img:{
+                vertical-align:middle;
+            }
+        }
+    }
+    md-card{
+        background-color: #ffeb3b;
+        md-content{
+            background-color: #ffeb3b;
+        }
+
+        md-input-container.md-loginTheme-theme {
+            .md-input, label{
+
+                color: black;
+                border-color: rgba(0,0,0,0.5);
+            }
+        }
+
+    }
+
+
+
+
 }
