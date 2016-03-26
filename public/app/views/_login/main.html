@@ -2,29 +2,41 @@
 <div  layout="row" layout-align="center center" layout-fill id="login-body" md-theme="loginTheme">
 
 
- <div layout="column" flex-gt-md="30" flex-xs="50" flex-gt-xs="50" layout-padding>
+    <div layout="column" flex-gt-md="30" flex-xs="50" flex-gt-xs="50" layout-padding>
 
         <div layout="row" layout-align="center center">
-            <h2><twemoji>&#x1F3E1;</twemoji>Smart Town Administration</h2>
+            <h2><twemoji>&#x1F3E1;</twemoji><br>Smart Town Administration</h2>
         </div>
 
         <md-card layout="row" >
-            <md-content flex layout=column>
+           
+               <form name="loginForm" flex layout="column" layout-align="center stretch">
                 <md-input-container  class="md-block" flex>
                     <label>Email</label>
-                    <input ng-model="user.email">
+                    <input type="email" required name="email" ng-model="user.email" ng-pattern="/^.+@.+\..+$/" >
+                    <div ng-messages="loginForm.email.$error" multiple md-auto-hide="false" ng-if='loginForm.email.$dirty'>
+                        <div ng-message="required">This is required.</div>
+                        <div ng-message="pattern">
+                            Your email must look like an e-mail address.
+                        </div>
+                    </div>
                 </md-input-container>
                 <md-input-container   class="md-block" flex>
                     <label>Password</label>
-                    <input ng-model="user.password" type="password">
+                    <input ng-model="user.password" type="password" name="password" required>
+                    <div ng-messages="loginForm.password.$error" md-auto-hide="false" ng-if="loginForm.password.$dirty">
+                        <div ng-message="required">This is required.</div>
+                    </div>
                 </md-input-container>
                 <md-input-container layout-align="center center" flex>
                     <div layout="row" layout-sm="column" layout-margin>
-                        <md-button class="md-raised" flex="50" flex-sm="100">Login</md-button>
-                        <md-button class="md-raised md-primary" flex="50" flex-sm="100">Register</md-button>
+                        <md-button class="md-raised" type="submit" ng-click="login()" flex flex-sm="100" ng>Login</md-button>
+
                     </div>
                 </md-input-container>
-            </md-content>
+                                
+                </form>
+            
         </md-card>
 
 

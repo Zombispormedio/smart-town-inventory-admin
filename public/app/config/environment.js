@@ -1,5 +1,7 @@
-angular.module('Application').config(function($stateProvider, $urlRouterProvider, $httpProvider,$mdThemingProvider){
+angular.module('Application').config(function($stateProvider, $urlRouterProvider, $httpProvider,$mdThemingProvider, twemojiProvider){
 
+    
+    /**Routes**/
     $stateProvider
         .state("login", {
         url:"/login",
@@ -8,10 +10,18 @@ angular.module('Application').config(function($stateProvider, $urlRouterProvider
 
     });
     $urlRouterProvider.otherwise("/login");
-
+    
+      $httpProvider.interceptors.push('AuthInterceptor');
+    
+    
+    /**Themes**/
     $mdThemingProvider.theme('loginTheme')
         .primaryPalette('orange')
         .accentPalette('yellow');
+    
+    
+    /**EmojisConfig**/
+     twemojiProvider.setOptions({size:"72x72"});
 
 });
 
