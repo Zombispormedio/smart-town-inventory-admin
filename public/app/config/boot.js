@@ -1,4 +1,5 @@
-angular.module('Application').run(function($rootScope, $state, $mdToast){
+angular.module('Application')
+    .run(function($rootScope, $state, $mdToast){
     
     $rootScope.go = function (state, params) {
         $state.go(state, params);

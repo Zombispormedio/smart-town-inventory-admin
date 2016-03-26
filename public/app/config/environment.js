@@ -1,4 +1,5 @@
-angular.module('Application').config(function($stateProvider, $urlRouterProvider, $httpProvider, $localStorageProvider, $mdThemingProvider, twemojiProvider){
+angular.module('Application')
+    .config(function($stateProvider, $urlRouterProvider, $httpProvider, $localStorageProvider, $mdThemingProvider, twemojiProvider){
 
 
     /**Routes**/
