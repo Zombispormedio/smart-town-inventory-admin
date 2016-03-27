@@ -1,13 +1,15 @@
 angular.module('Application')
-.factory("AuthInterceptor", function($q, $location,  $localStorage){
+    .factory("AuthInterceptor", function($q, $location){
     return {
         request: function(config){
             config.headers = config.headers || {};
 
-               var user=$localStorage.user;
+            var user=getLocal("user");
+
             if (!config.headers.Authorization && user) {
-                config.headers.Authorization = user.token;
+                config.headers.Authorization = user;
             }
+
             return config;
         },
         requestError: function(rejection) {
@@ -22,7 +24,7 @@ angular.module('Application')
         responseError: function(rejection){
             if(rejection.status === 403) {
                 console.error('Error de acceso');
-               $localStorage.user = '';
+                 localStorage.user = '';
                 $location.path('/');
                 return;
             }

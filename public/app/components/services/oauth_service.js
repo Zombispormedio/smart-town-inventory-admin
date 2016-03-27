@@ -7,8 +7,14 @@ angular.module('Application')
                 _:{method:"POST", params:{}}
             });
         },
-         logout:function(){
+        logout:function(){
             return ApiService.rest(this.base+"/logout", {
+                _:{method:"GET", params:{}}
+            });
+        },
+
+        whoiam:function(){
+            return ApiService.rest(this.base+"/whoiam", {
                 _:{method:"GET", params:{}}
             });
         }

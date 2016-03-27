@@ -1,12 +1,45 @@
-<header>
-    <h1>Hello!</h1>
-</header>
-<main>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit quam pariatur eligendi sequi accusantium adipisci omnis ad accusamus eum aperiam minima assumenda iure, obcaecati alias natus ratione quo facere tempore.</p>
-</main>
+<div layout="row" flex>
+    <md-sidenav layout="column" flex="20" class="md-sidenav-left md-whiteframe-z2"  id="sidebar" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')"  md-theme="smartTheme">
+        <header class="md-whiteframe-2dp">
+            <md-toolbar layout="row">
+                <h3 class="md-toolbar-tools" flex layout="row">
+                    <i class="icon house_with_garden_36" flex="20"></i>
+                    <span flex>Dashboard</span>
+                </h3>
+                <md-menu>
+                    <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
+                        <md-icon md-menu-origin md-font-icon="fa-ellipsis-v" class="fa"></md-icon>
+                    </md-button>
+                    <md-menu-content width="4">
+                        <md-menu-item>
+                            <span md-menu-align-target>Hello World!!</span>
+                        </md-menu-item>
 
-<footer>
-    <div layout="row" layout-align="center center">
-        <h5><i class="fa fa-copyright"></i> Smart Town 2016</h5>
+                    </md-menu-content>
+                </md-menu>
+
+            </md-toolbar>
+
+        </header>
+
+        <md-content>
+            <md-subheader class="md-primary" layout="row">
+                <span flex="10" class="avatar"><ng-letter-avatar ng-if="user.email" data="{{user.email}}" height="30px" width="30px" shape="round" alphabetcolors="array_colors"></ng-letter-avatar></span>
+                <span flex>{{user.email| nofirst}}
+                </span>
+                  <md-icon md-font-icon="fa-chevron-down" class="fa"></md-icon>
+             
+
+            </md-subheader>
+        </md-content>
+
+    </md-sidenav>
+
+
+    <div layout="column" flex id="content">
+        <md-content layout="column" flex class="md-padding" ui-view="content">
+
+        </md-content>
+
     </div>
-</footer>
+</div>

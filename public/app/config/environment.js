@@ -1,5 +1,5 @@
 angular.module('Application')
-    .config(function($stateProvider, $urlRouterProvider, $httpProvider, $localStorageProvider, $mdThemingProvider){
+    .config(function($stateProvider, $urlRouterProvider, $httpProvider, $mdThemingProvider){
 
 
     /**Routes**/
@@ -7,7 +7,7 @@ angular.module('Application')
         .state("login", {
         url:"/login",
         onEnter:function($rootScope){
-            if($localStorageProvider.get("user")){
+            if(getLocal("user")){
                  $rootScope.go("application");
             } 
         },
@@ -18,8 +18,9 @@ angular.module('Application')
         .state("application", {
         url:"/",
         onEnter:function($rootScope){
-            if(!$localStorageProvider.get("user")){
-                $rootScope.go("login");
+            
+            if(!getLocal("user")){
+                 $rootScope.go("login");
             } 
         },
         templateUrl:'/views/_application/main.html',
@@ -29,22 +30,17 @@ angular.module('Application')
 
 
 
-
-
-
-
-
-
-
     $urlRouterProvider.otherwise("/login");
 
     $httpProvider.interceptors.push('AuthInterceptor');
 
 
     /**Themes**/
-    $mdThemingProvider.theme('loginTheme')
+    $mdThemingProvider.theme('smartTheme')
         .primaryPalette('orange')
         .accentPalette('yellow');
+    
+   
 
 
   

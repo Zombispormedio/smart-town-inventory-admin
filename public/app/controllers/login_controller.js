@@ -1,5 +1,5 @@
 angular.module('Application')
-    .controller('LoginCtrl', function($rootScope, $scope, $localStorage, OAuthService, RequestService){
+    .controller('LoginCtrl', function($rootScope, $scope, OAuthService, RequestService){
 
     $scope.user={
         email:"",
@@ -12,10 +12,11 @@ angular.module('Application')
         if(user.email!=="" && user.password){
 
             OAuthService.login()._(user, RequestService.OneData("token", function(data){
-                $localStorage.user=data;
-                
+                console.log(data);
+                saveLocal("user", data);
+
                 $rootScope.go("application");
-                
+
             }),RequestService.Error());   
         }
 

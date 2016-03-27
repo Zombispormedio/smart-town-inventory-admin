@@ -1,0 +1,22 @@
+#sidebar{
+    background-color: $yellow;
+    h3{
+        color:$white;
+        font-weight: bold;
+    }
+    md-toolbar{
+        md-icon{
+            font-size: 2em;
+            color:$clear_orange;
+        }
+    }
+
+
+    .avatar img{
+        vertical-align: middle;
+    }
+    .md-subheader-inner{
+            width: 55em;
+            padding-left: 5px;
+    }
+}

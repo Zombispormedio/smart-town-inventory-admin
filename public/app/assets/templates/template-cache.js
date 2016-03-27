@@ -6,19 +6,51 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('/views/_application/main.html',
-    '<header>\n' +
-    '    <h1>Hello!</h1>\n' +
-    '</header>\n' +
-    '<main>\n' +
-    '    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit quam pariatur eligendi sequi accusantium adipisci omnis ad accusamus eum aperiam minima assumenda iure, obcaecati alias natus ratione quo facere tempore.</p>\n' +
-    '</main>\n' +
+    '<div layout="row" flex>\n' +
+    '    <md-sidenav layout="column" flex="20" class="md-sidenav-left md-whiteframe-z2"  id="sidebar" md-component-id="left" md-is-locked-open="$mdMedia(\'gt-sm\')"  md-theme="smartTheme">\n' +
+    '        <header class="md-whiteframe-2dp">\n' +
+    '            <md-toolbar layout="row">\n' +
+    '                <h3 class="md-toolbar-tools" flex layout="row">\n' +
+    '                    <i class="icon house_with_garden_36" flex="20"></i>\n' +
+    '                    <span flex>Dashboard</span>\n' +
+    '                </h3>\n' +
+    '                <md-menu>\n' +
+    '                    <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">\n' +
+    '                        <md-icon md-menu-origin md-font-icon="fa-ellipsis-v" class="fa"></md-icon>\n' +
+    '                    </md-button>\n' +
+    '                    <md-menu-content width="4">\n' +
+    '                        <md-menu-item>\n' +
+    '                            <span md-menu-align-target>Hello World!!</span>\n' +
+    '                        </md-menu-item>\n' +
     '\n' +
-    '<footer>\n' +
-    '    <div layout="row" layout-align="center center">\n' +
-    '        <h5><i class="fa fa-copyright"></i> Smart Town 2016</h5>\n' +
+    '                    </md-menu-content>\n' +
+    '                </md-menu>\n' +
+    '\n' +
+    '            </md-toolbar>\n' +
+    '\n' +
+    '        </header>\n' +
+    '\n' +
+    '        <md-content>\n' +
+    '            <md-subheader class="md-primary" layout="row">\n' +
+    '                <span flex="10" class="avatar"><ng-letter-avatar ng-if="user.email" data="{{user.email}}" height="30px" width="30px" shape="round" alphabetcolors="array_colors"></ng-letter-avatar></span>\n' +
+    '                <span flex>{{user.email| nofirst}}\n' +
+    '                </span>\n' +
+    '                  <md-icon md-font-icon="fa-chevron-down" class="fa"></md-icon>\n' +
+    '             \n' +
+    '\n' +
+    '            </md-subheader>\n' +
+    '        </md-content>\n' +
+    '\n' +
+    '    </md-sidenav>\n' +
+    '\n' +
+    '\n' +
+    '    <div layout="column" flex id="content">\n' +
+    '        <md-content layout="column" flex class="md-padding" ui-view="content">\n' +
+    '\n' +
+    '        </md-content>\n' +
+    '\n' +
     '    </div>\n' +
-    '</footer>\n' +
-    '');
+    '</div>');
 }]);
 })();
 
@@ -31,13 +63,13 @@ try {
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('/views/_login/main.html',
     '\n' +
-    '<div  layout="row" layout-align="center center" layout-fill id="login-body" md-theme="loginTheme">\n' +
+    '<div  layout="row" layout-align="center center" layout-fill id="login-body" md-theme="smartTheme">\n' +
     '\n' +
     '\n' +
     '    <div layout="column" flex-gt-md="35" flex-xs="50" flex-gt-xs="50" layout-padding>\n' +
     '\n' +
     '        <div layout="row" layout-align="center center">\n' +
-    '            <h2><!--<img src="app/assets/images/1f3e1.svg" alt="logo" width="72" height="72">--><i class="icon house_with_garden_72"></i><br>Smart Town Administration</h2>\n' +
+    '            <h2><i class="icon house_with_garden_72"></i><br>Smart Town Administration</h2>\n' +
     '        </div>\n' +
     '\n' +
     '        <md-card layout="row" >\n' +
