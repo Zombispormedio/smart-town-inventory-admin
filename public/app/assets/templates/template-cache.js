@@ -37,7 +37,7 @@ module.run(['$templateCache', function($templateCache) {
     '    <div layout="column" flex-gt-md="35" flex-xs="50" flex-gt-xs="50" layout-padding>\n' +
     '\n' +
     '        <div layout="row" layout-align="center center">\n' +
-    '            <h2><twemoji>&#x1F3E1;</twemoji><br>Smart Town Administration</h2>\n' +
+    '            <h2><img src="app/assets/images/1f3e1.svg" alt="logo" width="72" height="72"><br>Smart Town Administration</h2>\n' +
     '        </div>\n' +
     '\n' +
     '        <md-card layout="row" >\n' +

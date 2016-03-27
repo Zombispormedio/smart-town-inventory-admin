@@ -1,5 +1,5 @@
 angular.module('Application')
-    .config(function($stateProvider, $urlRouterProvider, $httpProvider, $localStorageProvider, $mdThemingProvider, twemojiProvider){
+    .config(function($stateProvider, $urlRouterProvider, $httpProvider, $localStorageProvider, $mdThemingProvider){
 
 
     /**Routes**/
@@ -47,8 +47,7 @@ angular.module('Application')
         .accentPalette('yellow');
 
 
-    /**EmojisConfig**/
-    twemojiProvider.setOptions({size:"72x72"});
+  
 
 });
 
