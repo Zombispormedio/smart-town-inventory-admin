@@ -3,3 +3,6 @@
 
 @import 'modules/login';
 @import 'modules/application';
+@import 'modules/global';
+@import 'modules/sprite';
+@include sprites($spritesheet-sprites);

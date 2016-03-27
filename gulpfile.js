@@ -5,8 +5,9 @@ var gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     uglify = require('gulp-uglify'),
     ngAnnotate = require('gulp-ng-annotate'),
-    del = require('del');
-var ngHtml2Js = require("gulp-ng-html2js");
+    del = require('del'),
+	ngHtml2Js = require("gulp-ng-html2js");
+	spritesmith=require("gulp.spritesmith");
 
 gulp.task("clean", function(cb) {
     del(['public/dist','public/app/assets/templates/template-cache.js' ], cb);
@@ -31,7 +32,7 @@ gulp.task("build-js",["build-template-cache"], function() {
         .pipe(gulp.dest("./public/dist"));
 });
 
-gulp.task("build-css", function() {
+gulp.task("build-css",['resources'], function() {
     return gulp.src("public/app/assets/stylesheets/scss/style.scss")
         .pipe(sourcemaps.init())
         .pipe(concat("bundle.min.css"))
@@ -50,8 +51,22 @@ gulp.task("build-template-cache", function(){
     .pipe(gulp.dest("./public/app/assets/templates/"));
 });
 
+gulp.task('resources', function () {
 
-gulp.task("build", ["clean","build-js", "build-css"]);
+    var spriteData = gulp.src('public/app/assets/images/*.png')
+        .pipe(spritesmith({
+            imgName: 'sprite.min.png',
+            cssName: '_sprite.scss',
+            algorithm: 'top-down',
+            padding: 5
+        }));
+
+    spriteData.css.pipe(gulp.dest('public/app/assets/stylesheets/scss/modules'));
+    spriteData.img.pipe(gulp.dest('public/dist'))
+});
+
+
+gulp.task("build", ["clean","build-css", "build-js" ]);
 
 gulp.task("default", function(){
    return gulp.watch(["public/app/**/*.js", "public/app/views/**/*.html", "public/app/assets/stylesheets/scss/**/*.scss"], ["build"]); 
