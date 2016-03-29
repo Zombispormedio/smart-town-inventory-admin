@@ -6,18 +6,57 @@
                     <i class="icon house_with_garden_36" flex="20"></i>
                     <span flex>Dashboard</span>
                 </h3>
+                <md-menu class="menu-sidebar">
+                    <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
+                        <md-icon md-menu-origin md-font-icon="fa-ellipsis-v" class="fa"></md-icon>
+                    </md-button>
+                    <md-menu-content width="4">
+                        <md-menu-item>
+                            <span md-menu-align-target>Hello World!!</span>
+                        </md-menu-item>
+
+                    </md-menu-content>
+                </md-menu>
             </md-toolbar>
 
         </header>
 
         <md-content>
-            <md-subheader class="md-primary" layout="row">
+            <md-subheader class="md-primary" layout="row" ng-init="showOptions=false">
                 <span flex="10" class="avatar"><ng-letter-avatar ng-if="user.email" data="{{user.email}}" height="30px" width="30px" shape="round" alphabetcolors="array_colors"></ng-letter-avatar></span>
                 <span flex>{{user.email| nofirst}}
                 </span>
-                  <md-icon md-font-icon="fa-chevron-down" class="fa md-primary"></md-icon>
-            
+
+                <md-icon md-font-icon="fa-chevron-down" class="fa md-primary" ng-click="showOptions=!showOptions"></md-icon>
+
+
+
             </md-subheader>
+
+            <div class="popover-user-options md-open-menu-container md-whiteframe-z2 md-clickable" ng-class="{'md-active':showOptions}">
+                <div class="dropdown-caret">
+                    <span class="caret-outer"></span>
+                    <span class="caret-inner"></span>
+                </div>
+                <md-content>
+
+                    <div layout="column" layout-align="space-between none">
+                        <div  flex layout="row"  layout-align="space-between center" class="item-popover">
+                            <i class="fa fa-cog" flex="20"></i>
+                            <a flex>Settings</a>
+
+                        </div>
+                        
+                        <div  flex layout="row"  layout-align="space-between center" class="item-popover">
+                            <i class="fa fa-power-off" flex="20"></i>
+                            <a ng-click="logout()" flex>Logout</a>
+
+                        </div>
+
+                    </div>
+
+                </md-content>
+            </div>
         </md-content>
 
     </md-sidenav>
@@ -30,3 +69,5 @@
 
     </div>
 </div>
+
+

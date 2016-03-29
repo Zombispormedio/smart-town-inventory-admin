@@ -1,2 +1,2 @@
-var app = angular.module('Application', ['ui.router', "ngResource",'ngMessages', 'ngMaterial', 'ngLetterAvatar',  'nsPopover']);
+var app = angular.module('Application', ['ui.router', "ngResource",'ngMessages','ngAnimate', 'ngMaterial', 'ngLetterAvatar']);
 

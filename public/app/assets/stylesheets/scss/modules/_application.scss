@@ -16,7 +16,39 @@
         vertical-align: middle;
     }
     .md-subheader-inner{
-            width: 55em;
-            padding-left: 5px;
+        width: 55em;
+        padding-left: 5px;
+    }
+
+    .menu-sidebar{
+        top: 53px;
+        left: 3px;
+    }
+
+    .popover-user-options{
+        top: 110px;
+        left: 130px;
+        transform-origin: left top 0px;
+        background: white;
+        padding: 6%;
+        border-radius: 3px;
+        width: 40%;
+        md-content{
+            i{
+                margin-top: 3%;
+            }
+            .item-popover{
+                margin-bottom: 10%;
+            }
+            
+            a{
+                cursor: pointer;
+                &:hover{
+                   color: rgba(0, 0, 0, 0.52);
+                }
+            }
+            
+        }
+        
     }
 }
