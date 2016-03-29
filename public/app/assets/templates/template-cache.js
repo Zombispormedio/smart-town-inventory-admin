@@ -14,18 +14,6 @@ module.run(['$templateCache', function($templateCache) {
     '                    <i class="icon house_with_garden_36" flex="20"></i>\n' +
     '                    <span flex>Dashboard</span>\n' +
     '                </h3>\n' +
-    '                <md-menu>\n' +
-    '                    <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">\n' +
-    '                        <md-icon md-menu-origin md-font-icon="fa-ellipsis-v" class="fa"></md-icon>\n' +
-    '                    </md-button>\n' +
-    '                    <md-menu-content width="4">\n' +
-    '                        <md-menu-item>\n' +
-    '                            <span md-menu-align-target>Hello World!!</span>\n' +
-    '                        </md-menu-item>\n' +
-    '\n' +
-    '                    </md-menu-content>\n' +
-    '                </md-menu>\n' +
-    '\n' +
     '            </md-toolbar>\n' +
     '\n' +
     '        </header>\n' +
@@ -35,9 +23,8 @@ module.run(['$templateCache', function($templateCache) {
     '                <span flex="10" class="avatar"><ng-letter-avatar ng-if="user.email" data="{{user.email}}" height="30px" width="30px" shape="round" alphabetcolors="array_colors"></ng-letter-avatar></span>\n' +
     '                <span flex>{{user.email| nofirst}}\n' +
     '                </span>\n' +
-    '                  <md-icon md-font-icon="fa-chevron-down" class="fa"></md-icon>\n' +
-    '             \n' +
-    '\n' +
+    '                  <md-icon md-font-icon="fa-chevron-down" class="fa md-primary"></md-icon>\n' +
+    '            \n' +
     '            </md-subheader>\n' +
     '        </md-content>\n' +
     '\n' +

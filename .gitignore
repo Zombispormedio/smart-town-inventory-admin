@@ -5,6 +5,9 @@ public/vendor/
 /.ntvs_analysis.dat
 /pickyourday-api.njsproj
 typings/
+public/packages/vendor/
 
 *.log
 *.bat
+
+

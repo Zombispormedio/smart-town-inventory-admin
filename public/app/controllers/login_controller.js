@@ -12,7 +12,6 @@ angular.module('Application')
         if(user.email!=="" && user.password){
 
             OAuthService.login()._(user, RequestService.OneData("token", function(data){
-                console.log(data);
                 saveLocal("user", data);
 
                 $rootScope.go("application");
