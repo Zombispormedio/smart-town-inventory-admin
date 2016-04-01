@@ -1,61 +1,89 @@
 <div layout="row" flex>
     <md-sidenav layout="column" flex="20" class="md-sidenav-left md-whiteframe-z2"  id="sidebar" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')"  md-theme="smartTheme">
         <header class="md-whiteframe-2dp">
-            <md-toolbar layout="row">
-                <h3 class="md-toolbar-tools" flex layout="row">
+            <md-toolbar layout="row" ng-init="showMain=false">
+                <h3 class="md-toolbar-tools" flex="80" layout="row">
                     <i class="icon house_with_garden_36" flex="20"></i>
                     <span flex>Dashboard</span>
                 </h3>
-                <md-menu class="menu-sidebar">
-                    <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
-                        <md-icon md-menu-origin md-font-icon="fa-ellipsis-v" class="fa"></md-icon>
-                    </md-button>
-                    <md-menu-content width="4">
-                        <md-menu-item>
-                            <span md-menu-align-target>Hello World!!</span>
-                        </md-menu-item>
+                <md-button aria-label="Open main menu" class="md-icon-button" flex ng-click="showMain=!showMain; showOptions=false">
+                    <md-icon  md-font-icon="mdi-apps" class="mdi"></md-icon>
+                </md-button>
+                <div class="popover-main md-open-menu-container md-whiteframe-z2 md-clickable" ng-class="{'md-active':showMain}" ng-if="showMain">
+                    <div class="dropdown-caret">
+                        <span class="caret-outer"></span>
+                        <span class="caret-inner"></span>
+                    </div>
 
-                    </md-menu-content>
-                </md-menu>
+
+                    <div class="popover-main-item" layout="row" flex>
+                        <a class="popover-main-link" flex layout="column"  layout-align="space-around center">
+                            <md-icon  md-font-icon="mdi-bowling" class="mdi" flex></md-icon>
+                            <span flex> Dashboard</span>
+
+                        </a>
+                        <a class="popover-main-link" flex layout="column"  layout-align="space-around center">
+
+                            <md-icon  md-font-icon="mdi-basecamp" class="mdi" flex></md-icon>
+                            <span flex>Zones</span>
+                        </a>
+                    </div>
+                    <div class="popover-main-item" layout="row" flex>
+                        <a class="popover-main-link" flex layout="column"  layout-align="space-around center">
+                            <md-icon  md-font-icon="mdi-alarm-check" class="mdi" flex></md-icon>
+                            <span flex>Tasks</span>
+                        </a>
+                        <a class="popover-main-link" flex layout="column"  layout-align="space-around center">
+                            <md-icon  md-font-icon="mdi-beer" class="mdi" flex></md-icon>
+                            <span flex>Magnitudes</span>
+                        </a>
+                    </div>
+                </div>
+
+
+
+
+
             </md-toolbar>
 
         </header>
 
         <md-content>
-            <md-subheader class="md-primary" layout="row" ng-init="showOptions=false">
-                <span flex="10" class="avatar"><ng-letter-avatar ng-if="user.email" data="{{user.email}}" height="30px" width="30px" shape="round" alphabetcolors="array_colors"></ng-letter-avatar></span>
-                <span flex>{{user.email| nofirst}}
+            <md-subheader class="md-primary" layout="row" ng-init="showOptions=false" layout-align="center center" ng-click="showOptions=!showOptions; showMain=false">
+                <span flex>{{user.email}}
                 </span>
-
-                <md-icon md-font-icon="fa-chevron-down" class="fa md-primary" ng-click="showOptions=!showOptions"></md-icon>
-
-
-
+                <md-icon md-font-icon="mdi-chevron-down" class="mdi md-primary" flex ></md-icon>
             </md-subheader>
 
-            <div class="popover-user-options md-open-menu-container md-whiteframe-z2 md-clickable" ng-class="{'md-active':showOptions}">
+            <div class="popover-user-options md-open-menu-container md-whiteframe-z2 md-clickable" ng-class="{'md-active':showOptions}" ng-if="showOptions">
                 <div class="dropdown-caret">
                     <span class="caret-outer"></span>
                     <span class="caret-inner"></span>
                 </div>
-                <md-content>
 
-                    <div layout="column" layout-align="space-between none">
-                        <div  flex layout="row"  layout-align="space-between center" class="item-popover">
-                            <i class="fa fa-cog" flex="20"></i>
-                            <a flex>Settings</a>
 
-                        </div>
-                        
-                        <div  flex layout="row"  layout-align="space-between center" class="item-popover">
-                            <i class="fa fa-power-off" flex="20"></i>
-                            <a ng-click="logout()" flex>Logout</a>
+                <div layout="column" layout-align="space-between none" class="popover-content">
+                    <a  flex layout="row"  layout-align="space-between center" class="item-popover">
+                        <i class="mdi mdi-account-circle" flex="40"></i>
+                        <span  flex>Account</span>
 
-                        </div>
+                    </a>
 
-                    </div>
+                    <a  flex layout="row"  layout-align="space-between center" class="item-popover">
+                        <i class="mdi mdi-football-helmet" flex="40"></i>
+                        <span flex>Invite</span>
 
-                </md-content>
+                    </a>
+
+                    <a  flex layout="row"  layout-align="space-between center" class="item-popover">
+                        <i class="mdi mdi-power" flex="40"></i>
+                        <span ng-click="logout()" flex>Logout</span>
+
+                    </a>
+
+                </div>
+
+
             </div>
         </md-content>
 

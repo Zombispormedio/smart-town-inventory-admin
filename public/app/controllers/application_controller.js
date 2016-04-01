@@ -5,10 +5,7 @@ angular.module('Application')
 
     $scope.array_colors=Array.apply(null, Array(27)).map(function(){return "#FF9800"});
 
-    $scope.openMenu = function($mdOpenMenu, ev) {
-        originatorEv = ev;
-        $mdOpenMenu(ev);
-    };
+    
 
 
     this.WhoIAm=function(){

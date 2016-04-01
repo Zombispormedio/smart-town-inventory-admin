@@ -9,61 +9,89 @@ module.run(['$templateCache', function($templateCache) {
     '<div layout="row" flex>\n' +
     '    <md-sidenav layout="column" flex="20" class="md-sidenav-left md-whiteframe-z2"  id="sidebar" md-component-id="left" md-is-locked-open="$mdMedia(\'gt-sm\')"  md-theme="smartTheme">\n' +
     '        <header class="md-whiteframe-2dp">\n' +
-    '            <md-toolbar layout="row">\n' +
-    '                <h3 class="md-toolbar-tools" flex layout="row">\n' +
+    '            <md-toolbar layout="row" ng-init="showMain=false">\n' +
+    '                <h3 class="md-toolbar-tools" flex="80" layout="row">\n' +
     '                    <i class="icon house_with_garden_36" flex="20"></i>\n' +
     '                    <span flex>Dashboard</span>\n' +
     '                </h3>\n' +
-    '                <md-menu class="menu-sidebar">\n' +
-    '                    <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">\n' +
-    '                        <md-icon md-menu-origin md-font-icon="fa-ellipsis-v" class="fa"></md-icon>\n' +
-    '                    </md-button>\n' +
-    '                    <md-menu-content width="4">\n' +
-    '                        <md-menu-item>\n' +
-    '                            <span md-menu-align-target>Hello World!!</span>\n' +
-    '                        </md-menu-item>\n' +
+    '                <md-button aria-label="Open main menu" class="md-icon-button" flex ng-click="showMain=!showMain; showOptions=false">\n' +
+    '                    <md-icon  md-font-icon="mdi-apps" class="mdi"></md-icon>\n' +
+    '                </md-button>\n' +
+    '                <div class="popover-main md-open-menu-container md-whiteframe-z2 md-clickable" ng-class="{\'md-active\':showMain}" ng-if="showMain">\n' +
+    '                    <div class="dropdown-caret">\n' +
+    '                        <span class="caret-outer"></span>\n' +
+    '                        <span class="caret-inner"></span>\n' +
+    '                    </div>\n' +
     '\n' +
-    '                    </md-menu-content>\n' +
-    '                </md-menu>\n' +
+    '\n' +
+    '                    <div class="popover-main-item" layout="row" flex>\n' +
+    '                        <a class="popover-main-link" flex layout="column"  layout-align="space-around center">\n' +
+    '                            <md-icon  md-font-icon="mdi-bowling" class="mdi" flex></md-icon>\n' +
+    '                            <span flex> Dashboard</span>\n' +
+    '\n' +
+    '                        </a>\n' +
+    '                        <a class="popover-main-link" flex layout="column"  layout-align="space-around center">\n' +
+    '\n' +
+    '                            <md-icon  md-font-icon="mdi-basecamp" class="mdi" flex></md-icon>\n' +
+    '                            <span flex>Zones</span>\n' +
+    '                        </a>\n' +
+    '                    </div>\n' +
+    '                    <div class="popover-main-item" layout="row" flex>\n' +
+    '                        <a class="popover-main-link" flex layout="column"  layout-align="space-around center">\n' +
+    '                            <md-icon  md-font-icon="mdi-alarm-check" class="mdi" flex></md-icon>\n' +
+    '                            <span flex>Tasks</span>\n' +
+    '                        </a>\n' +
+    '                        <a class="popover-main-link" flex layout="column"  layout-align="space-around center">\n' +
+    '                            <md-icon  md-font-icon="mdi-beer" class="mdi" flex></md-icon>\n' +
+    '                            <span flex>Magnitudes</span>\n' +
+    '                        </a>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '\n' +
+    '\n' +
+    '\n' +
+    '\n' +
+    '\n' +
     '            </md-toolbar>\n' +
     '\n' +
     '        </header>\n' +
     '\n' +
     '        <md-content>\n' +
-    '            <md-subheader class="md-primary" layout="row" ng-init="showOptions=false">\n' +
-    '                <span flex="10" class="avatar"><ng-letter-avatar ng-if="user.email" data="{{user.email}}" height="30px" width="30px" shape="round" alphabetcolors="array_colors"></ng-letter-avatar></span>\n' +
-    '                <span flex>{{user.email| nofirst}}\n' +
+    '            <md-subheader class="md-primary" layout="row" ng-init="showOptions=false" layout-align="center center" ng-click="showOptions=!showOptions; showMain=false">\n' +
+    '                <span flex>{{user.email}}\n' +
     '                </span>\n' +
-    '\n' +
-    '                <md-icon md-font-icon="fa-chevron-down" class="fa md-primary" ng-click="showOptions=!showOptions"></md-icon>\n' +
-    '\n' +
-    '\n' +
-    '\n' +
+    '                <md-icon md-font-icon="mdi-chevron-down" class="mdi md-primary" flex ></md-icon>\n' +
     '            </md-subheader>\n' +
     '\n' +
-    '            <div class="popover-user-options md-open-menu-container md-whiteframe-z2 md-clickable" ng-class="{\'md-active\':showOptions}">\n' +
+    '            <div class="popover-user-options md-open-menu-container md-whiteframe-z2 md-clickable" ng-class="{\'md-active\':showOptions}" ng-if="showOptions">\n' +
     '                <div class="dropdown-caret">\n' +
     '                    <span class="caret-outer"></span>\n' +
     '                    <span class="caret-inner"></span>\n' +
     '                </div>\n' +
-    '                <md-content>\n' +
     '\n' +
-    '                    <div layout="column" layout-align="space-between none">\n' +
-    '                        <div  flex layout="row"  layout-align="space-between center" class="item-popover">\n' +
-    '                            <i class="fa fa-cog" flex="20"></i>\n' +
-    '                            <a flex>Settings</a>\n' +
     '\n' +
-    '                        </div>\n' +
-    '                        \n' +
-    '                        <div  flex layout="row"  layout-align="space-between center" class="item-popover">\n' +
-    '                            <i class="fa fa-power-off" flex="20"></i>\n' +
-    '                            <a ng-click="logout()" flex>Logout</a>\n' +
+    '                <div layout="column" layout-align="space-between none" class="popover-content">\n' +
+    '                    <a  flex layout="row"  layout-align="space-between center" class="item-popover">\n' +
+    '                        <i class="mdi mdi-account-circle" flex="40"></i>\n' +
+    '                        <span  flex>Account</span>\n' +
     '\n' +
-    '                        </div>\n' +
+    '                    </a>\n' +
     '\n' +
-    '                    </div>\n' +
+    '                    <a  flex layout="row"  layout-align="space-between center" class="item-popover">\n' +
+    '                        <i class="mdi mdi-football-helmet" flex="40"></i>\n' +
+    '                        <span flex>Invite</span>\n' +
     '\n' +
-    '                </md-content>\n' +
+    '                    </a>\n' +
+    '\n' +
+    '                    <a  flex layout="row"  layout-align="space-between center" class="item-popover">\n' +
+    '                        <i class="mdi mdi-power" flex="40"></i>\n' +
+    '                        <span ng-click="logout()" flex>Logout</span>\n' +
+    '\n' +
+    '                    </a>\n' +
+    '\n' +
+    '                </div>\n' +
+    '\n' +
+    '\n' +
     '            </div>\n' +
     '        </md-content>\n' +
     '\n' +
@@ -136,7 +164,7 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '\n' +
     '        <div layout="row" layout-align="center center">\n' +
-    '            <h5><i class="fa fa-copyright"></i> Smart Town 2016</h5>\n' +
+    '            <h5><i class="mdi mdi-copyright"></i> Smart Town 2016</h5>\n' +
     '        </div>\n' +
     '\n' +
     '\n' +
