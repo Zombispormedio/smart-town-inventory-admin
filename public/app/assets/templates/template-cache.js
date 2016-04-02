@@ -12,14 +12,15 @@ module.run(['$templateCache', function($templateCache) {
     '    <md-sidenav layout="column" flex="20" class="md-sidenav-left md-whiteframe-z2"  id="sidebar" md-component-id="left" md-is-locked-open="$mdMedia(\'gt-sm\')"  md-theme="smartTheme">\n' +
     '        <header class="md-whiteframe-2dp">\n' +
     '            <md-toolbar layout="row" ng-init="showMain=false">\n' +
-    '                <h3 class="md-toolbar-tools" flex="80" layout="row">\n' +
-    '                    <i class="icon house_with_garden_36" flex="20"></i>\n' +
-    '                    <span flex>{{titleMain}}</span>\n' +
-    '                </h3>\n' +
+    '                <a class="md-toolbar-tools" flex="80" ng-href="{{statify(\'application\', titleMain)}}" layout="row">\n' +
+    '                        <i class="icon house_with_garden_36" flex="20"></i>\n' +
+    '                        <span flex>{{titleMain}}</span>\n' +
+    '                \n' +
+    '                </a>\n' +
     '                <md-button aria-label="Open main menu" class="md-icon-button" flex ng-click="showMain=!showMain; showOptions=false">\n' +
     '                    <md-icon  md-font-icon="mdi-apps" class="mdi"></md-icon>\n' +
     '                </md-button>\n' +
-    '                \n' +
+    '\n' +
     '\n' +
     '            </md-toolbar>\n' +
     '\n' +
@@ -32,14 +33,14 @@ module.run(['$templateCache', function($templateCache) {
     '                <md-icon md-font-icon="mdi-chevron-down" class="mdi md-primary" flex ></md-icon>\n' +
     '            </md-subheader>\n' +
     '\n' +
-    '            \n' +
+    '\n' +
     '        </md-content>\n' +
     '\n' +
     '    </md-sidenav>\n' +
     '\n' +
     '\n' +
-    '    <div layout="column" flex ui-view="content">\n' +
-    '     \n' +
+    '    <div flex ui-view="content">\n' +
+    '\n' +
     '\n' +
     '    </div>\n' +
     '</div>\n' +
@@ -140,9 +141,46 @@ try {
   module = angular.module('Application', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('/views/_application/_magnitudes/create.html',
+    'New Magnitude');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('Application');
+} catch (e) {
+  module = angular.module('Application', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('/views/_application/_magnitudes/list.html',
+    '<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">\n' +
+    '    <div class="md-toolbar-tools" layout="row"  layout-align="start center">\n' +
+    '\n' +
+    '        <md-input-container md-no-float class="md-block" flex> \n' +
+    '            <md-icon  md-font-icon="mdi-magnify" class="mdi"></md-icon>             \n' +
+    '            <input type="text" placeholder="Filter magnitudes">\n' +
+    '        </md-input-container>\n' +
+    '\n' +
+    '\n' +
+    '        <md-button class="md-icon-button" aria-label="More" flex="5" ng-click="create()">\n' +
+    '            <md-icon md-font-icon="mdi-plus" class="mdi"></md-icon>\n' +
+    '        </md-button>\n' +
+    '    </div>\n' +
+    '</md-toolbar>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('Application');
+} catch (e) {
+  module = angular.module('Application', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('/views/_application/_magnitudes/main.html',
     '<ui-title>Magnitudes</ui-title>\n' +
-    'hello magnitudes');
+    '<div layout="column" ui-view="inner"></div>');
 }]);
 })();
 
@@ -207,7 +245,7 @@ module.run(['$templateCache', function($templateCache) {
     '            <md-icon  md-font-icon="mdi-alarm-check" class="mdi" flex></md-icon>\n' +
     '            <span flex>Tasks</span>\n' +
     '        </a>\n' +
-    '        <a class="popover-main-link" flex layout="column"  ui-sref="application.magnitudes" layout-align="space-around center">\n' +
+    '        <a class="popover-main-link" flex layout="column"  ui-sref="application.magnitudes.list" layout-align="space-around center">\n' +
     '            <md-icon  md-font-icon="mdi-beer" class="mdi" flex></md-icon>\n' +
     '            <span flex>Magnitudes</span>\n' +
     '        </a>\n' +

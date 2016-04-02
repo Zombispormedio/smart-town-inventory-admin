@@ -1,0 +1,30 @@
+#main-toolbar{
+    color: $orange;
+    background-color: white;
+    md-icon{
+        color: $orange;
+    }
+    
+    md-input-container{
+        margin-top: 3%;
+        md-icon{
+            font-size: 1.5em;
+        }
+        input[type="text"]{
+            border-bottom-style: none;
+        }
+    }
+    
+    .md-icon-button {
+        margin-top: -0.5%;
+        &:hover{
+            md-icon{
+               color:$clear_orange; 
+            }
+        }
+        md-icon{
+            font-size: 2em;
+        }
+        
+    }
+}

@@ -1,5 +1,5 @@
 angular.module('Application')
-    .run(function($rootScope, $state, $mdToast){
+    .run(function($rootScope, $state, $mdToast, $state){
     
     $rootScope.go = function (state, params) {
         $state.go(state, params);
@@ -14,5 +14,9 @@ angular.module('Application')
             .hideDelay(3000)
         );
     };
+    
+    $rootScope.statify=function(parent, child){
+        return child?$state.href(parent+"."+child.toLowerCase()):"";
+    }
 
 });

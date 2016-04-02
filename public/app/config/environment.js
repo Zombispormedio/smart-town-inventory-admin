@@ -58,16 +58,36 @@ angular.module('Application')
             }
         }
     })
-    .state("application.magnitudes", {
+        .state("application.magnitudes", {
         url: '/magnitudes',
         onEnter: validUser,
         views: {
             content: {
                 templateUrl: '/views/_application/_magnitudes/main.html',
+            }
+        },
+        abstract:true
+    })
+    .state("application.magnitudes.list", {
+        url: '',
+        onEnter: validUser,
+        views: {
+            'inner': {
+                templateUrl: '/views/_application/_magnitudes/list.html',
                 controller: 'MagnitudesCtrl'
             }
         }
-    });
+    })
+     .state("application.magnitudes.create", {
+        url: '/create',
+        onEnter: validUser,
+        views: {
+            'inner': {
+                templateUrl: '/views/_application/_magnitudes/create.html',
+                controller: 'CreateMagnitudeCtrl'
+            }
+        }
+    })
 
 
 
@@ -86,5 +106,6 @@ angular.module('Application')
         .primaryPalette('orange')
         .accentPalette('yellow');
 
+   
 });
 

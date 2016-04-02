@@ -4,14 +4,15 @@
     <md-sidenav layout="column" flex="20" class="md-sidenav-left md-whiteframe-z2"  id="sidebar" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')"  md-theme="smartTheme">
         <header class="md-whiteframe-2dp">
             <md-toolbar layout="row" ng-init="showMain=false">
-                <h3 class="md-toolbar-tools" flex="80" layout="row">
-                    <i class="icon house_with_garden_36" flex="20"></i>
-                    <span flex>{{titleMain}}</span>
-                </h3>
+                <a class="md-toolbar-tools" flex="80" ng-href="{{statify('application', titleMain)}}" layout="row">
+                        <i class="icon house_with_garden_36" flex="20"></i>
+                        <span flex>{{titleMain}}</span>
+                
+                </a>
                 <md-button aria-label="Open main menu" class="md-icon-button" flex ng-click="showMain=!showMain; showOptions=false">
                     <md-icon  md-font-icon="mdi-apps" class="mdi"></md-icon>
                 </md-button>
-                
+
 
             </md-toolbar>
 
@@ -24,14 +25,14 @@
                 <md-icon md-font-icon="mdi-chevron-down" class="mdi md-primary" flex ></md-icon>
             </md-subheader>
 
-            
+
         </md-content>
 
     </md-sidenav>
 
 
-    <div layout="column" flex ui-view="content">
-     
+    <div flex ui-view="content">
+
 
     </div>
 </div>
