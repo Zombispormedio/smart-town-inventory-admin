@@ -1,0 +1,35 @@
+<div class="popover-layer" ng-if="showMain" ng-click="closePopoverMain()"></div>
+
+
+<div class="popover-main md-open-menu-container md-whiteframe-z2 md-clickable" ng-class="{'md-active':showMain}" ng-if="showMain">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+
+    <div class="popover-main-item" layout="row" flex>
+        <a class="popover-main-link" flex layout="column"   ui-sref="application.dashboard" layout-align="space-around center">
+            <md-icon  md-font-icon="mdi-bowling" class="mdi" flex></md-icon>
+            <span flex> Dashboard</span>
+
+        </a>
+        <a class="popover-main-link" flex layout="column" ui-sref="application.zones" layout-align="space-around center">
+
+            <md-icon  md-font-icon="mdi-basecamp" class="mdi" flex></md-icon>
+            <span flex>Zones</span>
+        </a>
+    </div>
+    <div class="popover-main-item" layout="row" flex>
+        <a class="popover-main-link" flex layout="column" ui-sref="application.tasks" layout-align="space-around center">
+            <md-icon  md-font-icon="mdi-alarm-check" class="mdi" flex></md-icon>
+            <span flex>Tasks</span>
+        </a>
+        <a class="popover-main-link" flex layout="column"  ui-sref="application.magnitudes" layout-align="space-around center">
+            <md-icon  md-font-icon="mdi-beer" class="mdi" flex></md-icon>
+            <span flex>Magnitudes</span>
+        </a>
+    </div>
+
+
+</div>

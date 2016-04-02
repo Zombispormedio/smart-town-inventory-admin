@@ -6,51 +6,20 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('/views/_application/main.html',
+    '<ng-include src="\'/views/_application/__utils/popover-main.html\'"></ng-include>\n' +
+    '<ng-include src="\'/views/_application/__utils/popover-user.html\'"></ng-include>\n' +
     '<div layout="row" flex>\n' +
     '    <md-sidenav layout="column" flex="20" class="md-sidenav-left md-whiteframe-z2"  id="sidebar" md-component-id="left" md-is-locked-open="$mdMedia(\'gt-sm\')"  md-theme="smartTheme">\n' +
     '        <header class="md-whiteframe-2dp">\n' +
     '            <md-toolbar layout="row" ng-init="showMain=false">\n' +
     '                <h3 class="md-toolbar-tools" flex="80" layout="row">\n' +
     '                    <i class="icon house_with_garden_36" flex="20"></i>\n' +
-    '                    <span flex>Dashboard</span>\n' +
+    '                    <span flex>{{titleMain}}</span>\n' +
     '                </h3>\n' +
     '                <md-button aria-label="Open main menu" class="md-icon-button" flex ng-click="showMain=!showMain; showOptions=false">\n' +
     '                    <md-icon  md-font-icon="mdi-apps" class="mdi"></md-icon>\n' +
     '                </md-button>\n' +
-    '                <div class="popover-main md-open-menu-container md-whiteframe-z2 md-clickable" ng-class="{\'md-active\':showMain}" ng-if="showMain">\n' +
-    '                    <div class="dropdown-caret">\n' +
-    '                        <span class="caret-outer"></span>\n' +
-    '                        <span class="caret-inner"></span>\n' +
-    '                    </div>\n' +
-    '\n' +
-    '\n' +
-    '                    <div class="popover-main-item" layout="row" flex>\n' +
-    '                        <a class="popover-main-link" flex layout="column"  layout-align="space-around center">\n' +
-    '                            <md-icon  md-font-icon="mdi-bowling" class="mdi" flex></md-icon>\n' +
-    '                            <span flex> Dashboard</span>\n' +
-    '\n' +
-    '                        </a>\n' +
-    '                        <a class="popover-main-link" flex layout="column"  layout-align="space-around center">\n' +
-    '\n' +
-    '                            <md-icon  md-font-icon="mdi-basecamp" class="mdi" flex></md-icon>\n' +
-    '                            <span flex>Zones</span>\n' +
-    '                        </a>\n' +
-    '                    </div>\n' +
-    '                    <div class="popover-main-item" layout="row" flex>\n' +
-    '                        <a class="popover-main-link" flex layout="column"  layout-align="space-around center">\n' +
-    '                            <md-icon  md-font-icon="mdi-alarm-check" class="mdi" flex></md-icon>\n' +
-    '                            <span flex>Tasks</span>\n' +
-    '                        </a>\n' +
-    '                        <a class="popover-main-link" flex layout="column"  layout-align="space-around center">\n' +
-    '                            <md-icon  md-font-icon="mdi-beer" class="mdi" flex></md-icon>\n' +
-    '                            <span flex>Magnitudes</span>\n' +
-    '                        </a>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '\n' +
-    '\n' +
-    '\n' +
-    '\n' +
+    '                \n' +
     '\n' +
     '            </md-toolbar>\n' +
     '\n' +
@@ -63,48 +32,19 @@ module.run(['$templateCache', function($templateCache) {
     '                <md-icon md-font-icon="mdi-chevron-down" class="mdi md-primary" flex ></md-icon>\n' +
     '            </md-subheader>\n' +
     '\n' +
-    '            <div class="popover-user-options md-open-menu-container md-whiteframe-z2 md-clickable" ng-class="{\'md-active\':showOptions}" ng-if="showOptions">\n' +
-    '                <div class="dropdown-caret">\n' +
-    '                    <span class="caret-outer"></span>\n' +
-    '                    <span class="caret-inner"></span>\n' +
-    '                </div>\n' +
-    '\n' +
-    '\n' +
-    '                <div layout="column" layout-align="space-between none" class="popover-content">\n' +
-    '                    <a  flex layout="row"  layout-align="space-between center" class="item-popover">\n' +
-    '                        <i class="mdi mdi-account-circle" flex="40"></i>\n' +
-    '                        <span  flex>Account</span>\n' +
-    '\n' +
-    '                    </a>\n' +
-    '\n' +
-    '                    <a  flex layout="row"  layout-align="space-between center" class="item-popover">\n' +
-    '                        <i class="mdi mdi-football-helmet" flex="40"></i>\n' +
-    '                        <span flex>Invite</span>\n' +
-    '\n' +
-    '                    </a>\n' +
-    '\n' +
-    '                    <a  flex layout="row"  layout-align="space-between center" class="item-popover">\n' +
-    '                        <i class="mdi mdi-power" flex="40"></i>\n' +
-    '                        <span ng-click="logout()" flex>Logout</span>\n' +
-    '\n' +
-    '                    </a>\n' +
-    '\n' +
-    '                </div>\n' +
-    '\n' +
-    '\n' +
-    '            </div>\n' +
+    '            \n' +
     '        </md-content>\n' +
     '\n' +
     '    </md-sidenav>\n' +
     '\n' +
     '\n' +
-    '    <div layout="column" flex id="content">\n' +
-    '        <md-content layout="column" flex class="md-padding" ui-view="content">\n' +
-    '\n' +
-    '        </md-content>\n' +
+    '    <div layout="column" flex ui-view="content">\n' +
+    '     \n' +
     '\n' +
     '    </div>\n' +
     '</div>\n' +
+    '\n' +
+    '\n' +
     '\n' +
     '\n' +
     '');
@@ -119,6 +59,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('/views/_login/main.html',
+    '<ui-title>Sign in</ui-title>\n' +
     '\n' +
     '<div  layout="row" layout-align="center center" layout-fill id="login-body" md-theme="smartTheme">\n' +
     '\n' +
@@ -174,5 +115,144 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '\n' +
     '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('Application');
+} catch (e) {
+  module = angular.module('Application', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('/views/_application/_dashboard/main.html',
+    '<ui-title>Dashboard</ui-title>\n' +
+    '\n' +
+    '\n' +
+    'hello world');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('Application');
+} catch (e) {
+  module = angular.module('Application', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('/views/_application/_magnitudes/main.html',
+    'hello magnitudes');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('Application');
+} catch (e) {
+  module = angular.module('Application', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('/views/_application/_tasks/main.html',
+    'hello tasks');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('Application');
+} catch (e) {
+  module = angular.module('Application', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('/views/_application/_zones/main.html',
+    'Hello zones');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('Application');
+} catch (e) {
+  module = angular.module('Application', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('/views/_application/__utils/popover-main.html',
+    '<div class="popover-layer" ng-if="showMain" ng-click="closePopoverMain()"></div>\n' +
+    '\n' +
+    '\n' +
+    '<div class="popover-main md-open-menu-container md-whiteframe-z2 md-clickable" ng-class="{\'md-active\':showMain}" ng-if="showMain">\n' +
+    '    <div class="dropdown-caret">\n' +
+    '        <span class="caret-outer"></span>\n' +
+    '        <span class="caret-inner"></span>\n' +
+    '    </div>\n' +
+    '\n' +
+    '\n' +
+    '    <div class="popover-main-item" layout="row" flex>\n' +
+    '        <a class="popover-main-link" flex layout="column"   ui-sref="application.dashboard" layout-align="space-around center">\n' +
+    '            <md-icon  md-font-icon="mdi-bowling" class="mdi" flex></md-icon>\n' +
+    '            <span flex> Dashboard</span>\n' +
+    '\n' +
+    '        </a>\n' +
+    '        <a class="popover-main-link" flex layout="column" ui-sref="application.zones" layout-align="space-around center">\n' +
+    '\n' +
+    '            <md-icon  md-font-icon="mdi-basecamp" class="mdi" flex></md-icon>\n' +
+    '            <span flex>Zones</span>\n' +
+    '        </a>\n' +
+    '    </div>\n' +
+    '    <div class="popover-main-item" layout="row" flex>\n' +
+    '        <a class="popover-main-link" flex layout="column" ui-sref="application.tasks" layout-align="space-around center">\n' +
+    '            <md-icon  md-font-icon="mdi-alarm-check" class="mdi" flex></md-icon>\n' +
+    '            <span flex>Tasks</span>\n' +
+    '        </a>\n' +
+    '        <a class="popover-main-link" flex layout="column"  ui-sref="application.magnitudes" layout-align="space-around center">\n' +
+    '            <md-icon  md-font-icon="mdi-beer" class="mdi" flex></md-icon>\n' +
+    '            <span flex>Magnitudes</span>\n' +
+    '        </a>\n' +
+    '    </div>\n' +
+    '\n' +
+    '\n' +
+    '</div>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('Application');
+} catch (e) {
+  module = angular.module('Application', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('/views/_application/__utils/popover-user.html',
+    '<div class="popover-layer" ng-if="showOptions" ng-click="closePopoverOptions()"></div>\n' +
+    '<div class="popover-user-options md-open-menu-container md-whiteframe-z2 md-clickable" ng-class="{\'md-active\':showOptions}" ng-if="showOptions">\n' +
+    '    <div class="dropdown-caret">\n' +
+    '        <span class="caret-outer"></span>\n' +
+    '        <span class="caret-inner"></span>\n' +
+    '    </div>\n' +
+    '\n' +
+    '\n' +
+    '    <div layout="column" layout-align="space-between none" class="popover-content">\n' +
+    '        <a  flex layout="row"  layout-align="space-between center" class="item-popover">\n' +
+    '            <i class="mdi mdi-account-circle" flex="40"></i>\n' +
+    '            <span  flex>Account</span>\n' +
+    '\n' +
+    '        </a>\n' +
+    '\n' +
+    '        <a  flex layout="row"  layout-align="space-between center" class="item-popover">\n' +
+    '            <i class="mdi mdi-football-helmet" flex="40"></i>\n' +
+    '            <span flex>Invite</span>\n' +
+    '\n' +
+    '        </a>\n' +
+    '\n' +
+    '        <a  flex layout="row"  layout-align="space-between center" class="item-popover">\n' +
+    '            <i class="mdi mdi-power" flex="40"></i>\n' +
+    '            <span ng-click="logout()" flex>Logout</span>\n' +
+    '\n' +
+    '        </a>\n' +
+    '\n' +
+    '    </div>\n' +
+    '\n' +
+    '\n' +
+    '</div>');
 }]);
 })();

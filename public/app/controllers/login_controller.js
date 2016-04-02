@@ -14,7 +14,7 @@ angular.module('Application')
             OAuthService.login()._(user, RequestService.OneData("token", function(data){
                 saveLocal("user", data);
 
-                $rootScope.go("application");
+                $rootScope.go("application.dashboard");
 
             }),RequestService.Error());   
         }

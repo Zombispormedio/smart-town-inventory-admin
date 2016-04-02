@@ -1,3 +1,72 @@
+.popover-layer{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 100;
+}
+.popover-main{
+    z-index: 200;
+    top: 53px;
+    left: 0px;
+    transform-origin: left top 0px;
+    background: white;
+    border-radius: 3px;
+    width: 20%;
+    max-width: 20%;
+
+    .popover-main-link{
+        height: 3.5em;
+        padding-top: 2.5%;
+        border-right: 1px solid #e7e7ec;
+        border-bottom: 1px solid #e7e7ec;
+        md-icon{
+            font-size: 1.5em;
+        }
+        span{
+            font-size: 0.85em;
+        }
+
+        &:hover{
+            background-color: rgba(0,0,0,0.3);
+        }
+    }
+
+
+
+}
+
+.popover-user-options{
+    z-index: 200;
+    top: 110px;
+    left: 116px;
+    transform-origin: left top 0px;
+    background: white;
+    padding: 6px;
+    border-radius: 3px;
+    width: 10%;
+    .popover-content{
+        i{
+            margin-top: 3%;
+            font-size: 2em;
+        }
+        &:not(:last-child).item-popover{
+            margin-bottom: 10%;
+        }
+
+        a{
+            cursor: pointer;
+            &:hover{
+                color: rgba(0, 0, 0, 0.52);
+            }
+        }
+
+    }
+
+}
+
+
+
+
 #sidebar{
     background-color: $yellow;
     h3{
@@ -12,36 +81,6 @@
         button{
             margin-top: 3.5%;
         }
-
-        .popover-main{
-            top: 53px;
-            left: 0px;
-            transform-origin: left top 0px;
-            background: white;
-            border-radius: 3px;
-            width: 100%;
-
-            .popover-main-link{
-                height: 3.5em;
-                padding-top: 2.5%;
-                border-right: 1px solid #e7e7ec;
-                border-bottom: 1px solid #e7e7ec;
-                md-icon{
-                    font-size: 1.5em;
-                }
-                span{
-                    font-size: 0.85em;
-                }
-                
-                &:hover{
-                    
-                }
-            }
-
-
-
-        }
-
 
     }
 
@@ -58,33 +97,5 @@
         md-icon{
             font-size: 2em;
         }
-    }
-
-    .popover-user-options{
-        top: 110px;
-        left: 123px;
-        transform-origin: left top 0px;
-        background: white;
-        padding: 6%;
-        border-radius: 3px;
-        width: 40%;
-        .popover-content{
-            i{
-                margin-top: 3%;
-                font-size: 2em;
-            }
-            &:not(:last-child).item-popover{
-                margin-bottom: 10%;
-            }
-
-            a{
-                cursor: pointer;
-                &:hover{
-                    color: rgba(0, 0, 0, 0.52);
-                }
-            }
-
-        }
-
     }
 }

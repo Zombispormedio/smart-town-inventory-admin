@@ -5,7 +5,13 @@ angular.module('Application')
 
     $scope.array_colors=Array.apply(null, Array(27)).map(function(){return "#FF9800"});
 
+    $scope.closePopoverMain=function(){
+       $scope.showMain=false;
+    }
     
+     $scope.closePopoverOptions=function(){
+       $scope.showOptions=false;
+    }
 
 
     this.WhoIAm=function(){

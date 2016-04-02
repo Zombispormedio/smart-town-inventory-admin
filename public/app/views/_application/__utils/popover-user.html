@@ -1,0 +1,31 @@
+<div class="popover-layer" ng-if="showOptions" ng-click="closePopoverOptions()"></div>
+<div class="popover-user-options md-open-menu-container md-whiteframe-z2 md-clickable" ng-class="{'md-active':showOptions}" ng-if="showOptions">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+
+    <div layout="column" layout-align="space-between none" class="popover-content">
+        <a  flex layout="row"  layout-align="space-between center" class="item-popover">
+            <i class="mdi mdi-account-circle" flex="40"></i>
+            <span  flex>Account</span>
+
+        </a>
+
+        <a  flex layout="row"  layout-align="space-between center" class="item-popover">
+            <i class="mdi mdi-football-helmet" flex="40"></i>
+            <span flex>Invite</span>
+
+        </a>
+
+        <a  flex layout="row"  layout-align="space-between center" class="item-popover">
+            <i class="mdi mdi-power" flex="40"></i>
+            <span ng-click="logout()" flex>Logout</span>
+
+        </a>
+
+    </div>
+
+
+</div>
