@@ -141,6 +141,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('/views/_application/_magnitudes/main.html',
+    '<ui-title>Magnitudes</ui-title>\n' +
     'hello magnitudes');
 }]);
 })();
@@ -153,6 +154,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('/views/_application/_tasks/main.html',
+    '<ui-title>Tasks</ui-title>\n' +
     'hello tasks');
 }]);
 })();
@@ -165,6 +167,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('/views/_application/_zones/main.html',
+    '<ui-title>Zones</ui-title>\n' +
     'Hello zones');
 }]);
 })();
