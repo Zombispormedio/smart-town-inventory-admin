@@ -4,7 +4,7 @@
     md-icon{
         color: $orange;
     }
-    
+
     md-input-container{
         margin-top: 3%;
         md-icon{
@@ -14,17 +14,62 @@
             border-bottom-style: none;
         }
     }
-    
+
     .md-icon-button {
         margin-top: -0.5%;
         &:hover{
             md-icon{
-               color:$clear_orange; 
+                color:$clear_orange; 
             }
         }
         md-icon{
             font-size: 2em;
         }
-        
+
+    }
+
+    .toolbar-create{
+        .button-back{
+            color: $grey;
+            i{
+                font-size: 1.7em;
+                position: relative;
+                top: 0.15em;
+            }
+        }
+        h2{
+            margin-left: 30%;
+        }
+
+    }
+
+
+}
+
+.input-create{
+
+    h3{
+        color: $orange;
+        font-size: 1.8em;
+    }
+    p{
+        font-size: 0.95em;
+        margin-top: -10%;
+    }
+    md-input-container{
+        margin-top: 8%;
+    }
+    md-radio-group{
+        margin-top: 4%;
+    }
+}
+
+.button-create{
+    button{
+        span{
+            color: $white;
+            font-weight: bold;
+        }
+
     }
 }

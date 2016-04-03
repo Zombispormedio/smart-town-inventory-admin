@@ -5,11 +5,11 @@ angular.module('Application')
     return {
         Error:function(){
             return function(res){
-              var data=res.data;
-               $rootScope.showSimpleToast(data.error);
+
+                $rootScope.showSimpleToast(data.error);
             }
         },
-        
+
         OneData:function(key, cb){
             return function(res){
                 if(!res.data){
@@ -17,10 +17,21 @@ angular.module('Application')
                 }
                 var value=res.data[key];
                 if(!value)return $rootScope.showSimpleToast("No Values");
-                
-                
+
+
                 cb(value);
-                
+
+            }
+        },
+        Message:function(cb){
+            return function(res){
+                if(!res.message){
+                    return $rootScope.showSimpleToast("Successful: No Meesage");
+                }
+                $rootScope.showSimpleToast(res.message);
+                if(cb)cb();
+
+
             }
         }
     }

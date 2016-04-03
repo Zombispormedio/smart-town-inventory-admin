@@ -13,9 +13,9 @@ module.run(['$templateCache', function($templateCache) {
     '        <header class="md-whiteframe-2dp">\n' +
     '            <md-toolbar layout="row" ng-init="showMain=false">\n' +
     '                <a class="md-toolbar-tools" flex="80" ng-href="{{statify(\'application\', titleMain)}}" layout="row">\n' +
-    '                        <i class="icon house_with_garden_36" flex="20"></i>\n' +
-    '                        <span flex>{{titleMain}}</span>\n' +
-    '                \n' +
+    '                    <i class="icon house_with_garden_36" flex="20"></i>\n' +
+    '                    <span flex>{{titleMain}}</span>\n' +
+    '\n' +
     '                </a>\n' +
     '                <md-button aria-label="Open main menu" class="md-icon-button" flex ng-click="showMain=!showMain; showOptions=false">\n' +
     '                    <md-icon  md-font-icon="mdi-apps" class="mdi"></md-icon>\n' +
@@ -39,8 +39,19 @@ module.run(['$templateCache', function($templateCache) {
     '    </md-sidenav>\n' +
     '\n' +
     '\n' +
-    '    <div flex ui-view="content">\n' +
+    '    <div flex layout="column">\n' +
+    '        <div ui-view="content" flex></div>\n' +
     '\n' +
+    '        <div flex class="footer">\n' +
+    '            <md-divider></md-divider>\n' +
+    '            <md-toolbar layout="row">\n' +
+    '             \n' +
+    '                    <h6 flex-offset="85"><i class="mdi mdi-copyright"></i><span>Smart Town 2016</span></h6>\n' +
+    '           \n' +
+    '\n' +
+    '            </md-toolbar>\n' +
+    '\n' +
+    '        </div>\n' +
     '\n' +
     '    </div>\n' +
     '</div>\n' +
@@ -142,7 +153,48 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('/views/_application/_magnitudes/create.html',
-    'New Magnitude');
+    '<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">\n' +
+    '    <div class=" toolbar-create md-toolbar-tools" layout="row">\n' +
+    '        <md-button aria-label="Go Back" flex="10" class="button-back" ng-click="goBack()">\n' +
+    '            <i class="mdi mdi-chevron-left"></i>Go Back\n' +
+    '        </md-button>\n' +
+    '        <h2 flex>\n' +
+    '            <span>New Magnitude</span>\n' +
+    '        </h2>\n' +
+    '    </div>\n' +
+    '</md-toolbar>\n' +
+    '<md-content layout-padding layout="column" md-theme="smartTheme">\n' +
+    '    <div layout="row" flex class="input-create">\n' +
+    '        <div  flex="20"  flex-offset="5">\n' +
+    '            <h3>Display Name <br>(optional)</h3>\n' +
+    '            <p>Leave blank and we\'ll choose one for you</p>\n' +
+    '        </div>\n' +
+    '\n' +
+    '        <md-input-container flex="50" flex-offset="10">\n' +
+    '            <input ng-model="magnitude.display_name" aria-label="Display Name">\n' +
+    '        </md-input-container>\n' +
+    '\n' +
+    '    </div>\n' +
+    '    <md-divider ></md-divider>\n' +
+    '    <div layout="row" flex class="input-create">\n' +
+    '        <div  flex="20"  flex-offset="5">\n' +
+    '            <h3>System Type</h3>\n' +
+    '            <p>Working with real numbers or with on(1) or off(0)</p>\n' +
+    '        </div>\n' +
+    '\n' +
+    '        <md-radio-group ng-model="magnitude.type" flex="50" flex-offset="30">\n' +
+    '            <md-radio-button value="0" class="md-primary">Analog</md-radio-button>\n' +
+    '            <md-radio-button value="1" class="md-primary">Digital</md-radio-button>\n' +
+    '        </md-radio-group>\n' +
+    '\n' +
+    '    </div>\n' +
+    '    <md-divider></md-divider>\n' +
+    '    <div flex class="button-create" layout="row" layout-align="center center">\n' +
+    '        <md-button class="md-raised md-primary" ng-click="create()">Create Magnitude</md-button>\n' +
+    '    </div>\n' +
+    '</md-content>\n' +
+    '\n' +
+    '');
 }]);
 })();
 

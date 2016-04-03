@@ -5,9 +5,9 @@
         <header class="md-whiteframe-2dp">
             <md-toolbar layout="row" ng-init="showMain=false">
                 <a class="md-toolbar-tools" flex="80" ng-href="{{statify('application', titleMain)}}" layout="row">
-                        <i class="icon house_with_garden_36" flex="20"></i>
-                        <span flex>{{titleMain}}</span>
-                
+                    <i class="icon house_with_garden_36" flex="20"></i>
+                    <span flex>{{titleMain}}</span>
+
                 </a>
                 <md-button aria-label="Open main menu" class="md-icon-button" flex ng-click="showMain=!showMain; showOptions=false">
                     <md-icon  md-font-icon="mdi-apps" class="mdi"></md-icon>
@@ -31,8 +31,19 @@
     </md-sidenav>
 
 
-    <div flex ui-view="content">
+    <div flex layout="column">
+        <div ui-view="content" flex></div>
 
+        <div flex class="footer">
+            <md-divider></md-divider>
+            <md-toolbar layout="row">
+             
+                    <h6 flex-offset="85"><i class="mdi mdi-copyright"></i><span>Smart Town 2016</span></h6>
+           
+
+            </md-toolbar>
+
+        </div>
 
     </div>
 </div>

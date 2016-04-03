@@ -1,1 +1,41 @@
-New Magnitude
+<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">
+    <div class=" toolbar-create md-toolbar-tools" layout="row">
+        <md-button aria-label="Go Back" flex="10" class="button-back" ng-click="goBack()">
+            <i class="mdi mdi-chevron-left"></i>Go Back
+        </md-button>
+        <h2 flex>
+            <span>New Magnitude</span>
+        </h2>
+    </div>
+</md-toolbar>
+<md-content layout-padding layout="column" md-theme="smartTheme">
+    <div layout="row" flex class="input-create">
+        <div  flex="20"  flex-offset="5">
+            <h3>Display Name <br>(optional)</h3>
+            <p>Leave blank and we'll choose one for you</p>
+        </div>
+
+        <md-input-container flex="50" flex-offset="10">
+            <input ng-model="magnitude.display_name" aria-label="Display Name">
+        </md-input-container>
+
+    </div>
+    <md-divider ></md-divider>
+    <div layout="row" flex class="input-create">
+        <div  flex="20"  flex-offset="5">
+            <h3>System Type</h3>
+            <p>Working with real numbers or with on(1) or off(0)</p>
+        </div>
+
+        <md-radio-group ng-model="magnitude.type" flex="50" flex-offset="30">
+            <md-radio-button value="0" class="md-primary">Analog</md-radio-button>
+            <md-radio-button value="1" class="md-primary">Digital</md-radio-button>
+        </md-radio-group>
+
+    </div>
+    <md-divider></md-divider>
+    <div flex class="button-create" layout="row" layout-align="center center">
+        <md-button class="md-raised md-primary" ng-click="create()">Create Magnitude</md-button>
+    </div>
+</md-content>
+
