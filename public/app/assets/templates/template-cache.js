@@ -219,7 +219,26 @@ module.run(['$templateCache', function($templateCache) {
     '            <md-icon md-font-icon="mdi-plus" class="mdi"></md-icon>\n' +
     '        </md-button>\n' +
     '    </div>\n' +
-    '</md-toolbar>');
+    '</md-toolbar>\n' +
+    '<md-content layout-padding layout="column" md-theme="smartTheme">\n' +
+    '\n' +
+    '    <md-list  ng-cloak class="magnitude-list">\n' +
+    '        <md-list-item  ng-repeat="magnitude in magnitudes">\n' +
+    '            <md-icon  md-font-icon="{{Icon(magnitude.type)}}" class="mdi magnitude-type-icon"></md-icon>  \n' +
+    '            <p> {{ magnitude.display_name }} </p>\n' +
+    '            \n' +
+    '            <p  flex-offset="30"><span class="md-whiteframe-1dp" ng-class="{\'badge\':magnitude.type===\'0\', \'badge-negative\':magnitude.type===\'1\'}">{{Type(magnitude.type)}}</span></p>\n' +
+    '            <md-button class="md-icon-button" aria-label="Delete">\n' +
+    '                <i   class=" mdi mdi-delete" ></i>\n' +
+    '            </md-button>\n' +
+    '\n' +
+    '            <md-divider ng-if="!$last"></md-divider>\n' +
+    '\n' +
+    '        </md-list-item>\n' +
+    '\n' +
+    '    </md-list>\n' +
+    '\n' +
+    '</md-content>');
 }]);
 })();
 

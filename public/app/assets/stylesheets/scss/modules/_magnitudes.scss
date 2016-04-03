@@ -73,3 +73,28 @@
 
     }
 }
+.magnitude-list{
+    .magnitude-type-icon{
+        font-size: 1.5em;
+        color:$orange !important;
+    }
+    button{
+        font-size: 1.5em;
+    }
+
+    .badge, badge-negative{
+
+        padding: 1%;
+        border-radius: 2px;
+    }
+
+    .badge{
+        background-color: $orange;
+        color: $white;
+    }
+
+    .badge-negative{
+        background-color: $white;
+        color: $orange;
+    }
+}

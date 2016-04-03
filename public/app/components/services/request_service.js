@@ -33,6 +33,16 @@ angular.module('Application')
 
 
             }
+        },
+        Seq:function(cb){
+            return function(res){
+                if(!res.data){
+                    return $rootScope.showSimpleToast("No data");
+                }
+                var values=res.data;
+                cb(values);
+
+            }
         }
     }
 });

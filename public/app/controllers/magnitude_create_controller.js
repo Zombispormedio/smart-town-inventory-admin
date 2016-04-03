@@ -16,6 +16,6 @@ angular.module('Application')
         }
         
 
-        MagnitudeService._().new(magnitude, RequestService.Message($scope.goBack), RequestService.Error())
+        MagnitudeService.Basic().new(magnitude, RequestService.Message($scope.goBack), RequestService.Error())
     }
 });
