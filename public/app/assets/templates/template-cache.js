@@ -228,8 +228,8 @@ module.run(['$templateCache', function($templateCache) {
     '            <p> {{ magnitude.display_name }} </p>\n' +
     '            \n' +
     '            <p  flex-offset="30"><span class="md-whiteframe-1dp" ng-class="{\'badge\':magnitude.type===\'0\', \'badge-negative\':magnitude.type===\'1\'}">{{Type(magnitude.type)}}</span></p>\n' +
-    '            <md-button class="md-icon-button" aria-label="Delete">\n' +
-    '                <i   class=" mdi mdi-delete" ></i>\n' +
+    '            <md-button class="md-icon-button" aria-label="Delete" ng-click="delete(magnitude.id)">\n' +
+    '                <i class=" mdi mdi-delete" ></i>\n' +
     '            </md-button>\n' +
     '\n' +
     '            <md-divider ng-if="!$last"></md-divider>\n' +

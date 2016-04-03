@@ -3,9 +3,11 @@ angular.module('Application')
     return {
         base:"magnitude",
         Basic:function(){
-            return ApiService.rest(this.base, {
+            return ApiService.rest(this.base+"/:id", {
                 new:{method:"POST", params:{}},
-                all:{method:"GET", params:{}}
+                all:{method:"GET", params:{}},
+                del:{method:"DELETE", params:{id:"@id"}}
+                
             });
         }
     };

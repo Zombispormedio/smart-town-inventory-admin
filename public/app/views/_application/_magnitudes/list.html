@@ -20,8 +20,8 @@
             <p> {{ magnitude.display_name }} </p>
             
             <p  flex-offset="30"><span class="md-whiteframe-1dp" ng-class="{'badge':magnitude.type==='0', 'badge-negative':magnitude.type==='1'}">{{Type(magnitude.type)}}</span></p>
-            <md-button class="md-icon-button" aria-label="Delete">
-                <i   class=" mdi mdi-delete" ></i>
+            <md-button class="md-icon-button" aria-label="Delete" ng-click="delete(magnitude.id)">
+                <i class=" mdi mdi-delete" ></i>
             </md-button>
 
             <md-divider ng-if="!$last"></md-divider>
