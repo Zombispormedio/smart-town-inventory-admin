@@ -10,7 +10,7 @@ angular.module('Application')
             }
         },
 
-        OneData:function(key, cb){
+        OneDataByKey:function(key, cb){
             return function(res){
                 if(!res.data){
                     return $rootScope.showSimpleToast("No data");
@@ -34,7 +34,7 @@ angular.module('Application')
 
             }
         },
-        Seq:function(cb){
+        Data:function(cb){
             return function(res){
                 if(!res.data){
                     return $rootScope.showSimpleToast("No data");

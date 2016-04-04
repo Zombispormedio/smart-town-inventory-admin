@@ -152,6 +152,19 @@ try {
   module = angular.module('Application', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('/views/_application/_tasks/main.html',
+    '<ui-title>Tasks</ui-title>\n' +
+    'hello tasks');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('Application');
+} catch (e) {
+  module = angular.module('Application', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('/views/_application/_magnitudes/create.html',
     '<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">\n' +
     '    <div class=" toolbar-create md-toolbar-tools" layout="row">\n' +
@@ -223,7 +236,7 @@ module.run(['$templateCache', function($templateCache) {
     '<md-content layout-padding layout="column" md-theme="smartTheme">\n' +
     '\n' +
     '    <md-list  ng-cloak class="magnitude-list">\n' +
-    '        <md-list-item  ng-repeat="magnitude in magnitudes">\n' +
+    '        <md-list-item  ng-repeat="magnitude in magnitudes" ng-click="goToDetail(magnitude.id)">\n' +
     '            <md-icon  md-font-icon="{{Icon(magnitude.type)}}" class="mdi magnitude-type-icon"></md-icon>  \n' +
     '            <p> {{ magnitude.display_name }} </p>\n' +
     '            \n' +
@@ -262,9 +275,34 @@ try {
   module = angular.module('Application', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('/views/_application/_tasks/main.html',
-    '<ui-title>Tasks</ui-title>\n' +
-    'hello tasks');
+  $templateCache.put('/views/_application/_magnitudes/show.html',
+    '<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">\n' +
+    '    <div class=" toolbar-create md-toolbar-tools" layout="row">\n' +
+    '        <md-button aria-label="Go Back" flex="10" class="button-back" ng-click="goBack()">\n' +
+    '            <i class="mdi mdi-chevron-left"></i>Go Back\n' +
+    '        </md-button>\n' +
+    '        <h2 flex>\n' +
+    '            <span>{{magnitude.display_name}}</span>\n' +
+    '        </h2>\n' +
+    '    </div>\n' +
+    '</md-toolbar>\n' +
+    '\n' +
+    '\n' +
+    '\n' +
+    '\n' +
+    '<div class="detail-toolbar md-toolbar-tools" layout="row"     layout-align="space-between stretch">\n' +
+    '\n' +
+    '    <div flex class="detail-toolbar-item active">\n' +
+    '        <span>Info</span>\n' +
+    '    </div>\n' +
+    '    <div flex class="detail-toolbar-item">\n' +
+    '        <span>Units</span>\n' +
+    '    </div>\n' +
+    '    <div flex class="detail-toolbar-item">\n' +
+    '        <span>Conversion</span>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '');
 }]);
 })();
 

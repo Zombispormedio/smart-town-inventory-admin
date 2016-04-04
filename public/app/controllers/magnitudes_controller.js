@@ -16,15 +16,18 @@ angular.module('Application')
     };
 
     $scope.delete=function(id){
-        MagnitudeService.Basic().del({id:id},RequestService.Seq(function(data){
+        MagnitudeService.Basic().del({id:id},RequestService.Data(function(data){
             $scope.magnitudes=data;
         }), RequestService.Error());
     };
 
+    $scope.goToDetail=function(id){
+        $rootScope.go("application.magnitudes.detail", {id:id});
+    }
 
     this.All=function(){
 
-        MagnitudeService.Basic().all( RequestService.Seq(function(data){
+        MagnitudeService.Basic().all( RequestService.Data(function(data){
             $scope.magnitudes=data;
         }), RequestService.Error());
     };

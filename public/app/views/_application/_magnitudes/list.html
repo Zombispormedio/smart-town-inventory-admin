@@ -15,7 +15,7 @@
 <md-content layout-padding layout="column" md-theme="smartTheme">
 
     <md-list  ng-cloak class="magnitude-list">
-        <md-list-item  ng-repeat="magnitude in magnitudes">
+        <md-list-item  ng-repeat="magnitude in magnitudes" ng-click="goToDetail(magnitude.id)">
             <md-icon  md-font-icon="{{Icon(magnitude.type)}}" class="mdi magnitude-type-icon"></md-icon>  
             <p> {{ magnitude.display_name }} </p>
             

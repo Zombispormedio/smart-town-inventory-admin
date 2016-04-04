@@ -88,6 +88,17 @@ angular.module('Application')
             }
         }
     })
+    .state("application.magnitudes.detail", {
+        url: '/:id',
+        onEnter: validUser,
+        views: {
+            'inner': {
+                templateUrl: '/views/_application/_magnitudes/show.html',
+                controller: 'DetailMagnitudeCtrl'
+            }
+        }
+    })
+
 
 
 

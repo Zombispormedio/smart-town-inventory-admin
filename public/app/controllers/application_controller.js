@@ -16,7 +16,7 @@ angular.module('Application')
 
     this.WhoIAm=function(){
 
-        OAuthService. whoiam()._(RequestService.OneData("email", function(data){
+        OAuthService. whoiam()._(RequestService.OneDataByKey("email", function(data){
             $scope.user.email=data;
 
         }),RequestService.Error());  

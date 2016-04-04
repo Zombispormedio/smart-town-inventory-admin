@@ -98,3 +98,29 @@
         color: $orange;
     }
 }
+
+.detail-toolbar{
+    background-color: $white;
+    color:$orange;
+    .detail-toolbar-item {
+        text-align: center;
+        padding-top: 2%;
+
+
+
+
+
+        &:first-child{
+            margin-left: -20px;
+        }
+
+
+        &:last-child{
+            margin-right: -20px;
+        }
+    }
+    .active{
+        border-bottom: solid;
+    }
+
+}

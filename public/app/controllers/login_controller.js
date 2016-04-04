@@ -11,7 +11,7 @@ angular.module('Application')
         var user=$scope.user;
         if(user.email!=="" && user.password){
 
-            OAuthService.login()._(user, RequestService.OneData("token", function(data){
+            OAuthService.login()._(user, RequestService.OneDataByKey("token", function(data){
                 saveLocal("user", data);
 
                 $rootScope.go("application.dashboard");
