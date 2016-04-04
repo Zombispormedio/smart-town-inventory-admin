@@ -10,7 +10,7 @@ var gulp = require('gulp'),
 	spritesmith=require("gulp.spritesmith");
 
 gulp.task("clean", function(cb) {
-    del(['public/dist','public/app/assets/templates/template-cache.js' ], cb);
+    del(['public/dist/bundle.min.css', 'public/dist/bundle.min.js','public/app/assets/templates/template-cache.js' ], cb);
 });
 
 
@@ -32,7 +32,7 @@ gulp.task("build-js",["build-template-cache"], function() {
         .pipe(gulp.dest("./public/dist"));
 });
 
-gulp.task("build-css",['resources'], function() {
+gulp.task("build-css", function() {
     return gulp.src("public/app/assets/stylesheets/scss/style.scss")
         .pipe(sourcemaps.init())
         .pipe(concat("bundle.min.css"))

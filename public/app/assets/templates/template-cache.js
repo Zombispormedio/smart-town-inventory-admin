@@ -59,6 +59,7 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '\n' +
     '\n' +
+    '\n' +
     '');
 }]);
 })();
@@ -222,7 +223,7 @@ module.run(['$templateCache', function($templateCache) {
     '</md-toolbar>\n' +
     '\n' +
     '\n' +
-    '<md-content layout-padding layout="column" md-theme="smartTheme" class="detail">\n' +
+    '<md-content layout-padding layout="column" md-theme="smartTheme" class="list">\n' +
     '\n' +
     '    <md-list  ng-cloak class="magnitude-list">\n' +
     '        <div ng-repeat="magnitude in magnitudes">\n' +
@@ -282,9 +283,6 @@ module.run(['$templateCache', function($templateCache) {
     '    </div>\n' +
     '</md-toolbar>\n' +
     '\n' +
-    '\n' +
-    '\n' +
-    '\n' +
     '<div  class="detail-toolbar md-toolbar-tools" layout="row"layout-align="space-between stretch">\n' +
     '\n' +
     '    <div flex class="detail-toolbar-item md-button" ng-click="select(\'info\')" ng-class="{\'active\':SelectedIndex===\'info\'}">\n' +
@@ -298,7 +296,7 @@ module.run(['$templateCache', function($templateCache) {
     '    </div>\n' +
     '</div>\n' +
     '\n' +
-    '<md-content  ng-switch on="SelectedIndex" class="detail background-theme-orange">\n' +
+    '<md-content  ng-switch on="SelectedIndex" class="detail background-theme-orange" layout-padding ng-class="{\'analog-content\':!Digital() }">\n' +
     '    <div class="detail-info" ng-switch-when="info" layout="row" layout-align="center stretch">\n' +
     '\n' +
     '        <md-card class="detail-form" flex>\n' +
@@ -349,30 +347,94 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '    </div>\n' +
     '\n' +
-    '\n' +
     '    <div class="detail-units" ng-switch-when="units"  ng-switch on="magnitude.type" >\n' +
-    '        <div ng-switch-when="0">Analog</div>\n' +
-    '        <div ng-switch-when="1">\n' +
+    '        <div ng-switch-when="1" class="digital">\n' +
     '            <md-card>\n' +
+    '\n' +
+    '                <md-card-header>\n' +
+    '\n' +
+    '\n' +
+    '                    <md-card-header-text>\n' +
+    '                        <span class="md-title">Digital System</span>\n' +
+    '                        <span class="md-subhead">Meaning of Digital Units</span>\n' +
+    '\n' +
+    '                    </md-card-header-text>\n' +
+    '\n' +
+    '                </md-card-header>\n' +
     '                <md-card-title>\n' +
     '                    <md-card-title-text>\n' +
-    '                        <span class="md-headline">Card with image</span>\n' +
-    '                        <span class="md-subhead">Large</span>\n' +
+    '\n' +
+    '                        <span class="md-headline">  <i class="mdi mdi-earth"></i>ON</span>\n' +
+    '\n' +
+    '                        <md-input-container md-theme="smartTheme">\n' +
+    '                            <input ng-model="magnitude.digital_units.on" type="text"  ng-disabled="!editable.digital_units">\n' +
+    '                        </md-input-container>\n' +
     '                    </md-card-title-text>\n' +
-    '                    <md-card-title-media>\n' +
-    '                        <div class="md-media-lg card-media"></div>\n' +
-    '                    </md-card-title-media>\n' +
+    '\n' +
     '                </md-card-title>\n' +
-    '                <md-card-actions layout="row" layout-align="end center">\n' +
-    '                    <md-button>Action 1</md-button>\n' +
-    '                    <md-button>Action 2</md-button>\n' +
+    '\n' +
+    '\n' +
+    '                <md-card-title>\n' +
+    '                    <md-card-title-text >\n' +
+    '\n' +
+    '                        <span class="md-headline">    <i class="mdi mdi-earth-off" flex></i> OFF </span>\n' +
+    '\n' +
+    '                        <md-input-container md-theme="smartTheme">\n' +
+    '                            <input ng-model="magnitude.digital_units.off" type="text" ng-disabled="!editable.digital_units">\n' +
+    '                        </md-input-container>\n' +
+    '                    </md-card-title-text>\n' +
+    '\n' +
+    '                </md-card-title>\n' +
+    '\n' +
+    '                <md-card-actions layout="row" layout-align="end center" md-theme="smartTheme">\n' +
+    '                    <md-button ng-click="editable.digital_units=true" ng-if="!editable.digital_units" class="md-primary">\n' +
+    '                        <i class="mdi mdi-pencil"></i>\n' +
+    '                    </md-button>\n' +
+    '\n' +
+    '                    <md-button  ng-if="editable.digital_units" class="md-primary" ng-click="changeDigitalUnits()">\n' +
+    '                        Update\n' +
+    '                    </md-button>\n' +
     '                </md-card-actions>\n' +
     '            </md-card>\n' +
     '\n' +
     '\n' +
     '\n' +
     '        </div>\n' +
+    '        <div ng-switch-when="0" class="analog md-whiteframe-1dp">\n' +
+    '            <md-toolbar class="md-whiteframe-1dp analog-toolbar">\n' +
+    '                <div class="md-toolbar-tools">\n' +
+    '                    <h4>Analog System</h4>\n' +
+    '                    <span flex></span>\n' +
+    '                    <md-button class="md-fab md-mini" aria-label="More" ng-click="addAnalogUnit()">\n' +
+    '                        <md-icon md-font-icon="mdi-plus" class="mdi"></md-icon>\n' +
+    '                    </md-button>\n' +
+    '                </div>\n' +
+    '            </md-toolbar>\n' +
     '\n' +
+    '            <md-list class="analog-list">\n' +
+    '                <md-list-item ng-repeat="unit in magnitude.analog_units | orderBy:\'-\'" layout="row"  md-theme="smartTheme">\n' +
+    '\n' +
+    '                    <md-input-container flex-offset="5" flex>\n' +
+    '                        <label>Display Name</label>\n' +
+    '                        <input ng-model="unit.display_name" type="text" ng-disabled="!unit.editable">\n' +
+    '\n' +
+    '                    </md-input-container>\n' +
+    '                    <md-input-container flex-offset="10" flex="20" class="symbol">\n' +
+    '                        <label>Symbol</label>\n' +
+    '                        <input ng-model="unit.symbol" type="text" ng-disabled="!unit.editable">\n' +
+    '                    </md-input-container>\n' +
+    '                    <md-button flex="nogrow"  ng-if="!unit.editable" ng-click="unit.editable=true" class="md-primary">\n' +
+    '                        <i class="mdi mdi-pencil"></i>\n' +
+    '                    </md-button>\n' +
+    '                    <md-button flex="nogrow" ng-if="unit.editable" class="md-primary">\n' +
+    '                        Update\n' +
+    '                    </md-button>\n' +
+    '                </md-list-item>\n' +
+    '\n' +
+    '            </md-list>\n' +
+    '\n' +
+    '\n' +
+    '        </div>\n' +
     '\n' +
     '    </div>\n' +
     '\n' +

@@ -6,7 +6,7 @@ angular.module('Application')
         Error:function(){
             return function(res){
 
-                $rootScope.showSimpleToast(data.error);
+                $rootScope.showSimpleToast(res.data.error);
             }
         },
 

@@ -21,6 +21,19 @@ angular.module('Application')
             return ApiService.rest(this.base+"/:id/type", {
                 set:{method:"PUT", params:{id:"@id"}}
             });
+        },
+        DigitalUnits:function(){
+            return ApiService.rest(this.base+"/:id/digital", {
+                set:{method:"PUT", params:{id:"@id"}}
+            });
+        },
+         AnalogUnits:function(){
+            return ApiService.rest(this.base+"/:id/analog", {
+                new:{method:"POST", params:{id:"@id"}}
+            });
         }
+        
+        
+        
     };
 });

@@ -18,7 +18,8 @@ angular.module('Application')
     $scope.SelectedIndex="info";
     $scope.editable={
         name:false,
-        type:false
+        type:false,
+        digital_units:false
     };
 
 
@@ -42,6 +43,29 @@ angular.module('Application')
             $scope.editable.type=false;                                                  
         }), RequestService.Error());
     }
+
+
+    $scope.changeDigitalUnits=function(){
+
+        MagnitudeService.DigitalUnits().set({id:magnitude_id},{digital_units:$scope.magnitude.digital_units}, RequestService.Data(function(data){
+            $scope.magnitude=data;
+            $scope.editable.digital_units=false;                                                  
+        }), RequestService.Error());
+    }
+
+
+    $scope.addAnalogUnit=function(){
+        
+        var index=$scope.magnitude.analog_units.length;
+        var new_unit={display_name:"Unit"+index};
+        MagnitudeService.AnalogUnits().new({id:magnitude_id}, {analog_unit:new_unit}, RequestService.Data(function(data){
+            $scope.magnitude=data;  
+            
+             $scope.magnitude.analog_units[index].editable=true;
+        }), RequestService.Error());
+    }
+
+
 
     this.MagnitudeById=function(){
         MagnitudeService.Basic().byId({id:magnitude_id}, RequestService.Data(function(data){
