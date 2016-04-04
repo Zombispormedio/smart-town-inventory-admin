@@ -12,22 +12,30 @@
         </md-button>
     </div>
 </md-toolbar>
-<md-content layout-padding layout="column" md-theme="smartTheme">
+
+
+<md-content layout-padding layout="column" md-theme="smartTheme" class="detail">
 
     <md-list  ng-cloak class="magnitude-list">
-        <md-list-item  ng-repeat="magnitude in magnitudes" ng-click="goToDetail(magnitude.id)">
-            <md-icon  md-font-icon="{{Icon(magnitude.type)}}" class="mdi magnitude-type-icon"></md-icon>  
-            <p> {{ magnitude.display_name }} </p>
-            
-            <p  flex-offset="30"><span class="md-whiteframe-1dp" ng-class="{'badge':magnitude.type==='0', 'badge-negative':magnitude.type==='1'}">{{Type(magnitude.type)}}</span></p>
-            <md-button class="md-icon-button" aria-label="Delete" ng-click="delete(magnitude.id)">
-                <i class=" mdi mdi-delete" ></i>
-            </md-button>
+        <div ng-repeat="magnitude in magnitudes">
+            <div  layout="row">
+                <md-list-item  ng-click="goToDetail(magnitude.id)" flex>
 
+                    <md-icon  md-font-icon="{{Icon(magnitude.type)}}" class="mdi magnitude-type-icon"></md-icon>  
+                    <p  > {{ magnitude.display_name }} </p>
+
+                    <p  flex-offset="30"><span class="md-whiteframe-1dp" ng-class="{'badge':magnitude.type==='0', 'badge-negative':magnitude.type==='1'}">{{Type(magnitude.type)}}</span></p>
+
+
+
+                </md-list-item>
+
+                <md-button class="md-primary" aria-label="Delete" ng-click="delete(magnitude.id)" flex="5">
+                    <i class="mdi mdi-delete"></i>
+                </md-button>
+            </div>
             <md-divider ng-if="!$last"></md-divider>
-
-        </md-list-item>
-
+        </div>
     </md-list>
 
 </md-content>

@@ -18,5 +18,10 @@ angular.module('Application')
     $rootScope.statify=function(parent, child){
         return child?$state.href(parent+"."+child.toLowerCase()):"";
     }
+    
+    $rootScope.goWithDestroy=function(scope, state, params){
+        scope.$destroy();
+        $rootScope.go(state, params);
+    }
 
 });

@@ -1,5 +1,12 @@
 angular.module('Application')
-    .controller('MagnitudesCtrl',function($scope, $rootScope, MagnitudeService, RequestService){
+    .controller('MagnitudesCtrl',function($scope, $rootScope, MagnitudeService, RequestService, ThemeService){
+
+    ThemeService.Content($scope, "background-theme-orange");
+
+    $scope.go=function(state, params){
+        $rootScope.goWithDestroy($scope, state, params);
+    }
+
     $scope.create=function(){
         $rootScope.go("application.magnitudes.create")
     };
@@ -22,7 +29,7 @@ angular.module('Application')
     };
 
     $scope.goToDetail=function(id){
-        $rootScope.go("application.magnitudes.detail", {id:id});
+        $scope.go("application.magnitudes.detail", {id:id});
     }
 
     this.All=function(){

@@ -12,15 +12,97 @@
 
 
 
-<div class="detail-toolbar md-toolbar-tools" layout="row"     layout-align="space-between stretch">
+<div  class="detail-toolbar md-toolbar-tools" layout="row"layout-align="space-between stretch">
 
-    <div flex class="detail-toolbar-item active">
-        <span>Info</span>
+    <div flex class="detail-toolbar-item md-button" ng-click="select('info')" ng-class="{'active':SelectedIndex==='info'}">
+        <span>Info</span>  <i class="mdi mdi-information-outline"></i>
     </div>
-    <div flex class="detail-toolbar-item">
-        <span>Units</span>
+    <div flex class="detail-toolbar-item md-button" ng-click="select('units')" ng-class="{'active':SelectedIndex==='units'}">
+        <span>Units</span>  <i class="mdi mdi-numeric"></i>
     </div>
-    <div flex class="detail-toolbar-item">
-        <span>Conversion</span>
+    <div flex class="detail-toolbar-item md-button" ng-click="select('conversions')" ng-class="{'active':SelectedIndex==='conversions', 'disable':Digital()}">
+        <span>Conversions</span> <i class="mdi mdi-stethoscope"></i>
     </div>
 </div>
+
+<md-content  ng-switch on="SelectedIndex" class="detail background-theme-orange">
+    <div class="detail-info" ng-switch-when="info" layout="row" layout-align="center stretch">
+
+        <md-card class="detail-form" flex>
+            <md-toolbar class="md-whiteframe-1dp">
+                <div class="md-toolbar-tools" >
+                    <h3>Display Name</h3>
+                </div>
+            </md-toolbar>
+            <md-card-content layout="row" layout-align="center center" md-theme="smartTheme">
+                <md-input-container flex layout="row">
+                    <input ng-model="magnitude.display_name" type="text" flex flex-order="1" ng-disabled="!editable.name">
+                    <md-button flex="5" flex-order="2" ng-click="editable.name=true" ng-if="!editable.name" class="md-primary">
+                        <i class="mdi mdi-pencil"></i>
+                    </md-button>
+                    <md-button flex="5" flex-order="2" ng-click="changeDisplayName()" ng-if="editable.name" class="md-primary">
+                        Update
+                    </md-button>
+                </md-input-container>
+
+
+            </md-card-content>
+
+        </md-card>
+
+        <md-card class="detail-form" flex>
+            <md-toolbar class="md-whiteframe-1dp">
+                <div class="md-toolbar-tools" >
+                    <h3>System Type</h3>
+                </div>
+            </md-toolbar>
+            <md-card-content layout-align="center center" layout="row" class="radio" md-theme="smartTheme">
+                <md-radio-group ng-model="magnitude.type" layout="row">
+                    <md-radio-button value="0" flex class="md-primary" ng-disabled="!editable.type">Analog</md-radio-button>
+                    <md-radio-button value="1" flex class="md-primary" ng-disabled="!editable.type">Digital</md-radio-button>
+                </md-radio-group>
+
+                <md-button flex="5" flex-order="2" ng-click="editable.type=true" ng-if="!editable.type" class="md-primary">
+                    <i class="mdi mdi-pencil"></i>
+                </md-button>
+
+                <md-button flex="5" flex-order="2" ng-click="changeType()" ng-if="editable.type" class="md-primary">
+                    Update
+                </md-button>
+
+            </md-card-content>
+        </md-card>
+
+
+    </div>
+
+
+    <div class="detail-units" ng-switch-when="units"  ng-switch on="magnitude.type" >
+        <div ng-switch-when="0">Analog</div>
+        <div ng-switch-when="1">
+            <md-card>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Card with image</span>
+                        <span class="md-subhead">Large</span>
+                    </md-card-title-text>
+                    <md-card-title-media>
+                        <div class="md-media-lg card-media"></div>
+                    </md-card-title-media>
+                </md-card-title>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button>Action 1</md-button>
+                    <md-button>Action 2</md-button>
+                </md-card-actions>
+            </md-card>
+
+
+
+        </div>
+
+
+    </div>
+
+</md-content>
+
+

@@ -8,7 +8,18 @@ angular.module('Application')
                 all:{method:"GET", params:{}},
                 byId:{method:"GET", params:{id:"@id"}},
                 del:{method:"DELETE", params:{id:"@id"}}
-                
+
+            });
+        },
+        DisplayName:function(){
+            return ApiService.rest(this.base+"/:id/display_name", {
+                set:{method:"PUT", params:{id:"@id"}}
+            });
+        },
+
+        Type:function(){
+            return ApiService.rest(this.base+"/:id/type", {
+                set:{method:"PUT", params:{id:"@id"}}
             });
         }
     };

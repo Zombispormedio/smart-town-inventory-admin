@@ -80,6 +80,9 @@
     }
     button{
         font-size: 1.5em;
+        i{
+            margin-top: 10%;
+        }
     }
 
     .badge, .badge-negative{
@@ -104,12 +107,14 @@
     color:$orange;
     .detail-toolbar-item {
         text-align: center;
-        padding-top: 2%;
+        padding-top: 1.5%;
+        text-transform: capitalize;
+        font-size: 1em;
 
-
-
-
-
+        &:not(:first-child):not(:last-child){
+            margin-right: -1%;
+            margin-left: -1%;
+        }
         &:first-child{
             margin-left: -20px;
         }
@@ -122,5 +127,30 @@
     .active{
         border-bottom: solid;
     }
+    
+    .disable{
+       background-color:  rgba(158,158,158,0.2);
+        color:$grey;
+    }
 
 }
+.detail{
+    .detail-info{
+        md-toolbar{
+            color: $orange;
+            background-color: white;
+        }
+        margin-top: 5%;
+        .radio{
+            margin-top: 6%;
+        }
+        
+        button{
+            i{
+                font-size: 1.5em;
+            }
+            
+        }
+    }
+}
+

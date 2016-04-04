@@ -40,14 +40,14 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '\n' +
     '    <div flex layout="column">\n' +
-    '        <div ui-view="content" flex></div>\n' +
+    '        <div ui-view="content" id="content" flex></div>\n' +
     '\n' +
-    '        <div flex class="footer">\n' +
+    '            <div flex class="footer">\n' +
     '            <md-divider></md-divider>\n' +
     '            <md-toolbar layout="row">\n' +
-    '             \n' +
-    '                    <h6 flex-offset="85"><i class="mdi mdi-copyright"></i><span>Smart Town 2016</span></h6>\n' +
-    '           \n' +
+    '\n' +
+    '                <h6 flex-offset="85"><i class="mdi mdi-copyright"></i><span>Smart Town 2016</span></h6>\n' +
+    '\n' +
     '\n' +
     '            </md-toolbar>\n' +
     '\n' +
@@ -152,19 +152,6 @@ try {
   module = angular.module('Application', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('/views/_application/_tasks/main.html',
-    '<ui-title>Tasks</ui-title>\n' +
-    'hello tasks');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('Application');
-} catch (e) {
-  module = angular.module('Application', []);
-}
-module.run(['$templateCache', function($templateCache) {
   $templateCache.put('/views/_application/_magnitudes/create.html',
     '<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">\n' +
     '    <div class=" toolbar-create md-toolbar-tools" layout="row">\n' +
@@ -233,22 +220,30 @@ module.run(['$templateCache', function($templateCache) {
     '        </md-button>\n' +
     '    </div>\n' +
     '</md-toolbar>\n' +
-    '<md-content layout-padding layout="column" md-theme="smartTheme">\n' +
+    '\n' +
+    '\n' +
+    '<md-content layout-padding layout="column" md-theme="smartTheme" class="detail">\n' +
     '\n' +
     '    <md-list  ng-cloak class="magnitude-list">\n' +
-    '        <md-list-item  ng-repeat="magnitude in magnitudes" ng-click="goToDetail(magnitude.id)">\n' +
-    '            <md-icon  md-font-icon="{{Icon(magnitude.type)}}" class="mdi magnitude-type-icon"></md-icon>  \n' +
-    '            <p> {{ magnitude.display_name }} </p>\n' +
-    '            \n' +
-    '            <p  flex-offset="30"><span class="md-whiteframe-1dp" ng-class="{\'badge\':magnitude.type===\'0\', \'badge-negative\':magnitude.type===\'1\'}">{{Type(magnitude.type)}}</span></p>\n' +
-    '            <md-button class="md-icon-button" aria-label="Delete" ng-click="delete(magnitude.id)">\n' +
-    '                <i class=" mdi mdi-delete" ></i>\n' +
-    '            </md-button>\n' +
+    '        <div ng-repeat="magnitude in magnitudes">\n' +
+    '            <div  layout="row">\n' +
+    '                <md-list-item  ng-click="goToDetail(magnitude.id)" flex>\n' +
     '\n' +
+    '                    <md-icon  md-font-icon="{{Icon(magnitude.type)}}" class="mdi magnitude-type-icon"></md-icon>  \n' +
+    '                    <p  > {{ magnitude.display_name }} </p>\n' +
+    '\n' +
+    '                    <p  flex-offset="30"><span class="md-whiteframe-1dp" ng-class="{\'badge\':magnitude.type===\'0\', \'badge-negative\':magnitude.type===\'1\'}">{{Type(magnitude.type)}}</span></p>\n' +
+    '\n' +
+    '\n' +
+    '\n' +
+    '                </md-list-item>\n' +
+    '\n' +
+    '                <md-button class="md-primary" aria-label="Delete" ng-click="delete(magnitude.id)" flex="5">\n' +
+    '                    <i class="mdi mdi-delete"></i>\n' +
+    '                </md-button>\n' +
+    '            </div>\n' +
     '            <md-divider ng-if="!$last"></md-divider>\n' +
-    '\n' +
-    '        </md-list-item>\n' +
-    '\n' +
+    '        </div>\n' +
     '    </md-list>\n' +
     '\n' +
     '</md-content>');
@@ -290,19 +285,114 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '\n' +
     '\n' +
-    '<div class="detail-toolbar md-toolbar-tools" layout="row"     layout-align="space-between stretch">\n' +
+    '<div  class="detail-toolbar md-toolbar-tools" layout="row"layout-align="space-between stretch">\n' +
     '\n' +
-    '    <div flex class="detail-toolbar-item active">\n' +
-    '        <span>Info</span>\n' +
+    '    <div flex class="detail-toolbar-item md-button" ng-click="select(\'info\')" ng-class="{\'active\':SelectedIndex===\'info\'}">\n' +
+    '        <span>Info</span>  <i class="mdi mdi-information-outline"></i>\n' +
     '    </div>\n' +
-    '    <div flex class="detail-toolbar-item">\n' +
-    '        <span>Units</span>\n' +
+    '    <div flex class="detail-toolbar-item md-button" ng-click="select(\'units\')" ng-class="{\'active\':SelectedIndex===\'units\'}">\n' +
+    '        <span>Units</span>  <i class="mdi mdi-numeric"></i>\n' +
     '    </div>\n' +
-    '    <div flex class="detail-toolbar-item">\n' +
-    '        <span>Conversion</span>\n' +
+    '    <div flex class="detail-toolbar-item md-button" ng-click="select(\'conversions\')" ng-class="{\'active\':SelectedIndex===\'conversions\', \'disable\':Digital()}">\n' +
+    '        <span>Conversions</span> <i class="mdi mdi-stethoscope"></i>\n' +
     '    </div>\n' +
     '</div>\n' +
+    '\n' +
+    '<md-content  ng-switch on="SelectedIndex" class="detail background-theme-orange">\n' +
+    '    <div class="detail-info" ng-switch-when="info" layout="row" layout-align="center stretch">\n' +
+    '\n' +
+    '        <md-card class="detail-form" flex>\n' +
+    '            <md-toolbar class="md-whiteframe-1dp">\n' +
+    '                <div class="md-toolbar-tools" >\n' +
+    '                    <h3>Display Name</h3>\n' +
+    '                </div>\n' +
+    '            </md-toolbar>\n' +
+    '            <md-card-content layout="row" layout-align="center center" md-theme="smartTheme">\n' +
+    '                <md-input-container flex layout="row">\n' +
+    '                    <input ng-model="magnitude.display_name" type="text" flex flex-order="1" ng-disabled="!editable.name">\n' +
+    '                    <md-button flex="5" flex-order="2" ng-click="editable.name=true" ng-if="!editable.name" class="md-primary">\n' +
+    '                        <i class="mdi mdi-pencil"></i>\n' +
+    '                    </md-button>\n' +
+    '                    <md-button flex="5" flex-order="2" ng-click="changeDisplayName()" ng-if="editable.name" class="md-primary">\n' +
+    '                        Update\n' +
+    '                    </md-button>\n' +
+    '                </md-input-container>\n' +
+    '\n' +
+    '\n' +
+    '            </md-card-content>\n' +
+    '\n' +
+    '        </md-card>\n' +
+    '\n' +
+    '        <md-card class="detail-form" flex>\n' +
+    '            <md-toolbar class="md-whiteframe-1dp">\n' +
+    '                <div class="md-toolbar-tools" >\n' +
+    '                    <h3>System Type</h3>\n' +
+    '                </div>\n' +
+    '            </md-toolbar>\n' +
+    '            <md-card-content layout-align="center center" layout="row" class="radio" md-theme="smartTheme">\n' +
+    '                <md-radio-group ng-model="magnitude.type" layout="row">\n' +
+    '                    <md-radio-button value="0" flex class="md-primary" ng-disabled="!editable.type">Analog</md-radio-button>\n' +
+    '                    <md-radio-button value="1" flex class="md-primary" ng-disabled="!editable.type">Digital</md-radio-button>\n' +
+    '                </md-radio-group>\n' +
+    '\n' +
+    '                <md-button flex="5" flex-order="2" ng-click="editable.type=true" ng-if="!editable.type" class="md-primary">\n' +
+    '                    <i class="mdi mdi-pencil"></i>\n' +
+    '                </md-button>\n' +
+    '\n' +
+    '                <md-button flex="5" flex-order="2" ng-click="changeType()" ng-if="editable.type" class="md-primary">\n' +
+    '                    Update\n' +
+    '                </md-button>\n' +
+    '\n' +
+    '            </md-card-content>\n' +
+    '        </md-card>\n' +
+    '\n' +
+    '\n' +
+    '    </div>\n' +
+    '\n' +
+    '\n' +
+    '    <div class="detail-units" ng-switch-when="units"  ng-switch on="magnitude.type" >\n' +
+    '        <div ng-switch-when="0">Analog</div>\n' +
+    '        <div ng-switch-when="1">\n' +
+    '            <md-card>\n' +
+    '                <md-card-title>\n' +
+    '                    <md-card-title-text>\n' +
+    '                        <span class="md-headline">Card with image</span>\n' +
+    '                        <span class="md-subhead">Large</span>\n' +
+    '                    </md-card-title-text>\n' +
+    '                    <md-card-title-media>\n' +
+    '                        <div class="md-media-lg card-media"></div>\n' +
+    '                    </md-card-title-media>\n' +
+    '                </md-card-title>\n' +
+    '                <md-card-actions layout="row" layout-align="end center">\n' +
+    '                    <md-button>Action 1</md-button>\n' +
+    '                    <md-button>Action 2</md-button>\n' +
+    '                </md-card-actions>\n' +
+    '            </md-card>\n' +
+    '\n' +
+    '\n' +
+    '\n' +
+    '        </div>\n' +
+    '\n' +
+    '\n' +
+    '    </div>\n' +
+    '\n' +
+    '</md-content>\n' +
+    '\n' +
+    '\n' +
     '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('Application');
+} catch (e) {
+  module = angular.module('Application', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('/views/_application/_tasks/main.html',
+    '<ui-title>Tasks</ui-title>\n' +
+    'hello tasks');
 }]);
 })();
 
