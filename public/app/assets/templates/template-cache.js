@@ -228,7 +228,7 @@ module.run(['$templateCache', function($templateCache) {
     '    <md-list  ng-cloak class="magnitude-list">\n' +
     '        <div ng-repeat="magnitude in magnitudes">\n' +
     '            <div  layout="row">\n' +
-    '                <md-list-item  ng-click="goToDetail(magnitude.id)" flex>\n' +
+    '                <md-list-item  ng-click="goToDetail(magnitude._id)" flex>\n' +
     '\n' +
     '                    <md-icon  md-font-icon="{{Icon(magnitude.type)}}" class="mdi magnitude-type-icon"></md-icon>  \n' +
     '                    <p  > {{ magnitude.display_name }} </p>\n' +
