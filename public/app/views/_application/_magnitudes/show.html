@@ -152,7 +152,7 @@
                     <md-button flex="nogrow"  ng-if="!unit.editable" ng-click="unit.editable=true" class="md-primary">
                         <i class="mdi mdi-pencil"></i>
                     </md-button>
-                    <md-button flex="nogrow" ng-if="unit.editable" class="md-primary">
+                    <md-button flex="nogrow" ng-if="unit.editable" ng-click="updateAnalogUnit(unit, $index)" class="md-primary">
                         Update
                     </md-button>
                 </md-list-item>

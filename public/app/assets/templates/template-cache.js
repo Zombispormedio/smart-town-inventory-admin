@@ -426,7 +426,7 @@ module.run(['$templateCache', function($templateCache) {
     '                    <md-button flex="nogrow"  ng-if="!unit.editable" ng-click="unit.editable=true" class="md-primary">\n' +
     '                        <i class="mdi mdi-pencil"></i>\n' +
     '                    </md-button>\n' +
-    '                    <md-button flex="nogrow" ng-if="unit.editable" class="md-primary">\n' +
+    '                    <md-button flex="nogrow" ng-if="unit.editable" ng-click="updateAnalogUnit(unit, $index)" class="md-primary">\n' +
     '                        Update\n' +
     '                    </md-button>\n' +
     '                </md-list-item>\n' +

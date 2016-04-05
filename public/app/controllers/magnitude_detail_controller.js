@@ -64,6 +64,15 @@ angular.module('Application')
              $scope.magnitude.analog_units[index].editable=true;
         }), RequestService.Error());
     }
+    
+    
+    $scope.updateAnalogUnit=function(unit, index){
+         MagnitudeService.AnalogUnits().update({id:magnitude_id}, {analog_unit:unit}, RequestService.Data(function(data){
+            $scope.magnitude=data;  
+            
+             $scope.magnitude.analog_units[index].editable=false;
+        }), RequestService.Error());
+    }
 
 
 

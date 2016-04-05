@@ -29,7 +29,8 @@ angular.module('Application')
         },
          AnalogUnits:function(){
             return ApiService.rest(this.base+"/:id/analog", {
-                new:{method:"POST", params:{id:"@id"}}
+                new:{method:"POST", params:{id:"@id"}},
+                update:{method:"PUT", params:{id:"@id"}}
             });
         }
         
