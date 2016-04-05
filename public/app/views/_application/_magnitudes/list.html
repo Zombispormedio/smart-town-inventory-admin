@@ -19,7 +19,7 @@
     <md-list  ng-cloak class="magnitude-list">
         <div ng-repeat="magnitude in magnitudes">
             <div  layout="row">
-                <md-list-item  ng-click="goToDetail(magnitude.id)" flex>
+                <md-list-item  ng-click="goToDetail(magnitude._id)" flex>
 
                     <md-icon  md-font-icon="{{Icon(magnitude.type)}}" class="mdi magnitude-type-icon"></md-icon>  
                     <p  > {{ magnitude.display_name }} </p>
