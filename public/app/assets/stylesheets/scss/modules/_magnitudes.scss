@@ -143,6 +143,12 @@
 .detail{
     height: 400px;
     overflow-y:auto;
+    button{
+        i{
+            font-size: 1.5em;
+        }
+
+    }
     .detail-info{
         md-toolbar{
             color: $orange;
@@ -168,14 +174,15 @@
 
         .analog{
             background-color: $white;
-
-
             .analog-toolbar{
                 color: $orange;
                 background-color: white;
                 height: 45px;
                 button{
-
+                    position: fixed;
+                    right: 0;
+                    margin-top: -1%;
+                    margin-right: 4%;
                     font-size: 1.5em;
                     background-color: #FF9800;
                     md-icon{
@@ -184,30 +191,77 @@
                     }
                 }
 
+
+
             }
 
             .analog-list{
-                height: 325px;
+                max-height: 325px;
                 overflow-y: auto;
-                
+
                 .symbol{
-                        margin-right: 5%;
+                    margin-right: 5%;
                 }
                 button{
-                        margin-top: -2%;
+                    margin-top: -2%;
+                }
+
+                .md-delete{
+                    min-width: 20px !important;
                 }
             }
         }
     }
-    button{
-        i{
-            font-size: 1.5em;
+    .detail-conversions{
+        .detail-content{
+            overflow-y: auto;
+            background-color: $white;
+            max-height: 400px;
+            .button-add{
+                position:fixed;
+                margin-right: 4%;
+                right: 0;
+                margin-top: -1%;
+                font-size: 1.8em;
+                background-color: #FF9800;
+                &:hover{
+                    background-color: #FF9800;
+                }
+                md-icon{
+                    margin-top: -13px;
+                    color: $white;
+                }
+            }
+            
+            .operation{
+                    padding-top: 1.5%;
+            }
+            
+            .md-delete{
+                 min-width: 20px !important;
+            }
         }
+    }
 
+}
+
+.conversion-dialog{
+    md-toolbar{
+        color: $white;
+        background-color:$orange;
+    }
+
+    md-icon{
+        font-size: 1.5em;
+    }
+
+    md-dialog-content{
+        width: 500px;
+    }
+
+    .errors{
+        color:$red;
     }
 }
 
-.list{
-    overflow-y: auto;
-    height: 455px;
-}
+

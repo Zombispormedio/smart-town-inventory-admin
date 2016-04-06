@@ -6,6 +6,7 @@ angular.module('Application')
     $scope.go=function(state, params){
         $rootScope.goWithDestroy($scope, state, params);
     }
+    
 
     $scope.create=function(){
         $rootScope.go("application.magnitudes.create")
@@ -13,6 +14,10 @@ angular.module('Application')
     var types=["ANALOG", "DIGITAL"]
 
     var icons=["record", "adjust"];
+    
+    $scope.searchObject={
+        text:""
+    };
 
     $scope.Icon=function(index){
         return "mdi-"+icons[index];

@@ -27,14 +27,23 @@ angular.module('Application')
                 set:{method:"PUT", params:{id:"@id"}}
             });
         },
-         AnalogUnits:function(){
-            return ApiService.rest(this.base+"/:id/analog", {
+        AnalogUnits:function(){
+            return ApiService.rest(this.base+"/:id/analog/:analog_id", {
                 new:{method:"POST", params:{id:"@id"}},
-                update:{method:"PUT", params:{id:"@id"}}
+                update:{method:"PUT", params:{id:"@id"}},
+                delete:{method:"DELETE", params:{id:"@id", analog_id:"@analog_id"}}
+            });
+        },
+
+        Conversions:function(){
+            return ApiService.rest(this.base+"/:id/conversion/:conversion_id", {
+                new:{method:"POST", params:{id:"@id"}},
+                update:{method:"PUT", params:{id:"@id"}},
+                delete:{method:"DELETE", params:{id:"@id", conversion_id:"@conversion_id"}}
             });
         }
-        
-        
-        
+
+
+
     };
 });

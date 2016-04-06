@@ -33,18 +33,16 @@
             </md-toolbar>
             <md-card-content layout="row" layout-align="center center" md-theme="smartTheme">
                 <md-input-container flex layout="row">
-                    <input ng-model="magnitude.display_name" type="text" flex flex-order="1" ng-disabled="!editable.name">
-                    <md-button flex="5" flex-order="2" ng-click="editable.name=true" ng-if="!editable.name" class="md-primary">
+                    <input ng-model="magnitude.display_name" type="text" flex flex-order="1" ng-disabled="!editable.name" aria-label="Display Name">
+                    <md-button flex="5" flex-order="2" ng-click="editable.name=true" ng-if="!editable.name" class="md-primary" aria-label="Start Update Display Name">
                         <i class="mdi mdi-pencil"></i>
                     </md-button>
-                    <md-button flex="5" flex-order="2" ng-click="changeDisplayName()" ng-if="editable.name" class="md-primary">
+                    <md-button flex="5" flex-order="2" ng-click="changeDisplayName()" ng-if="editable.name" class="md-primary"
+                               aria-label="Update Display Name">
                         Update
                     </md-button>
                 </md-input-container>
-
-
             </md-card-content>
-
         </md-card>
 
         <md-card class="detail-form" flex>
@@ -58,60 +56,40 @@
                     <md-radio-button value="0" flex class="md-primary" ng-disabled="!editable.type">Analog</md-radio-button>
                     <md-radio-button value="1" flex class="md-primary" ng-disabled="!editable.type">Digital</md-radio-button>
                 </md-radio-group>
-
-                <md-button flex="5" flex-order="2" ng-click="editable.type=true" ng-if="!editable.type" class="md-primary">
+                <md-button flex="5" flex-order="2" ng-click="editable.type=true" ng-if="!editable.type" class="md-primary" aria-label="Start update type">
                     <i class="mdi mdi-pencil"></i>
                 </md-button>
-
-                <md-button flex="5" flex-order="2" ng-click="changeType()" ng-if="editable.type" class="md-primary">
+                <md-button flex="5" flex-order="2" ng-click="changeType()" ng-if="editable.type" class="md-primary" aria-label="Update type">
                     Update
                 </md-button>
-
             </md-card-content>
         </md-card>
-
-
     </div>
-
     <div class="detail-units" ng-switch-when="units"  ng-switch on="magnitude.type" >
         <div ng-switch-when="1" class="digital">
             <md-card>
-
                 <md-card-header>
-
-
                     <md-card-header-text>
                         <span class="md-title">Digital System</span>
                         <span class="md-subhead">Meaning of Digital Units</span>
-
                     </md-card-header-text>
-
                 </md-card-header>
                 <md-card-title>
                     <md-card-title-text>
-
                         <span class="md-headline">  <i class="mdi mdi-earth"></i>ON</span>
-
                         <md-input-container md-theme="smartTheme">
-                            <input ng-model="magnitude.digital_units.on" type="text"  ng-disabled="!editable.digital_units">
+                            <input ng-model="magnitude.digital_units.on" type="text"  ng-disabled="!editable.digital_units" aria-label="Digital Unit On">
                         </md-input-container>
                     </md-card-title-text>
-
                 </md-card-title>
-
-
                 <md-card-title>
-                    <md-card-title-text >
-
+                    <md-card-title-text>
                         <span class="md-headline">    <i class="mdi mdi-earth-off" flex></i> OFF </span>
-
                         <md-input-container md-theme="smartTheme">
-                            <input ng-model="magnitude.digital_units.off" type="text" ng-disabled="!editable.digital_units">
+                            <input ng-model="magnitude.digital_units.off" type="text" ng-disabled="!editable.digital_units" aria-label="Digital Unit Off">
                         </md-input-container>
                     </md-card-title-text>
-
                 </md-card-title>
-
                 <md-card-actions layout="row" layout-align="end center" md-theme="smartTheme">
                     <md-button ng-click="editable.digital_units=true" ng-if="!editable.digital_units" class="md-primary">
                         <i class="mdi mdi-pencil"></i>
@@ -131,7 +109,7 @@
                 <div class="md-toolbar-tools">
                     <h4>Analog System</h4>
                     <span flex></span>
-                    <md-button class="md-fab md-mini" aria-label="More" ng-click="addAnalogUnit()">
+                    <md-button class="md-fab" ng-click="addAnalogUnit()" aria-label="Add Analog Unit">
                         <md-icon md-font-icon="mdi-plus" class="mdi"></md-icon>
                     </md-button>
                 </div>
@@ -139,20 +117,21 @@
 
             <md-list class="analog-list">
                 <md-list-item ng-repeat="unit in magnitude.analog_units | orderBy:'-'" layout="row"  md-theme="smartTheme">
-
-                    <md-input-container flex-offset="5" flex>
+                    <md-button  ng-if="unit.editable" class="md-delete md-primary" ng-click="deleteAnalogUnit(unit)" aria-label=" Delete Analog Unit">
+                        <i class="mdi mdi-delete"></i>
+                    </md-button>
+                    <md-input-container flex class="ml2">
                         <label>Display Name</label>
-                        <input ng-model="unit.display_name" type="text" ng-disabled="!unit.editable">
-
+                        <input ng-model="unit.display_name" type="text" ng-disabled="!unit.editable" aria-label="Analog Display Name" >
                     </md-input-container>
                     <md-input-container flex-offset="10" flex="20" class="symbol">
                         <label>Symbol</label>
-                        <input ng-model="unit.symbol" type="text" ng-disabled="!unit.editable">
+                        <input ng-model="unit.symbol" type="text" ng-disabled="!unit.editable" aria-label="Analog Symbol" >
                     </md-input-container>
-                    <md-button flex="nogrow"  ng-if="!unit.editable" ng-click="unit.editable=true" class="md-primary">
+                    <md-button flex="nogrow"  ng-if="!unit.editable" aria-label="Start Updating" ng-click="unit.editable=true" class="md-primary">
                         <i class="mdi mdi-pencil"></i>
                     </md-button>
-                    <md-button flex="nogrow" ng-if="unit.editable" ng-click="updateAnalogUnit(unit, $index)" class="md-primary">
+                    <md-button flex="nogrow" ng-if="unit.editable"  aria-label="Update Analog Unit" ng-click="updateAnalogUnit(unit, $index)" class="md-primary">
                         Update
                     </md-button>
                 </md-list-item>
@@ -162,6 +141,43 @@
 
         </div>
 
+    </div>
+    <div class="detail-conversions" ng-switch-when="conversions">
+        <div class="md-whiteframe-1dp detail-content">
+            <md-button class="md-fab button-add" aria-label="Add Conversion" ng-click="addConversion($event)">
+                <md-icon md-font-icon="mdi-plus" class="mdi"></md-icon>
+            </md-button>
+            <md-list md-theme="smartTheme">
+                <div ng-repeat="conversion in magnitude.conversions | orderBy:'-'" >
+                    <md-list-item layout="row">
+
+                        <h3 flex="20" flex-offset="5">{{ conversion.display_name }}</h3>
+                        <p flex="20">
+                            From {{getUnitName(conversion.unitA)}} To  {{getUnitName(conversion.unitB)}}
+                        </p>
+
+                        <md-input-container class="operation" flex="30">
+                            <label>Operation</label>
+                            <input ng-model="conversion.operation" type="text" ng-disabled="true" aria-label="Conversion Operarion" placeholder="No operation">
+                        </md-input-container>
+
+                        <md-button flex="nogrow" aria-label="Update Conversion" ng-click="updateConversion($event, conversion)" class="md-primary md-delete">
+                            <i class="mdi mdi-pencil"></i>
+                        </md-button>
+                        
+                         <md-button flex="nogrow" aria-label="Delete Conversion" class="md-primary md-delete" ng-click="deleteConversion(conversion)">
+                            <i class="mdi mdi-delete"></i>
+                        </md-button>
+
+                    </md-list-item>
+                    <md-divider ng-if="!$last"></md-divider>
+                </div>
+                <md-list-item ng-if="magnitude.conversions.length==0">
+                    No Conversions
+                </md-list-item>
+
+            </md-list>
+        </div>
     </div>
 
 </md-content>

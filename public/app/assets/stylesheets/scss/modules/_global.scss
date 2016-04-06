@@ -53,3 +53,11 @@ a{
 .background-theme-orange{
     background-color:$background_orange;
 }
+.list{
+    overflow-y: auto;
+       max-height: 495px;
+}
+
+.ml2{
+    margin-left: 2%;
+}

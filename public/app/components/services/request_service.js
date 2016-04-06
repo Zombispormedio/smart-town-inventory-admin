@@ -26,7 +26,7 @@ angular.module('Application')
         Message:function(cb){
             return function(res){
                 if(!res.message){
-                    return $rootScope.showSimpleToast("Successful: No Meesage");
+                    return $rootScope.showSimpleToast("Successful: No Message");
                 }
                 $rootScope.showSimpleToast(res.message);
                 if(cb)cb();
@@ -42,6 +42,12 @@ angular.module('Application')
                 var values=res.data;
                 cb(values);
 
+            }
+        },
+        
+        InternalError:function(message){
+            return function(){
+                $rootScope.showSimpleToast(message);
             }
         }
     }

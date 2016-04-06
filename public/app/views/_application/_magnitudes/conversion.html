@@ -1,0 +1,63 @@
+<md-dialog aria-label="New Conversion"  ng-cloak class="conversion-dialog">
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>New Conversion</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon class="mdi" md-font-icon="mdi-close"  aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content md-theme="smartTheme">
+            <div class="md-dialog-content" layout="column">
+                <md-input-container flex >
+                    <label>Display Name</label>
+                    <input ng-model="conversion.display_name" type="text" aria-label="Analog Display Name" >
+                </md-input-container>
+
+                <div class="select-group" layout="row" layout-align="space-around center">
+                    <span flex="10">From</span>
+                    <md-input-container flex>
+                        <label>Unit A</label>
+                        <md-select ng-model="conversion.unitA">
+                            <md-option ng-repeat="unit in units" value="{{unit._id}}">
+                                {{unit.display_name}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <span flex="10" flex-offset="5">To</span>
+                    <md-input-container flex>
+                        <label>Unit B</label>
+                        <md-select ng-model="conversion.unitB" flex>
+                            <md-option ng-repeat="unit in units" value="{{unit._id}}">
+                                {{unit.display_name}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <md-input-container  flex>
+                    <label>Operation</label>
+                    <input ng-model="conversion.operation" type="text" aria-label="Analog Display Name" >
+                </md-input-container>
+                
+                <div class="errors" flex>
+                    <p ng-if="errors.unitsEmpty" >Error: Units Empty</p>
+                    <p ng-if="errors.unitsEquals">Error: Units Equals</p>
+                    <p ng-if="errors.DisplayNameEmpty">Error: Display Name Empty</p>
+                </div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+
+            <span flex></span>
+            <md-button ng-click="cancel()">
+                Cancel
+            </md-button>
+            <md-button ng-click="confirm()" >
+                Confirm
+            </md-button>
+
+        </md-dialog-actions>
+    </form>
+</md-dialog>

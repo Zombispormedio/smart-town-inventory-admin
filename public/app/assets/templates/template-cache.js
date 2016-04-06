@@ -153,6 +153,80 @@ try {
   module = angular.module('Application', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('/views/_application/_magnitudes/conversion.html',
+    '<md-dialog aria-label="New Conversion"  ng-cloak class="conversion-dialog">\n' +
+    '    <form>\n' +
+    '        <md-toolbar>\n' +
+    '            <div class="md-toolbar-tools">\n' +
+    '                <h2>New Conversion</h2>\n' +
+    '                <span flex></span>\n' +
+    '                <md-button class="md-icon-button" ng-click="cancel()">\n' +
+    '                    <md-icon class="mdi" md-font-icon="mdi-close"  aria-label="Close dialog"></md-icon>\n' +
+    '                </md-button>\n' +
+    '            </div>\n' +
+    '        </md-toolbar>\n' +
+    '        <md-dialog-content md-theme="smartTheme">\n' +
+    '            <div class="md-dialog-content" layout="column">\n' +
+    '                <md-input-container flex >\n' +
+    '                    <label>Display Name</label>\n' +
+    '                    <input ng-model="conversion.display_name" type="text" aria-label="Analog Display Name" >\n' +
+    '                </md-input-container>\n' +
+    '\n' +
+    '                <div class="select-group" layout="row" layout-align="space-around center">\n' +
+    '                    <span flex="10">From</span>\n' +
+    '                    <md-input-container flex>\n' +
+    '                        <label>Unit A</label>\n' +
+    '                        <md-select ng-model="conversion.unitA">\n' +
+    '                            <md-option ng-repeat="unit in units" value="{{unit._id}}">\n' +
+    '                                {{unit.display_name}}\n' +
+    '                            </md-option>\n' +
+    '                        </md-select>\n' +
+    '                    </md-input-container>\n' +
+    '                    <span flex="10" flex-offset="5">To</span>\n' +
+    '                    <md-input-container flex>\n' +
+    '                        <label>Unit B</label>\n' +
+    '                        <md-select ng-model="conversion.unitB" flex>\n' +
+    '                            <md-option ng-repeat="unit in units" value="{{unit._id}}">\n' +
+    '                                {{unit.display_name}}\n' +
+    '                            </md-option>\n' +
+    '                        </md-select>\n' +
+    '                    </md-input-container>\n' +
+    '                </div>\n' +
+    '                <md-input-container  flex>\n' +
+    '                    <label>Operation</label>\n' +
+    '                    <input ng-model="conversion.operation" type="text" aria-label="Analog Display Name" >\n' +
+    '                </md-input-container>\n' +
+    '                \n' +
+    '                <div class="errors" flex>\n' +
+    '                    <p ng-if="errors.unitsEmpty" >Error: Units Empty</p>\n' +
+    '                    <p ng-if="errors.unitsEquals">Error: Units Equals</p>\n' +
+    '                    <p ng-if="errors.DisplayNameEmpty">Error: Display Name Empty</p>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '        </md-dialog-content>\n' +
+    '        <md-dialog-actions layout="row">\n' +
+    '\n' +
+    '            <span flex></span>\n' +
+    '            <md-button ng-click="cancel()">\n' +
+    '                Cancel\n' +
+    '            </md-button>\n' +
+    '            <md-button ng-click="confirm()" >\n' +
+    '                Confirm\n' +
+    '            </md-button>\n' +
+    '\n' +
+    '        </md-dialog-actions>\n' +
+    '    </form>\n' +
+    '</md-dialog>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('Application');
+} catch (e) {
+  module = angular.module('Application', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('/views/_application/_magnitudes/create.html',
     '<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">\n' +
     '    <div class=" toolbar-create md-toolbar-tools" layout="row">\n' +
@@ -212,7 +286,7 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '        <md-input-container md-no-float class="md-block" flex> \n' +
     '            <md-icon  md-font-icon="mdi-magnify" class="mdi"></md-icon>             \n' +
-    '            <input type="text" placeholder="Filter magnitudes">\n' +
+    '            <input type="text" ng-model="searchObject.text" placeholder="Filter magnitudes">\n' +
     '        </md-input-container>\n' +
     '\n' +
     '\n' +
@@ -226,20 +300,16 @@ module.run(['$templateCache', function($templateCache) {
     '<md-content layout-padding layout="column" md-theme="smartTheme" class="list">\n' +
     '\n' +
     '    <md-list  ng-cloak class="magnitude-list">\n' +
-    '        <div ng-repeat="magnitude in magnitudes">\n' +
+    '        <div ng-repeat="magnitude in magnitudes| search:\'display_name\':searchObject">\n' +
     '            <div  layout="row">\n' +
     '                <md-list-item  ng-click="goToDetail(magnitude._id)" flex>\n' +
-    '\n' +
     '                    <md-icon  md-font-icon="{{Icon(magnitude.type)}}" class="mdi magnitude-type-icon"></md-icon>  \n' +
-    '                    <p  > {{ magnitude.display_name }} </p>\n' +
-    '\n' +
+    '                    <p> {{ magnitude.display_name }} </p>\n' +
     '                    <p  flex-offset="30"><span class="md-whiteframe-1dp" ng-class="{\'badge\':magnitude.type===\'0\', \'badge-negative\':magnitude.type===\'1\'}">{{Type(magnitude.type)}}</span></p>\n' +
-    '\n' +
-    '\n' +
     '\n' +
     '                </md-list-item>\n' +
     '\n' +
-    '                <md-button class="md-primary" aria-label="Delete" ng-click="delete(magnitude.id)" flex="5">\n' +
+    '                <md-button class="md-primary" aria-label="Delete" ng-click="delete(magnitude._id)" flex="5">\n' +
     '                    <i class="mdi mdi-delete"></i>\n' +
     '                </md-button>\n' +
     '            </div>\n' +
@@ -307,18 +377,16 @@ module.run(['$templateCache', function($templateCache) {
     '            </md-toolbar>\n' +
     '            <md-card-content layout="row" layout-align="center center" md-theme="smartTheme">\n' +
     '                <md-input-container flex layout="row">\n' +
-    '                    <input ng-model="magnitude.display_name" type="text" flex flex-order="1" ng-disabled="!editable.name">\n' +
-    '                    <md-button flex="5" flex-order="2" ng-click="editable.name=true" ng-if="!editable.name" class="md-primary">\n' +
+    '                    <input ng-model="magnitude.display_name" type="text" flex flex-order="1" ng-disabled="!editable.name" aria-label="Display Name">\n' +
+    '                    <md-button flex="5" flex-order="2" ng-click="editable.name=true" ng-if="!editable.name" class="md-primary" aria-label="Start Update Display Name">\n' +
     '                        <i class="mdi mdi-pencil"></i>\n' +
     '                    </md-button>\n' +
-    '                    <md-button flex="5" flex-order="2" ng-click="changeDisplayName()" ng-if="editable.name" class="md-primary">\n' +
+    '                    <md-button flex="5" flex-order="2" ng-click="changeDisplayName()" ng-if="editable.name" class="md-primary"\n' +
+    '                               aria-label="Update Display Name">\n' +
     '                        Update\n' +
     '                    </md-button>\n' +
     '                </md-input-container>\n' +
-    '\n' +
-    '\n' +
     '            </md-card-content>\n' +
-    '\n' +
     '        </md-card>\n' +
     '\n' +
     '        <md-card class="detail-form" flex>\n' +
@@ -332,60 +400,40 @@ module.run(['$templateCache', function($templateCache) {
     '                    <md-radio-button value="0" flex class="md-primary" ng-disabled="!editable.type">Analog</md-radio-button>\n' +
     '                    <md-radio-button value="1" flex class="md-primary" ng-disabled="!editable.type">Digital</md-radio-button>\n' +
     '                </md-radio-group>\n' +
-    '\n' +
-    '                <md-button flex="5" flex-order="2" ng-click="editable.type=true" ng-if="!editable.type" class="md-primary">\n' +
+    '                <md-button flex="5" flex-order="2" ng-click="editable.type=true" ng-if="!editable.type" class="md-primary" aria-label="Start update type">\n' +
     '                    <i class="mdi mdi-pencil"></i>\n' +
     '                </md-button>\n' +
-    '\n' +
-    '                <md-button flex="5" flex-order="2" ng-click="changeType()" ng-if="editable.type" class="md-primary">\n' +
+    '                <md-button flex="5" flex-order="2" ng-click="changeType()" ng-if="editable.type" class="md-primary" aria-label="Update type">\n' +
     '                    Update\n' +
     '                </md-button>\n' +
-    '\n' +
     '            </md-card-content>\n' +
     '        </md-card>\n' +
-    '\n' +
-    '\n' +
     '    </div>\n' +
-    '\n' +
     '    <div class="detail-units" ng-switch-when="units"  ng-switch on="magnitude.type" >\n' +
     '        <div ng-switch-when="1" class="digital">\n' +
     '            <md-card>\n' +
-    '\n' +
     '                <md-card-header>\n' +
-    '\n' +
-    '\n' +
     '                    <md-card-header-text>\n' +
     '                        <span class="md-title">Digital System</span>\n' +
     '                        <span class="md-subhead">Meaning of Digital Units</span>\n' +
-    '\n' +
     '                    </md-card-header-text>\n' +
-    '\n' +
     '                </md-card-header>\n' +
     '                <md-card-title>\n' +
     '                    <md-card-title-text>\n' +
-    '\n' +
     '                        <span class="md-headline">  <i class="mdi mdi-earth"></i>ON</span>\n' +
-    '\n' +
     '                        <md-input-container md-theme="smartTheme">\n' +
-    '                            <input ng-model="magnitude.digital_units.on" type="text"  ng-disabled="!editable.digital_units">\n' +
+    '                            <input ng-model="magnitude.digital_units.on" type="text"  ng-disabled="!editable.digital_units" aria-label="Digital Unit On">\n' +
     '                        </md-input-container>\n' +
     '                    </md-card-title-text>\n' +
-    '\n' +
     '                </md-card-title>\n' +
-    '\n' +
-    '\n' +
     '                <md-card-title>\n' +
-    '                    <md-card-title-text >\n' +
-    '\n' +
+    '                    <md-card-title-text>\n' +
     '                        <span class="md-headline">    <i class="mdi mdi-earth-off" flex></i> OFF </span>\n' +
-    '\n' +
     '                        <md-input-container md-theme="smartTheme">\n' +
-    '                            <input ng-model="magnitude.digital_units.off" type="text" ng-disabled="!editable.digital_units">\n' +
+    '                            <input ng-model="magnitude.digital_units.off" type="text" ng-disabled="!editable.digital_units" aria-label="Digital Unit Off">\n' +
     '                        </md-input-container>\n' +
     '                    </md-card-title-text>\n' +
-    '\n' +
     '                </md-card-title>\n' +
-    '\n' +
     '                <md-card-actions layout="row" layout-align="end center" md-theme="smartTheme">\n' +
     '                    <md-button ng-click="editable.digital_units=true" ng-if="!editable.digital_units" class="md-primary">\n' +
     '                        <i class="mdi mdi-pencil"></i>\n' +
@@ -405,7 +453,7 @@ module.run(['$templateCache', function($templateCache) {
     '                <div class="md-toolbar-tools">\n' +
     '                    <h4>Analog System</h4>\n' +
     '                    <span flex></span>\n' +
-    '                    <md-button class="md-fab md-mini" aria-label="More" ng-click="addAnalogUnit()">\n' +
+    '                    <md-button class="md-fab" ng-click="addAnalogUnit()" aria-label="Add Analog Unit">\n' +
     '                        <md-icon md-font-icon="mdi-plus" class="mdi"></md-icon>\n' +
     '                    </md-button>\n' +
     '                </div>\n' +
@@ -413,20 +461,21 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '            <md-list class="analog-list">\n' +
     '                <md-list-item ng-repeat="unit in magnitude.analog_units | orderBy:\'-\'" layout="row"  md-theme="smartTheme">\n' +
-    '\n' +
-    '                    <md-input-container flex-offset="5" flex>\n' +
+    '                    <md-button  ng-if="unit.editable" class="md-delete md-primary" ng-click="deleteAnalogUnit(unit)" aria-label=" Delete Analog Unit">\n' +
+    '                        <i class="mdi mdi-delete"></i>\n' +
+    '                    </md-button>\n' +
+    '                    <md-input-container flex class="ml2">\n' +
     '                        <label>Display Name</label>\n' +
-    '                        <input ng-model="unit.display_name" type="text" ng-disabled="!unit.editable">\n' +
-    '\n' +
+    '                        <input ng-model="unit.display_name" type="text" ng-disabled="!unit.editable" aria-label="Analog Display Name" >\n' +
     '                    </md-input-container>\n' +
     '                    <md-input-container flex-offset="10" flex="20" class="symbol">\n' +
     '                        <label>Symbol</label>\n' +
-    '                        <input ng-model="unit.symbol" type="text" ng-disabled="!unit.editable">\n' +
+    '                        <input ng-model="unit.symbol" type="text" ng-disabled="!unit.editable" aria-label="Analog Symbol" >\n' +
     '                    </md-input-container>\n' +
-    '                    <md-button flex="nogrow"  ng-if="!unit.editable" ng-click="unit.editable=true" class="md-primary">\n' +
+    '                    <md-button flex="nogrow"  ng-if="!unit.editable" aria-label="Start Updating" ng-click="unit.editable=true" class="md-primary">\n' +
     '                        <i class="mdi mdi-pencil"></i>\n' +
     '                    </md-button>\n' +
-    '                    <md-button flex="nogrow" ng-if="unit.editable" ng-click="updateAnalogUnit(unit, $index)" class="md-primary">\n' +
+    '                    <md-button flex="nogrow" ng-if="unit.editable"  aria-label="Update Analog Unit" ng-click="updateAnalogUnit(unit, $index)" class="md-primary">\n' +
     '                        Update\n' +
     '                    </md-button>\n' +
     '                </md-list-item>\n' +
@@ -436,6 +485,43 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '        </div>\n' +
     '\n' +
+    '    </div>\n' +
+    '    <div class="detail-conversions" ng-switch-when="conversions">\n' +
+    '        <div class="md-whiteframe-1dp detail-content">\n' +
+    '            <md-button class="md-fab button-add" aria-label="Add Conversion" ng-click="addConversion($event)">\n' +
+    '                <md-icon md-font-icon="mdi-plus" class="mdi"></md-icon>\n' +
+    '            </md-button>\n' +
+    '            <md-list md-theme="smartTheme">\n' +
+    '                <div ng-repeat="conversion in magnitude.conversions | orderBy:\'-\'" >\n' +
+    '                    <md-list-item layout="row">\n' +
+    '\n' +
+    '                        <h3 flex="20" flex-offset="5">{{ conversion.display_name }}</h3>\n' +
+    '                        <p flex="20">\n' +
+    '                            From {{getUnitName(conversion.unitA)}} To  {{getUnitName(conversion.unitB)}}\n' +
+    '                        </p>\n' +
+    '\n' +
+    '                        <md-input-container class="operation" flex="30">\n' +
+    '                            <label>Operation</label>\n' +
+    '                            <input ng-model="conversion.operation" type="text" ng-disabled="true" aria-label="Conversion Operarion" placeholder="No operation">\n' +
+    '                        </md-input-container>\n' +
+    '\n' +
+    '                        <md-button flex="nogrow" aria-label="Update Conversion" ng-click="updateConversion($event, conversion)" class="md-primary md-delete">\n' +
+    '                            <i class="mdi mdi-pencil"></i>\n' +
+    '                        </md-button>\n' +
+    '                        \n' +
+    '                         <md-button flex="nogrow" aria-label="Delete Conversion" class="md-primary md-delete" ng-click="deleteConversion(conversion)">\n' +
+    '                            <i class="mdi mdi-delete"></i>\n' +
+    '                        </md-button>\n' +
+    '\n' +
+    '                    </md-list-item>\n' +
+    '                    <md-divider ng-if="!$last"></md-divider>\n' +
+    '                </div>\n' +
+    '                <md-list-item ng-if="magnitude.conversions.length==0">\n' +
+    '                    No Conversions\n' +
+    '                </md-list-item>\n' +
+    '\n' +
+    '            </md-list>\n' +
+    '        </div>\n' +
     '    </div>\n' +
     '\n' +
     '</md-content>\n' +
