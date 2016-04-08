@@ -1,0 +1,51 @@
+#zone-create{
+    overflow-y: auto;
+    max-height: 500px;
+    .zone-draw{
+        h3{
+            color: $orange;
+            font-size: 1.8em;
+            margin-top: 1.5%;
+        }
+
+        .location{
+            margin-top: 2%;
+            margin-left: 0;
+            font-weight: bold;
+            text-align: center;
+            i{
+                font-size: 1.5em;
+                &:hover{
+                    color: $clear_black;
+                }
+            }
+        }
+        button{
+            i{
+                font-size: 2em;
+                margin-top: 10.5%;
+            }
+        }
+
+        ng-map{
+            height:300px;
+        }
+    }
+
+
+
+    .zone-input-name{
+
+        h3{
+            font-size: 1.2em;
+            color: $orange;
+
+        }
+        p{
+            font-size: 0.7em;
+            margin-top: -7%;
+        }
+
+
+    }
+}

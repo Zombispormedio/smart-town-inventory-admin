@@ -551,9 +551,141 @@ try {
   module = angular.module('Application', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('/views/_application/_zones/create.html',
+    '<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">\n' +
+    '    <div class=" toolbar-create md-toolbar-tools" layout="row">\n' +
+    '        <md-button aria-label="Go Back" flex="10" class="button-back" ng-click="goBack()">\n' +
+    '            <i class="mdi mdi-chevron-left"></i>Go Back\n' +
+    '        </md-button>\n' +
+    '        <h2 flex>\n' +
+    '            <span>New Zone</span>\n' +
+    '        </h2>\n' +
+    '        <div flex="20"  class="button-create" layout="row" layout-align="center center" >\n' +
+    '            <md-button class="md-raised md-primary" md-theme="smartTheme" ng-click="create()">Create Zone</md-button>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '</md-toolbar>\n' +
+    '<md-content layout="column" md-theme="smartTheme" id="zone-create">\n' +
+    '    <div layout="row" flex class="zone-input-name" >\n' +
+    '        <div  flex="20"  flex-offset="5">\n' +
+    '            <h3>Display Name (optional)</h3>\n' +
+    '            <p>Leave blank and we\'ll choose one for you</p>\n' +
+    '        </div>\n' +
+    '\n' +
+    '        <md-input-container flex="50" flex-offset="10">\n' +
+    '            <input ng-model="zone.display_name" aria-label="Display Name">\n' +
+    '        </md-input-container>\n' +
+    '\n' +
+    '    </div>\n' +
+    '    <md-divider ></md-divider>\n' +
+    '    <div layout="column" flex class="zone-draw">\n' +
+    '        <div flex  layout="row">\n' +
+    '            <h3 flex="15" flex-offset="5">Draw Zone</h3>\n' +
+    '\n' +
+    '        </div >\n' +
+    '\n' +
+    '        <div flex  layout="row">\n' +
+    '            <div  layout="row" flex="40">\n' +
+    '                <span class="location" flex="20">Center <br>\n' +
+    '                    <i class="mdi mdi-crosshairs-gps" ng-click="getCurrentLocation()"></i>\n' +
+    '                </span>\n' +
+    '\n' +
+    '                <md-input-container flex>\n' +
+    '                    <label>Latitude</label>\n' +
+    '                    <input input="text" ng-model="zone.center[0]">\n' +
+    '                </md-input-container>\n' +
+    '                <md-input-container flex>\n' +
+    '                    <label>Longitude</label>\n' +
+    '                    <input input="text" ng-model="zone.center[1]">\n' +
+    '                </md-input-container>\n' +
+    '            </div>\n' +
+    '\n' +
+    '            <div layout="row" flex flex-offset="20" md-theme="smartTheme">\n' +
+    '\n' +
+    '                <md-button  class="md-raised md-primary"  aria-label="Rectangle" flex="10" ng-disabled="zone.shape.type===\'rectangle\'" ng-click="setShape(\'rectangle\')">\n' +
+    '                    <i class="mdi mdi-vector-rectangle"></i>\n' +
+    '                </md-button>\n' +
+    '                <md-button  class="md-raised md-primary"  aria-label="circle" flex="10" ng-disabled="zone.shape.type===\'circle\'" ng-click="setShape(\'circle\')" >\n' +
+    '                    <i class="mdi mdi-vector-circle"></i>\n' +
+    '                </md-button>\n' +
+    '                <md-button  class="md-raised md-primary" aria-label="Polygon" flex="10" ng-disabled="zone.shape.type===\'polygon\'" ng-click="setShape(\'polygon\')" >\n' +
+    '                    <i class="mdi mdi-vector-polygon"></i>\n' +
+    '                </md-button>\n' +
+    '            </div>\n' +
+    '\n' +
+    '        </div>\n' +
+    '\n' +
+    '        <ng-map flex zoom="11" center="{{zone.center}}" map-type-id="ROADMAP" on-center-changed="self.centerChanged()">\n' +
+    '\n' +
+    '            <drawing-manager\n' +
+    '                             on-overlaycomplete="self.onMapOverlayCompleted()"\n' +
+    '                             drawing-control-options="{position: \'TOP_CENTER\',drawingModes:[\'{{zone.shape.type}}\']}"\n' +
+    '                             drawingControl="true"\n' +
+    '                             drawingMode="null"\n' +
+    '                             markerOptions="{icon:\'www.example.com/icon\'}"\n' +
+    '                             rectangleOptions="{editable: true}"\n' +
+    '                             circleOptions="{editable: true}"\n' +
+    '                             polygonOptions="{editable: true}" >\n' +
+    '            </drawing-manager>\n' +
+    '\n' +
+    '\n' +
+    '        </ng-map>\n' +
+    '\n' +
+    '\n' +
+    '    </div>\n' +
+    '\n' +
+    '\n' +
+    '</md-content>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('Application');
+} catch (e) {
+  module = angular.module('Application', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('/views/_application/_zones/list.html',
+    '<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">\n' +
+    '    <div class="md-toolbar-tools" layout="row"  layout-align="start center">\n' +
+    '\n' +
+    '        <md-input-container md-no-float class="md-block" flex> \n' +
+    '            <md-icon  md-font-icon="mdi-magnify" class="mdi"></md-icon>             \n' +
+    '            <input type="text" ng-model="searchObject.text" placeholder="Filter zones">\n' +
+    '        </md-input-container>\n' +
+    '\n' +
+    '\n' +
+    '        <md-button class="md-icon-button" aria-label="More" flex="5" ng-click="create()">\n' +
+    '            <md-icon md-font-icon="mdi-plus" class="mdi"></md-icon>\n' +
+    '        </md-button>\n' +
+    '    </div>\n' +
+    '</md-toolbar>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('Application');
+} catch (e) {
+  module = angular.module('Application', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('/views/_application/_zones/main.html',
     '<ui-title>Zones</ui-title>\n' +
-    'Hello zones');
+    '<div layout="column" ui-view="inner"></div>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('Application');
+} catch (e) {
+  module = angular.module('Application', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('/views/_application/_zones/show.html',
+    '');
 }]);
 })();
 
@@ -581,7 +713,7 @@ module.run(['$templateCache', function($templateCache) {
     '            <span flex> Dashboard</span>\n' +
     '\n' +
     '        </a>\n' +
-    '        <a class="popover-main-link" flex layout="column" ui-sref="application.zones" layout-align="space-around center">\n' +
+    '        <a class="popover-main-link" flex layout="column" ui-sref="application.zones.list" layout-align="space-around center">\n' +
     '\n' +
     '            <md-icon  md-font-icon="mdi-basecamp" class="mdi" flex></md-icon>\n' +
     '            <span flex>Zones</span>\n' +

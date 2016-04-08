@@ -38,16 +38,6 @@ angular.module('Application')
             }
         }
     })
-        .state("application.zones", {
-        url: '/zones',
-        onEnter: validUser,
-        views: {
-            content: {
-                templateUrl: '/views/_application/_zones/main.html',
-                controller: 'ZonesCtrl'
-            }
-        }
-    })
         .state("application.tasks", {
         url: '/tasks',
         onEnter: validUser,
@@ -95,6 +85,47 @@ angular.module('Application')
             'inner': {
                 templateUrl: '/views/_application/_magnitudes/show.html',
                 controller: 'DetailMagnitudeCtrl'
+            }
+        }
+    })
+    
+     .state("application.zones", {
+        url: '/zones',
+        onEnter: validUser,
+        views: {
+            content: {
+                templateUrl: '/views/_application/_zones/main.html'
+            }
+        },
+        abstract:true
+    })
+     .state("application.zones.list", {
+        url: '',
+        onEnter: validUser,
+        views: {
+            'inner': {
+                templateUrl: '/views/_application/_zones/list.html',
+                controller: 'ZonesCtrl'
+            }
+        }
+    })
+     .state("application.zones.create", {
+        url: '/create',
+        onEnter: validUser,
+        views: {
+            'inner': {
+                templateUrl: '/views/_application/_zones/create.html',
+                controller: 'CreateZoneCtrl'
+            }
+        }
+    })
+    .state("application.zones.detail", {
+        url: '/:id',
+        onEnter: validUser,
+        views: {
+            'inner': {
+                templateUrl: '/views/_application/_zones/show.html',
+                controller: 'DetailZoneCtrl'
             }
         }
     })

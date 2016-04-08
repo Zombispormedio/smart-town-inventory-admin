@@ -1,0 +1,84 @@
+<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">
+    <div class=" toolbar-create md-toolbar-tools" layout="row">
+        <md-button aria-label="Go Back" flex="10" class="button-back" ng-click="goBack()">
+            <i class="mdi mdi-chevron-left"></i>Go Back
+        </md-button>
+        <h2 flex>
+            <span>New Zone</span>
+        </h2>
+        <div flex="20"  class="button-create" layout="row" layout-align="center center" >
+            <md-button class="md-raised md-primary" md-theme="smartTheme" ng-click="create()">Create Zone</md-button>
+        </div>
+    </div>
+</md-toolbar>
+<md-content layout="column" md-theme="smartTheme" id="zone-create">
+    <div layout="row" flex class="zone-input-name" >
+        <div  flex="20"  flex-offset="5">
+            <h3>Display Name (optional)</h3>
+            <p>Leave blank and we'll choose one for you</p>
+        </div>
+
+        <md-input-container flex="50" flex-offset="10">
+            <input ng-model="zone.display_name" aria-label="Display Name">
+        </md-input-container>
+
+    </div>
+    <md-divider ></md-divider>
+    <div layout="column" flex class="zone-draw">
+        <div flex  layout="row">
+            <h3 flex="15" flex-offset="5">Draw Zone</h3>
+
+        </div >
+
+        <div flex  layout="row">
+            <div  layout="row" flex="40">
+                <span class="location" flex="20">Center <br>
+                    <i class="mdi mdi-crosshairs-gps" ng-click="getCurrentLocation()"></i>
+                </span>
+
+                <md-input-container flex>
+                    <label>Latitude</label>
+                    <input input="text" ng-model="zone.center[0]">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Longitude</label>
+                    <input input="text" ng-model="zone.center[1]">
+                </md-input-container>
+            </div>
+
+            <div layout="row" flex flex-offset="20" md-theme="smartTheme">
+
+                <md-button  class="md-raised md-primary"  aria-label="Rectangle" flex="10" ng-disabled="zone.shape.type==='rectangle'" ng-click="setShape('rectangle')">
+                    <i class="mdi mdi-vector-rectangle"></i>
+                </md-button>
+                <md-button  class="md-raised md-primary"  aria-label="circle" flex="10" ng-disabled="zone.shape.type==='circle'" ng-click="setShape('circle')" >
+                    <i class="mdi mdi-vector-circle"></i>
+                </md-button>
+                <md-button  class="md-raised md-primary" aria-label="Polygon" flex="10" ng-disabled="zone.shape.type==='polygon'" ng-click="setShape('polygon')" >
+                    <i class="mdi mdi-vector-polygon"></i>
+                </md-button>
+            </div>
+
+        </div>
+
+        <ng-map flex zoom="11" center="{{zone.center}}" map-type-id="ROADMAP" on-center-changed="self.centerChanged()">
+
+            <drawing-manager
+                             on-overlaycomplete="self.onMapOverlayCompleted()"
+                             drawing-control-options="{position: 'TOP_CENTER',drawingModes:['{{zone.shape.type}}']}"
+                             drawingControl="true"
+                             drawingMode="null"
+                             markerOptions="{icon:'www.example.com/icon'}"
+                             rectangleOptions="{editable: true}"
+                             circleOptions="{editable: true}"
+                             polygonOptions="{editable: true}" >
+            </drawing-manager>
+
+
+        </ng-map>
+
+
+    </div>
+
+
+</md-content>

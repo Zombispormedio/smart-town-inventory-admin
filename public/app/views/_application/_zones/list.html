@@ -1,0 +1,14 @@
+<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">
+    <div class="md-toolbar-tools" layout="row"  layout-align="start center">
+
+        <md-input-container md-no-float class="md-block" flex> 
+            <md-icon  md-font-icon="mdi-magnify" class="mdi"></md-icon>             
+            <input type="text" ng-model="searchObject.text" placeholder="Filter zones">
+        </md-input-container>
+
+
+        <md-button class="md-icon-button" aria-label="More" flex="5" ng-click="create()">
+            <md-icon md-font-icon="mdi-plus" class="mdi"></md-icon>
+        </md-button>
+    </div>
+</md-toolbar>
