@@ -8,6 +8,8 @@ angular.module('Application')
         $rootScope.go("application.zones.list");
     }
 
+    $scope.newShape=true;
+
     $scope.zone={
         display_name:"",
         center:[],
@@ -16,9 +18,12 @@ angular.module('Application')
         }
     }
 
-    self.onMapOverlayCompleted = function(e){
-        console.log(e);
-    };
+
+
+    $scope.setShape=function(type){
+        $scope.zone.shape={type:type};
+        $scope.newShape=true;
+    }
 
 
     NgMap.getMap().then(function(map) {
@@ -31,13 +36,122 @@ angular.module('Application')
                 });
             }
         }
+
+        self.onMapOverlayCompleted = function(e){
+            $scope.newShape=false;
+
+            var type=e.type;
+            var overlay=e.overlay;
+            var shape={
+                type:type
+            }
+            switch(type){
+                case "rectangle":{
+                    var b=overlay.getBounds();
+                    var ne=b.getNorthEast();
+                    var se=b.getSouthWest();
+                    shape.bounds=[[se.lat(),se.lng()], [ne.lat(), ne.lng() ]];
+                    break;
+                }
+                case "circle":{
+                    shape.radius=overlay.getRadius();
+                    var center=overlay.getCenter();
+                    shape.center=[
+                        center.lat(),
+                        center.lng(),
+                    ];
+
+                    break;
+                }    
+                case "polygon":
+                    shape.paths=overlay.getPath().j.map(function(a){
+                        return [a.lat(), a.lng()];
+                    });
+
+                    break;
+
+            }
+
+            e.overlay.setMap(null);
+            $scope.$apply(function(){
+                $scope.zone.shape=shape;
+            });
+
+
+
+        };
+
+        self.trackPolygon=function(){
+
+            var polygon= map.shapes.polygon;
+
+            polygon.getPaths().forEach(function(p){
+              
+                google.maps.event.addListener(p, 'insert_at', function(){
+                    $scope.$apply(function(){
+                        $scope.zone.shape.paths=polygon.getPath().j.map(function(a){
+                            return [a.lat(), a.lng()];
+                        });
+                    });
+                });
+
+                google.maps.event.addListener(p, 'remove_at', function(){
+                    $scope.$apply(function(){
+                        $scope.zone.shape.paths=polygon.getPath().j.map(function(a){
+                            return [a.lat(), a.lng()];
+                        });
+                    });
+                });
+
+                google.maps.event.addListener(p, 'set_at', function(){
+                    $scope.$apply(function(){
+                        $scope.zone.shape.paths=polygon.getPath().j.map(function(a){
+                            return [a.lat(), a.lng()];
+                        });
+                    });
+                });
+            });
+
+
+        }
+
+        self.changeCenterCircle=function(e){
+            $scope.$apply(function(){
+
+                var a=e.latLng;
+                $scope.zone.shape.center=[a.lat(), a.lng()];
+            });
+        };
+
+        self.changeCircleRadius=function(e){
+            var circle=map.shapes.circle;
+            $scope.$apply(function(){
+                $scope.zone.shape.radius=circle.getRadius();
+            });
+
+        }
+
+
+        self.changeRectangle=function(){
+
+            var rectangle=map.shapes.rectangle;
+            var b=rectangle.getBounds();
+            var ne=b.getNorthEast();
+            var se=b.getSouthWest();
+
+            if(!$scope.$$phase) {
+                $scope.$apply(function(){
+                    $scope.zone.shape.bounds=[[se.lat(),se.lng()], [ne.lat(), ne.lng() ]];
+                });
+            }
+        }
+
+
     });
 
 
 
-    $scope.setShape=function(type){
-        $scope.zone.shape={type:type};
-    }
+
 
 
     $scope.getCurrentLocation=function() {

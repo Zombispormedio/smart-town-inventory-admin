@@ -45,7 +45,7 @@
                     <input input="text" ng-model="zone.center[1]">
                 </md-input-container>
             </div>
-
+<!--{{zone.shape}}-->
             <div layout="row" flex flex-offset="20" md-theme="smartTheme">
 
                 <md-button  class="md-raised md-primary"  aria-label="Rectangle" flex="10" ng-disabled="zone.shape.type==='rectangle'" ng-click="setShape('rectangle')">
@@ -63,18 +63,29 @@
 
         <ng-map flex zoom="11" center="{{zone.center}}" map-type-id="ROADMAP" on-center-changed="self.centerChanged()">
 
-            <drawing-manager
+            <drawing-manager ng-if="newShape"
                              on-overlaycomplete="self.onMapOverlayCompleted()"
                              drawing-control-options="{position: 'TOP_CENTER',drawingModes:['{{zone.shape.type}}']}"
                              drawingControl="true"
-                             drawingMode="null"
-                             markerOptions="{icon:'www.example.com/icon'}"
-                             rectangleOptions="{editable: true}"
-                             circleOptions="{editable: true}"
-                             polygonOptions="{editable: true}" >
+                             drawingMode="null">
             </drawing-manager>
 
+            <shape id="polygon" name="polygon" ng-if="!newShape&&zone.shape.type==='polygon'" 
+                   stroke-color="#FF0000" editable="true" on-mouseover="self.trackPolygon()"
+                   stroke-opacity="1.0" stroke-weight="2"
+                   paths="{{zone.shape.paths}}" >
+            </shape>
 
+            <shape id="circle" name="circle" ng-if="!newShape&&zone.shape.type==='circle'" draggable="true"  on-dragend="self.changeCenterCircle()"  editable="true" on-radius_changed="self.changeCircleRadius()"
+                   stroke-color='#FF0000' stroke-opacity="1.0"stroke-weight="2"
+                   center="{{zone.shape.center}}" radius="{{zone.shape.radius}}">
+            </shape>
+
+            <shape id="rectangle" name="rectangle"  ng-if="!newShape&&zone.shape.type==='rectangle'"
+                   stroke-color='#FF0000' editable="true" on-bounds_changed="self.changeRectangle()"
+                   stroke-opacity="1.0" stroke-weight="2"
+                   bounds="{{zone.shape.bounds}}">
+            </shape>
         </ng-map>
 
 

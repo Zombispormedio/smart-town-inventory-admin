@@ -599,7 +599,7 @@ module.run(['$templateCache', function($templateCache) {
     '                    <input input="text" ng-model="zone.center[1]">\n' +
     '                </md-input-container>\n' +
     '            </div>\n' +
-    '\n' +
+    '<!--{{zone.shape}}-->\n' +
     '            <div layout="row" flex flex-offset="20" md-theme="smartTheme">\n' +
     '\n' +
     '                <md-button  class="md-raised md-primary"  aria-label="Rectangle" flex="10" ng-disabled="zone.shape.type===\'rectangle\'" ng-click="setShape(\'rectangle\')">\n' +
@@ -617,18 +617,29 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '        <ng-map flex zoom="11" center="{{zone.center}}" map-type-id="ROADMAP" on-center-changed="self.centerChanged()">\n' +
     '\n' +
-    '            <drawing-manager\n' +
+    '            <drawing-manager ng-if="newShape"\n' +
     '                             on-overlaycomplete="self.onMapOverlayCompleted()"\n' +
     '                             drawing-control-options="{position: \'TOP_CENTER\',drawingModes:[\'{{zone.shape.type}}\']}"\n' +
     '                             drawingControl="true"\n' +
-    '                             drawingMode="null"\n' +
-    '                             markerOptions="{icon:\'www.example.com/icon\'}"\n' +
-    '                             rectangleOptions="{editable: true}"\n' +
-    '                             circleOptions="{editable: true}"\n' +
-    '                             polygonOptions="{editable: true}" >\n' +
+    '                             drawingMode="null">\n' +
     '            </drawing-manager>\n' +
     '\n' +
+    '            <shape id="polygon" name="polygon" ng-if="!newShape&&zone.shape.type===\'polygon\'" \n' +
+    '                   stroke-color="#FF0000" editable="true" on-mouseover="self.trackPolygon()"\n' +
+    '                   stroke-opacity="1.0" stroke-weight="2"\n' +
+    '                   paths="{{zone.shape.paths}}" >\n' +
+    '            </shape>\n' +
     '\n' +
+    '            <shape id="circle" name="circle" ng-if="!newShape&&zone.shape.type===\'circle\'" draggable="true"  on-dragend="self.changeCenterCircle()"  editable="true" on-radius_changed="self.changeCircleRadius()"\n' +
+    '                   stroke-color=\'#FF0000\' stroke-opacity="1.0"stroke-weight="2"\n' +
+    '                   center="{{zone.shape.center}}" radius="{{zone.shape.radius}}">\n' +
+    '            </shape>\n' +
+    '\n' +
+    '            <shape id="rectangle" name="rectangle"  ng-if="!newShape&&zone.shape.type===\'rectangle\'"\n' +
+    '                   stroke-color=\'#FF0000\' editable="true" on-bounds_changed="self.changeRectangle()"\n' +
+    '                   stroke-opacity="1.0" stroke-weight="2"\n' +
+    '                   bounds="{{zone.shape.bounds}}">\n' +
+    '            </shape>\n' +
     '        </ng-map>\n' +
     '\n' +
     '\n' +
