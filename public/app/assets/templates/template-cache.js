@@ -561,7 +561,7 @@ module.run(['$templateCache', function($templateCache) {
     '            <span>New Zone</span>\n' +
     '        </h2>\n' +
     '        <div flex="20"  class="button-create" layout="row" layout-align="center center" >\n' +
-    '            <md-button class="md-raised md-primary" md-theme="smartTheme" ng-click="create()">Create Zone</md-button>\n' +
+    '            <md-button class="md-raised md-primary" md-theme="smartTheme" ng-click="create()">Create</md-button>\n' +
     '        </div>\n' +
     '    </div>\n' +
     '</md-toolbar>\n' +

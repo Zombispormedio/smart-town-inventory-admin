@@ -1,5 +1,5 @@
 angular.module('Application')
-    .controller('CreateZoneCtrl',function($scope,  $rootScope,  NgMap){
+    .controller('CreateZoneCtrl',function($scope,  $rootScope,  NgMap, ZoneService, RequestService){
 
     var self=this;
     $scope.self=self;
@@ -86,7 +86,7 @@ angular.module('Application')
             var polygon= map.shapes.polygon;
 
             polygon.getPaths().forEach(function(p){
-              
+
                 google.maps.event.addListener(p, 'insert_at', function(){
                     $scope.$apply(function(){
                         $scope.zone.shape.paths=polygon.getPath().j.map(function(a){
@@ -125,10 +125,11 @@ angular.module('Application')
 
         self.changeCircleRadius=function(e){
             var circle=map.shapes.circle;
-            $scope.$apply(function(){
-                $scope.zone.shape.radius=circle.getRadius();
-            });
-
+            if(!$scope.$$phase) {
+                $scope.$apply(function(){
+                    $scope.zone.shape.radius=circle.getRadius();
+                });
+            }
         }
 
 
@@ -173,6 +174,8 @@ angular.module('Application')
         if(zone.display_name==""){
             zone.display_name=chance.sentence({words: 3}).split(" ").join("").replace(".", "");
         }
+
+        ZoneService.Basic().new(zone, RequestService.Message($scope.goBack), RequestService.Error())
 
     }
 
