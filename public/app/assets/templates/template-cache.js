@@ -807,28 +807,68 @@ module.run(['$templateCache', function($templateCache) {
     '        </md-card>\n' +
     '    </div>\n' +
     '\n' +
-    '    <div class="detail-location" ng-switch-when="location" layout="column" layout-align="center stretch">\n' +
+    '    <div class="detail-zone-location" ng-switch-when="location">\n' +
     '\n' +
-    '        <md-toolbar class="md-whiteframe-1dp">\n' +
-    '            <div class="md-toolbar-tools" layout="row">\n' +
-    '                <span class="location" flex="20">Center <br>\n' +
-    '                    <i class="mdi mdi-crosshairs-gps" ng-click="getCurrentLocation()"></i>\n' +
-    '                </span>\n' +
+    '        <div class="md-whiteframe-1dp detail-options" layout="row" md-theme="smartTheme">\n' +
     '\n' +
-    '                <md-input-container flex>\n' +
-    '                    <label>Latitude</label>\n' +
-    '                    <input input="text" ng-model="zone.center[0]">\n' +
-    '                </md-input-container>\n' +
-    '                <md-input-container flex>\n' +
-    '                    <label>Longitude</label>\n' +
-    '                    <input input="text" ng-model="zone.center[1]">\n' +
-    '                </md-input-container>   \n' +
-    '            </div> \n' +
-    '        </md-toolbar>\n' +
-    '        <div flex>\n' +
-    '            <ng-map flex zoom="11" center="{{zone.center}}" map-type-id="ROADMAP">\n' +
-    '            </ng-map>\n' +
+    '            <md-button class="md-raised md-primary"  aria-label="Rectangle" flex="10" ng-disabled="!editable.location || zone.shape.type===\'rectangle\'">\n' +
+    '                <i class="mdi mdi-vector-rectangle"></i>\n' +
+    '            </md-button>\n' +
+    '            <md-button  class="md-raised md-primary"  aria-label="circle" flex="10" ng-disabled="!editable.location ||zone.shape.type===\'circle\'" >\n' +
+    '                <i class="mdi mdi-vector-circle"></i>\n' +
+    '            </md-button>\n' +
+    '            <md-button  class="md-raised md-primary" aria-label="Polygon" flex="10" ng-disabled="!editable.location ||zone.shape.type===\'polygon\'">\n' +
+    '                <i class="mdi mdi-vector-polygon"></i>\n' +
+    '            </md-button> \n' +
+    '\n' +
+    '\n' +
+    '            <div flex="5" class="center">Center</div>\n' +
+    '\n' +
+    '            <md-input-container flex="20" >\n' +
+    '                <label>Latitude</label>\n' +
+    '                <input input="text" ng-model="zone.center[0]" ng-disabled="!editable.location">\n' +
+    '            </md-input-container>\n' +
+    '            <md-input-container flex="20">\n' +
+    '                <label>Longitude</label>\n' +
+    '                <input input="text" ng-model="zone.center[1]" ng-disabled="!editable.location">\n' +
+    '            </md-input-container>  \n' +
+    '\n' +
+    '            <div flex="5"  class="current-position">\n' +
+    '                <i class="mdi mdi-crosshairs-gps"></i>\n' +
+    '            </div>\n' +
+    '\n' +
+    '            <md-button flex="5" ng-click="editable.location=true" ng-if="!editable.location" class="md-primary" aria-label="Start Update Location" >\n' +
+    '                <i class="mdi mdi-pencil orange"></i>\n' +
+    '            </md-button>\n' +
+    '            <md-button flex="5"  ng-click="changeLocation()" ng-if="editable.location" class="md-primary"\n' +
+    '                       aria-label="Update Location">\n' +
+    '                <span class="orange">Update</span>\n' +
+    '            </md-button>\n' +
+    '\n' +
     '        </div>\n' +
+    '\n' +
+    '        <ng-map zoom="11" center="{{zone.center}}" map-type-id="ROADMAP"  on-center-changed="self.centerChanged()">\n' +
+    '        \n' +
+    '        <shape id="polygon" name="polygon" ng-if="zone.shape.type===\'polygon\'" \n' +
+    '                   stroke-color="#FF0000" editable="editable.location"\n' +
+    '                   stroke-opacity="1.0" stroke-weight="2"\n' +
+    '                   paths="{{zone.shape.paths}}" >\n' +
+    '            </shape>\n' +
+    '\n' +
+    '            <shape id="circle" name="circle" ng-if="zone.shape.type===\'circle\'" draggable="{{editable.location}}" editable="{{editable.location}}"\n' +
+    '                   stroke-color=\'#FF0000\' stroke-opacity="1.0"stroke-weight="2"\n' +
+    '                   center="{{zone.shape.center}}" radius="{{zone.shape.radius}}">\n' +
+    '            </shape>\n' +
+    '\n' +
+    '            <shape id="rectangle" name="rectangle"  ng-if="zone.shape.type===\'rectangle\'"\n' +
+    '                   stroke-color=\'#FF0000\' editable="editable.location"\n' +
+    '                   stroke-opacity="1.0" stroke-weight="2"\n' +
+    '                   bounds="{{zone.shape.bounds}}">\n' +
+    '            </shape>\n' +
+    '        \n' +
+    '        \n' +
+    '        </ng-map>\n' +
+    '\n' +
     '\n' +
     '\n' +
     '    </div>\n' +

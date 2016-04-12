@@ -1,7 +1,9 @@
 angular.module('Application')
-    .controller('DetailZoneCtrl',function($rootScope, $scope, $stateParams,  ZoneService, RequestService, ThemeService){
+    .controller('DetailZoneCtrl',function($rootScope, $scope, $stateParams,  ZoneService, RequestService, ThemeService, NgMap){
 
-
+    var self=this;
+    $scope.self=self;
+    
     ThemeService.Content($scope, "background-theme-orange");
 
     $scope.go=function(state, params){
@@ -25,7 +27,8 @@ angular.module('Application')
     $scope.editable={
         display_name:false,
         description:false,
-        keywords:false
+        keywords:false,
+        location:false
     };
 
     $scope.changeDisplayName=function(){
@@ -53,6 +56,33 @@ angular.module('Application')
         }), RequestService.Error());
     }
 
+    
+     NgMap.getMap().then(function(map) {
+
+        self.centerChanged=function(event) {
+            if(!$scope.$$phase && $scope.editable.location) {
+                $scope.$apply(function(){
+                    $scope.zone.center[0]=map.center.lat();
+                    $scope.zone.center[1]=map.center.lng();
+                });
+            }
+        }
+        
+        self.getMap=function(){
+            return map;
+        }
+     });
+    
+    
+    
+    $scope.changeLocation=function(){
+        console.log(self.getMap());
+        $scope.editable.location=false;
+    }
+    
+    
+    
+    
 
     this.ZoneById=function(){
         ZoneService.Basic().byId({id:zone_id}, RequestService.Data(function(data){

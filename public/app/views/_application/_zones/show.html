@@ -87,28 +87,68 @@
         </md-card>
     </div>
 
-    <div class="detail-location" ng-switch-when="location" layout="column" layout-align="center stretch">
+    <div class="detail-zone-location" ng-switch-when="location">
 
-        <md-toolbar class="md-whiteframe-1dp">
-            <div class="md-toolbar-tools" layout="row">
-                <span class="location" flex="20">Center <br>
-                    <i class="mdi mdi-crosshairs-gps" ng-click="getCurrentLocation()"></i>
-                </span>
+        <div class="md-whiteframe-1dp detail-options" layout="row" md-theme="smartTheme">
 
-                <md-input-container flex>
-                    <label>Latitude</label>
-                    <input input="text" ng-model="zone.center[0]">
-                </md-input-container>
-                <md-input-container flex>
-                    <label>Longitude</label>
-                    <input input="text" ng-model="zone.center[1]">
-                </md-input-container>   
-            </div> 
-        </md-toolbar>
-        <div flex>
-            <ng-map flex zoom="11" center="{{zone.center}}" map-type-id="ROADMAP">
-            </ng-map>
+            <md-button class="md-raised md-primary"  aria-label="Rectangle" flex="10" ng-disabled="!editable.location || zone.shape.type==='rectangle'">
+                <i class="mdi mdi-vector-rectangle"></i>
+            </md-button>
+            <md-button  class="md-raised md-primary"  aria-label="circle" flex="10" ng-disabled="!editable.location ||zone.shape.type==='circle'" >
+                <i class="mdi mdi-vector-circle"></i>
+            </md-button>
+            <md-button  class="md-raised md-primary" aria-label="Polygon" flex="10" ng-disabled="!editable.location ||zone.shape.type==='polygon'">
+                <i class="mdi mdi-vector-polygon"></i>
+            </md-button> 
+
+
+            <div flex="5" class="center">Center</div>
+
+            <md-input-container flex="20" >
+                <label>Latitude</label>
+                <input input="text" ng-model="zone.center[0]" ng-disabled="!editable.location">
+            </md-input-container>
+            <md-input-container flex="20">
+                <label>Longitude</label>
+                <input input="text" ng-model="zone.center[1]" ng-disabled="!editable.location">
+            </md-input-container>  
+
+            <div flex="5"  class="current-position">
+                <i class="mdi mdi-crosshairs-gps"></i>
+            </div>
+
+            <md-button flex="5" ng-click="editable.location=true" ng-if="!editable.location" class="md-primary" aria-label="Start Update Location" >
+                <i class="mdi mdi-pencil orange"></i>
+            </md-button>
+            <md-button flex="5"  ng-click="changeLocation()" ng-if="editable.location" class="md-primary"
+                       aria-label="Update Location">
+                <span class="orange">Update</span>
+            </md-button>
+
         </div>
+
+        <ng-map zoom="11" center="{{zone.center}}" map-type-id="ROADMAP"  on-center-changed="self.centerChanged()">
+        
+        <shape id="polygon" name="polygon" ng-if="zone.shape.type==='polygon'" 
+                   stroke-color="#FF0000" editable="editable.location"
+                   stroke-opacity="1.0" stroke-weight="2"
+                   paths="{{zone.shape.paths}}" >
+            </shape>
+
+            <shape id="circle" name="circle" ng-if="zone.shape.type==='circle'" draggable="{{editable.location}}" editable="{{editable.location}}"
+                   stroke-color='#FF0000' stroke-opacity="1.0"stroke-weight="2"
+                   center="{{zone.shape.center}}" radius="{{zone.shape.radius}}">
+            </shape>
+
+            <shape id="rectangle" name="rectangle"  ng-if="zone.shape.type==='rectangle'"
+                   stroke-color='#FF0000' editable="editable.location"
+                   stroke-opacity="1.0" stroke-weight="2"
+                   bounds="{{zone.shape.bounds}}">
+            </shape>
+        
+        
+        </ng-map>
+
 
 
     </div>
