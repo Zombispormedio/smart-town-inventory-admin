@@ -13,7 +13,7 @@ angular.module('Application')
         url:"/login",
         onEnter:function($rootScope){
             if(getLocal("user")){
-                $rootScope.go("application.dashboard");
+                $rootScope.go("application.dashboard.list");
             } 
         },
         templateUrl:'/views/_login/main.html',
@@ -150,7 +150,7 @@ angular.module('Application')
         }
     })
     .state("application.dashboard.detail", {
-        url: ':id',
+        url: 'sensor_grid/:id',
         onEnter: validUser,
         views: {
             'inner': {

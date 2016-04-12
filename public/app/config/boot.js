@@ -10,7 +10,7 @@ angular.module('Application')
         $mdToast.show(
             $mdToast.simple()
             .textContent(message)
-            .position("top right")
+            .position("bottom left")
             .hideDelay(1000)
         );
     };
