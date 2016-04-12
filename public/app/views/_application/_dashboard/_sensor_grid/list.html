@@ -11,3 +11,26 @@
         </md-button>
     </div>
 </md-toolbar>
+
+
+<md-content layout-padding layout="column" md-theme="smartTheme" class="list">
+
+    <md-list  ng-cloak class="list-content">
+        <div ng-repeat="sensor_grid in sensor_grids| search:'display_name':searchObject">
+            <div  layout="row">
+                <md-list-item  ng-click="goToDetail(sensor_grid._id)" flex>
+                    <md-icon  md-font-icon="{{Icon(sensor_grid.display_name)}}" class="mdi list-type-icon"></md-icon>  
+                    <p> {{ sensor_grid.display_name }} </p>
+                  
+
+                </md-list-item>
+
+                <md-button class="md-primary" aria-label="Delete" ng-click="delete(sensor_grid._id)" flex="5">
+                    <i class="mdi mdi-delete"></i>
+                </md-button>
+            </div>
+            <md-divider ng-if="!$last"></md-divider>
+        </div>
+    </md-list>
+
+</md-content>

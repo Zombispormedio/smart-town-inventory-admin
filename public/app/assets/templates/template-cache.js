@@ -1050,7 +1050,30 @@ module.run(['$templateCache', function($templateCache) {
     '            <md-icon md-font-icon="mdi-plus" class="mdi"></md-icon>\n' +
     '        </md-button>\n' +
     '    </div>\n' +
-    '</md-toolbar>');
+    '</md-toolbar>\n' +
+    '\n' +
+    '\n' +
+    '<md-content layout-padding layout="column" md-theme="smartTheme" class="list">\n' +
+    '\n' +
+    '    <md-list  ng-cloak class="list-content">\n' +
+    '        <div ng-repeat="sensor_grid in sensor_grids| search:\'display_name\':searchObject">\n' +
+    '            <div  layout="row">\n' +
+    '                <md-list-item  ng-click="goToDetail(sensor_grid._id)" flex>\n' +
+    '                    <md-icon  md-font-icon="{{Icon(sensor_grid.display_name)}}" class="mdi list-type-icon"></md-icon>  \n' +
+    '                    <p> {{ sensor_grid.display_name }} </p>\n' +
+    '                  \n' +
+    '\n' +
+    '                </md-list-item>\n' +
+    '\n' +
+    '                <md-button class="md-primary" aria-label="Delete" ng-click="delete(sensor_grid._id)" flex="5">\n' +
+    '                    <i class="mdi mdi-delete"></i>\n' +
+    '                </md-button>\n' +
+    '            </div>\n' +
+    '            <md-divider ng-if="!$last"></md-divider>\n' +
+    '        </div>\n' +
+    '    </md-list>\n' +
+    '\n' +
+    '</md-content>');
 }]);
 })();
 
@@ -1062,6 +1085,15 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('/views/_application/_dashboard/_sensor_grid/show.html',
-    '');
+    '<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">\n' +
+    '    <div class=" toolbar-create md-toolbar-tools" layout="row">\n' +
+    '        <md-button aria-label="Go Back" flex="10" class="button-back" ng-click="goBack()">\n' +
+    '            <i class="mdi mdi-chevron-left"></i>Go Back\n' +
+    '        </md-button>\n' +
+    '        <h2 flex>\n' +
+    '            <span>{{sensor_grid.display_name}}</span>\n' +
+    '        </h2>\n' +
+    '    </div>\n' +
+    '</md-toolbar>');
 }]);
 })();
