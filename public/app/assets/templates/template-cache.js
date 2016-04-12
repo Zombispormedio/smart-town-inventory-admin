@@ -299,11 +299,11 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '<md-content layout-padding layout="column" md-theme="smartTheme" class="list">\n' +
     '\n' +
-    '    <md-list  ng-cloak class="magnitude-list">\n' +
+    '    <md-list  ng-cloak class="list-content">\n' +
     '        <div ng-repeat="magnitude in magnitudes| search:\'display_name\':searchObject">\n' +
     '            <div  layout="row">\n' +
     '                <md-list-item  ng-click="goToDetail(magnitude._id)" flex>\n' +
-    '                    <md-icon  md-font-icon="{{Icon(magnitude.type)}}" class="mdi magnitude-type-icon"></md-icon>  \n' +
+    '                    <md-icon  md-font-icon="{{Icon(magnitude.type)}}" class="mdi list-type-icon"></md-icon>  \n' +
     '                    <p> {{ magnitude.display_name }} </p>\n' +
     '                    <p  flex-offset="30"><span class="md-whiteframe-1dp" ng-class="{\'badge\':magnitude.type===\'0\', \'badge-negative\':magnitude.type===\'1\'}">{{Type(magnitude.type)}}</span></p>\n' +
     '\n' +
@@ -367,7 +367,7 @@ module.run(['$templateCache', function($templateCache) {
     '</div>\n' +
     '\n' +
     '<md-content  ng-switch on="SelectedIndex" class="detail background-theme-orange" layout-padding ng-class="{\'analog-content\':!Digital() }">\n' +
-    '    <div class="detail-info" ng-switch-when="info" layout="row" layout-align="center stretch">\n' +
+    '    <div class="detail-info mt5" ng-switch-when="info" layout="row" layout-align="center stretch">\n' +
     '\n' +
     '        <md-card class="detail-form" flex>\n' +
     '            <md-toolbar class="md-whiteframe-1dp">\n' +
@@ -671,7 +671,29 @@ module.run(['$templateCache', function($templateCache) {
     '            <md-icon md-font-icon="mdi-plus" class="mdi"></md-icon>\n' +
     '        </md-button>\n' +
     '    </div>\n' +
-    '</md-toolbar>');
+    '</md-toolbar>\n' +
+    '\n' +
+    '\n' +
+    '<md-content layout-padding layout="column" md-theme="smartTheme" class="list">\n' +
+    '\n' +
+    '    <md-list  ng-cloak class="list-content">\n' +
+    '        <div ng-repeat="zone in zones| search:\'display_name\':searchObject">\n' +
+    '            <div  layout="row">\n' +
+    '                <md-list-item  ng-click="goToDetail(zone._id)" flex>\n' +
+    '                    <md-icon  md-font-icon="{{Icon(zone.shape.type)}}" class="mdi list-type-icon"></md-icon>  \n' +
+    '                    <p> {{ zone.display_name }} </p>\n' +
+    '                   \n' +
+    '                </md-list-item>\n' +
+    '\n' +
+    '                <md-button class="md-primary" aria-label="Delete" ng-click="delete(zone._id)" flex="5">\n' +
+    '                    <i class="mdi mdi-delete"></i>\n' +
+    '                </md-button>\n' +
+    '            </div>\n' +
+    '            <md-divider ng-if="!$last"></md-divider>\n' +
+    '        </div>\n' +
+    '    </md-list>\n' +
+    '\n' +
+    '</md-content>');
 }]);
 })();
 
@@ -696,6 +718,124 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('/views/_application/_zones/show.html',
+    '<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">\n' +
+    '    <div class=" toolbar-create md-toolbar-tools" layout="row">\n' +
+    '        <md-button aria-label="Go Back" flex="10" class="button-back" ng-click="goBack()">\n' +
+    '            <i class="mdi mdi-chevron-left"></i>Go Back\n' +
+    '        </md-button>\n' +
+    '        <h2 flex>\n' +
+    '            <span>{{zone.display_name}}</span>\n' +
+    '        </h2>\n' +
+    '    </div>\n' +
+    '</md-toolbar>\n' +
+    '\n' +
+    '\n' +
+    '<div  class="detail-toolbar md-toolbar-tools" layout="row"layout-align="space-between stretch">\n' +
+    '\n' +
+    '    <div flex class="detail-toolbar-item md-button" ng-click="select(\'info\')" ng-class="{\'active\':SelectedIndex===\'info\'}">\n' +
+    '        <span>Info</span>  <i class="mdi mdi-information-outline"></i>\n' +
+    '    </div>\n' +
+    '    <div flex class="detail-toolbar-item md-button" ng-click="select(\'location\')" ng-class="{\'active\':SelectedIndex===\'location\'}">\n' +
+    '        <span>Location</span>  <i class="mdi mdi-map-marker"></i>\n' +
+    '    </div>\n' +
+    '\n' +
+    '</div>\n' +
+    '\n' +
+    '<md-content  ng-switch on="SelectedIndex" class="detail background-theme-orange" layout-padding >\n' +
+    '\n' +
+    '    <div class="detail-info" ng-switch-when="info" layout="column" layout-align="center stretch">\n' +
+    '        <div layout="row" layout-align="center stretch">\n' +
+    '            <md-card class="detail-form" flex>\n' +
+    '                <md-toolbar class="md-whiteframe-1dp">\n' +
+    '                    <div class="md-toolbar-tools" layout="row"  layout-align="start center">\n' +
+    '                        <h3 flex>Display Name</h3>\n' +
+    '                        <md-button flex="5" ng-click="editable.display_name=true" ng-if="!editable.display_name" class="md-primary" aria-label="Start Update Display Name">\n' +
+    '                            <i class="mdi mdi-pencil orange"></i>\n' +
+    '                        </md-button>\n' +
+    '                        <md-button flex="5" ng-click="changeDisplayName()" ng-if="editable.display_name" class="md-primary" aria-label="Update Display Name">\n' +
+    '                            <span class="orange">Update</span>\n' +
+    '                        </md-button>\n' +
+    '                    </div>\n' +
+    '                </md-toolbar>\n' +
+    '                <md-card-content md-theme="smartTheme">\n' +
+    '                    <md-input-container class="md-block">\n' +
+    '                        <label>Name Zone</label>\n' +
+    '                        <input ng-model="zone.display_name" type="text" flex flex-order="1" ng-disabled="!editable.display_name" aria-label="Display Name">\n' +
+    '\n' +
+    '                    </md-input-container>\n' +
+    '                </md-card-content>\n' +
+    '            </md-card>\n' +
+    '\n' +
+    '            <md-card class="detail-form" flex>\n' +
+    '                <md-toolbar class="md-whiteframe-1dp">\n' +
+    '                    <div class="md-toolbar-tools" layout="row"  layout-align="start center">\n' +
+    '                        <h3 flex>Description</h3>\n' +
+    '                        <md-button flex="5" ng-click="editable.description=true" ng-if="!editable.description" class="md-primary" aria-label="Start Update Description" >\n' +
+    '                            <i class="mdi mdi-pencil orange"></i>\n' +
+    '                        </md-button>\n' +
+    '                        <md-button flex="5"  ng-click="changeDescription()" ng-if="editable.description" class="md-primary"\n' +
+    '                                   aria-label="Update Description">\n' +
+    '                            <span class="orange">Update</span>\n' +
+    '                        </md-button>\n' +
+    '                    </div>\n' +
+    '                </md-toolbar>\n' +
+    '                <md-card-content md-theme="smartTheme">\n' +
+    '                    <md-input-container class="md-block">\n' +
+    '                        <label>About Zone</label>\n' +
+    '                        <textarea ng-model="zone.description" ng-disabled="!editable.description" md-maxlength="150" rows="5" md-select-on-focus aria-label="Description"></textarea>\n' +
+    '\n' +
+    '                    </md-input-container>\n' +
+    '                </md-card-content>\n' +
+    '            </md-card>\n' +
+    '        </div>\n' +
+    '        <md-card class="detail-form" flex>\n' +
+    '            <md-toolbar class="md-whiteframe-1dp">\n' +
+    '                <div class="md-toolbar-tools" layout="row"  layout-align="start center">\n' +
+    '                    <h3 flex>Keywords</h3>\n' +
+    '                    <md-button flex="5" ng-click="editable.keywords=true" ng-if="!editable.keywords" class="md-primary" aria-label="Start Update Keywords" >\n' +
+    '                        <i class="mdi mdi-pencil orange"></i>\n' +
+    '                    </md-button>\n' +
+    '                    <md-button flex="5"  ng-click="changeKeywords()" ng-if="editable.keywords" class="md-primary"\n' +
+    '                               aria-label="Update Keywords">\n' +
+    '                        <span class="orange">Update</span>\n' +
+    '                    </md-button>\n' +
+    '                </div>\n' +
+    '            </md-toolbar>\n' +
+    '            <md-card-content md-theme="smartTheme">\n' +
+    '                <md-chips ng-if="zone.keywords" ng-model="zone.keywords" readonly="!editable.keywords" md-enable-chip-edit="editable.keywords" ng-cloak></md-chips>\n' +
+    '            </md-card-content>\n' +
+    '        </md-card>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div class="detail-location" ng-switch-when="location" layout="column" layout-align="center stretch">\n' +
+    '\n' +
+    '        <md-toolbar class="md-whiteframe-1dp">\n' +
+    '            <div class="md-toolbar-tools" layout="row">\n' +
+    '                <span class="location" flex="20">Center <br>\n' +
+    '                    <i class="mdi mdi-crosshairs-gps" ng-click="getCurrentLocation()"></i>\n' +
+    '                </span>\n' +
+    '\n' +
+    '                <md-input-container flex>\n' +
+    '                    <label>Latitude</label>\n' +
+    '                    <input input="text" ng-model="zone.center[0]">\n' +
+    '                </md-input-container>\n' +
+    '                <md-input-container flex>\n' +
+    '                    <label>Longitude</label>\n' +
+    '                    <input input="text" ng-model="zone.center[1]">\n' +
+    '                </md-input-container>   \n' +
+    '            </div> \n' +
+    '        </md-toolbar>\n' +
+    '        <div flex>\n' +
+    '            <ng-map flex zoom="11" center="{{zone.center}}" map-type-id="ROADMAP">\n' +
+    '            </ng-map>\n' +
+    '        </div>\n' +
+    '\n' +
+    '\n' +
+    '    </div>\n' +
+    '\n' +
+    '\n' +
+    '\n' +
+    '</md-content>\n' +
     '');
 }]);
 })();

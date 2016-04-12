@@ -12,3 +12,25 @@
         </md-button>
     </div>
 </md-toolbar>
+
+
+<md-content layout-padding layout="column" md-theme="smartTheme" class="list">
+
+    <md-list  ng-cloak class="list-content">
+        <div ng-repeat="zone in zones| search:'display_name':searchObject">
+            <div  layout="row">
+                <md-list-item  ng-click="goToDetail(zone._id)" flex>
+                    <md-icon  md-font-icon="{{Icon(zone.shape.type)}}" class="mdi list-type-icon"></md-icon>  
+                    <p> {{ zone.display_name }} </p>
+                   
+                </md-list-item>
+
+                <md-button class="md-primary" aria-label="Delete" ng-click="delete(zone._id)" flex="5">
+                    <i class="mdi mdi-delete"></i>
+                </md-button>
+            </div>
+            <md-divider ng-if="!$last"></md-divider>
+        </div>
+    </md-list>
+
+</md-content>

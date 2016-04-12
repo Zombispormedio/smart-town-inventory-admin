@@ -1,0 +1,118 @@
+<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">
+    <div class=" toolbar-create md-toolbar-tools" layout="row">
+        <md-button aria-label="Go Back" flex="10" class="button-back" ng-click="goBack()">
+            <i class="mdi mdi-chevron-left"></i>Go Back
+        </md-button>
+        <h2 flex>
+            <span>{{zone.display_name}}</span>
+        </h2>
+    </div>
+</md-toolbar>
+
+
+<div  class="detail-toolbar md-toolbar-tools" layout="row"layout-align="space-between stretch">
+
+    <div flex class="detail-toolbar-item md-button" ng-click="select('info')" ng-class="{'active':SelectedIndex==='info'}">
+        <span>Info</span>  <i class="mdi mdi-information-outline"></i>
+    </div>
+    <div flex class="detail-toolbar-item md-button" ng-click="select('location')" ng-class="{'active':SelectedIndex==='location'}">
+        <span>Location</span>  <i class="mdi mdi-map-marker"></i>
+    </div>
+
+</div>
+
+<md-content  ng-switch on="SelectedIndex" class="detail background-theme-orange" layout-padding >
+
+    <div class="detail-info" ng-switch-when="info" layout="column" layout-align="center stretch">
+        <div layout="row" layout-align="center stretch">
+            <md-card class="detail-form" flex>
+                <md-toolbar class="md-whiteframe-1dp">
+                    <div class="md-toolbar-tools" layout="row"  layout-align="start center">
+                        <h3 flex>Display Name</h3>
+                        <md-button flex="5" ng-click="editable.display_name=true" ng-if="!editable.display_name" class="md-primary" aria-label="Start Update Display Name">
+                            <i class="mdi mdi-pencil orange"></i>
+                        </md-button>
+                        <md-button flex="5" ng-click="changeDisplayName()" ng-if="editable.display_name" class="md-primary" aria-label="Update Display Name">
+                            <span class="orange">Update</span>
+                        </md-button>
+                    </div>
+                </md-toolbar>
+                <md-card-content md-theme="smartTheme">
+                    <md-input-container class="md-block">
+                        <label>Name Zone</label>
+                        <input ng-model="zone.display_name" type="text" flex flex-order="1" ng-disabled="!editable.display_name" aria-label="Display Name">
+
+                    </md-input-container>
+                </md-card-content>
+            </md-card>
+
+            <md-card class="detail-form" flex>
+                <md-toolbar class="md-whiteframe-1dp">
+                    <div class="md-toolbar-tools" layout="row"  layout-align="start center">
+                        <h3 flex>Description</h3>
+                        <md-button flex="5" ng-click="editable.description=true" ng-if="!editable.description" class="md-primary" aria-label="Start Update Description" >
+                            <i class="mdi mdi-pencil orange"></i>
+                        </md-button>
+                        <md-button flex="5"  ng-click="changeDescription()" ng-if="editable.description" class="md-primary"
+                                   aria-label="Update Description">
+                            <span class="orange">Update</span>
+                        </md-button>
+                    </div>
+                </md-toolbar>
+                <md-card-content md-theme="smartTheme">
+                    <md-input-container class="md-block">
+                        <label>About Zone</label>
+                        <textarea ng-model="zone.description" ng-disabled="!editable.description" md-maxlength="150" rows="5" md-select-on-focus aria-label="Description"></textarea>
+
+                    </md-input-container>
+                </md-card-content>
+            </md-card>
+        </div>
+        <md-card class="detail-form" flex>
+            <md-toolbar class="md-whiteframe-1dp">
+                <div class="md-toolbar-tools" layout="row"  layout-align="start center">
+                    <h3 flex>Keywords</h3>
+                    <md-button flex="5" ng-click="editable.keywords=true" ng-if="!editable.keywords" class="md-primary" aria-label="Start Update Keywords" >
+                        <i class="mdi mdi-pencil orange"></i>
+                    </md-button>
+                    <md-button flex="5"  ng-click="changeKeywords()" ng-if="editable.keywords" class="md-primary"
+                               aria-label="Update Keywords">
+                        <span class="orange">Update</span>
+                    </md-button>
+                </div>
+            </md-toolbar>
+            <md-card-content md-theme="smartTheme">
+                <md-chips ng-if="zone.keywords" ng-model="zone.keywords" readonly="!editable.keywords" md-enable-chip-edit="editable.keywords" ng-cloak></md-chips>
+            </md-card-content>
+        </md-card>
+    </div>
+
+    <div class="detail-location" ng-switch-when="location" layout="column" layout-align="center stretch">
+
+        <md-toolbar class="md-whiteframe-1dp">
+            <div class="md-toolbar-tools" layout="row">
+                <span class="location" flex="20">Center <br>
+                    <i class="mdi mdi-crosshairs-gps" ng-click="getCurrentLocation()"></i>
+                </span>
+
+                <md-input-container flex>
+                    <label>Latitude</label>
+                    <input input="text" ng-model="zone.center[0]">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Longitude</label>
+                    <input input="text" ng-model="zone.center[1]">
+                </md-input-container>   
+            </div> 
+        </md-toolbar>
+        <div flex>
+            <ng-map flex zoom="11" center="{{zone.center}}" map-type-id="ROADMAP">
+            </ng-map>
+        </div>
+
+
+    </div>
+
+
+
+</md-content>

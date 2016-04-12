@@ -10,6 +10,21 @@ angular.module('Application')
                 del:{method:"DELETE", params:{id:"@id"}}
 
             });
+        },
+        DisplayName:function(){
+            return ApiService.rest(this.base+"/:id/display_name", {
+                set:{method:"PUT", params:{id:"@id"}}
+            });
+        },
+        Description:function(){
+            return ApiService.rest(this.base+"/:id/description", {
+                set:{method:"PUT", params:{id:"@id"}}
+            });
+        },
+        Keywords:function(){
+            return ApiService.rest(this.base+"/:id/keywords", {
+                set:{method:"PUT", params:{id:"@id"}}
+            });
         }
         
         

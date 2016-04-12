@@ -1,6 +1,7 @@
 @import 'config/functions';
 @import 'config/variables';
 @import 'modules/global';
+@import 'modules/utils';
 @import 'modules/sprite';
 @include sprites($spritesheet-sprites);
 

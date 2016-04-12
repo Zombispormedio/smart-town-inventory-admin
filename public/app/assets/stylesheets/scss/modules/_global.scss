@@ -1,7 +1,3 @@
-.icon {
-    display: inline-block;
-}
-
 .dropdown-caret{
     left: auto;
     right: 15px;
@@ -41,27 +37,15 @@
         margin-left: -1px;
     }
 }
-a{
-    text-decoration: none !important;
-    color: $black;
-}
 
-.hide{
-    display: block;
-}
 
 .background-theme-orange{
     background-color:$background_orange;
 }
 .list{
     overflow-y: auto;
-       max-height: 495px;
+    max-height: 495px;
 }
-
-.ml2{
-    margin-left: 2%;
-}
-
 
 #main-toolbar{
     color: $orange;
@@ -139,3 +123,96 @@ a{
 
     }
 }
+
+
+.list-content{
+    .list-type-icon{
+        font-size: 1.5em;
+        color:$orange !important;
+    }
+    button{
+        font-size: 1.5em;
+        i{
+            margin-top: 10%;
+        }
+    }
+
+    .badge, .badge-negative{
+
+        padding: 1%;
+        border-radius: 2px;
+    }
+
+    .badge{
+        background-color: $orange;
+        color: $white;
+    }
+
+    .badge-negative{
+        background-color: $white;
+        color: $orange;
+    }
+}
+
+.detail-toolbar{
+    background-color: $white;
+    color:$orange;
+    .detail-toolbar-item {
+        text-align: center;
+        padding-top: 1.5%;
+        text-transform: capitalize;
+        font-size: 1em;
+
+        &:not(:first-child):not(:last-child){
+            margin-right: -1%;
+            margin-left: -1%;
+        }
+        &:first-child{
+            margin-left: -15px;
+        }
+
+
+        &:last-child{
+            margin-right: -15px;
+        }
+    }
+    .active{
+        border-bottom: solid;
+    }
+
+    .disable{
+        background-color:  rgba(158,158,158,0.2);
+        color:$grey;
+    }
+
+}
+
+
+.detail{
+    height: 400px;
+    overflow-y:auto;
+    button{
+        i{
+            font-size: 1.5em;
+        }
+
+    }
+    .detail-info{
+        md-toolbar{
+            color: $orange;
+            background-color: white;
+        }
+
+        .md-chip{
+            box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px 0px, rgba(0, 0, 0, 0.137255) 0px 1px 1px 0px, rgba(0, 0, 0, 0.117647) 0px 2px 1px -1px;
+            background: $orange;
+            color: $white;
+        }
+
+    }
+    
+    .detail-location{
+        
+    }
+}
+

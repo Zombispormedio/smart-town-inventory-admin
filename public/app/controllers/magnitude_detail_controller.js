@@ -11,7 +11,9 @@ angular.module('Application')
     }
 
     var magnitude_id=$stateParams.id;
+    
     $scope.SelectedIndex="info";
+    
     $scope.Digital=function(){
         return $scope.magnitude?$scope.magnitude.type==="1":false;
     }
@@ -30,9 +32,7 @@ angular.module('Application')
                 $scope.SelectedIndex=index;
 
             }
-
         }
-
     }
 
 
