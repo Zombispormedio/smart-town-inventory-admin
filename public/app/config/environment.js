@@ -28,16 +28,6 @@ angular.module('Application')
         abstract:true
 
     })
-        .state("application.dashboard", {
-        url: '/',
-        onEnter: validUser,
-        views: {
-            content: {
-                templateUrl: '/views/_application/_dashboard/main.html',
-                controller: 'DashboardCtrl'
-            }
-        }
-    })
         .state("application.tasks", {
         url: '/tasks',
         onEnter: validUser,
@@ -126,6 +116,46 @@ angular.module('Application')
             'inner': {
                 templateUrl: '/views/_application/_zones/show.html',
                 controller: 'DetailZoneCtrl'
+            }
+        }
+    })
+    .state("application.dashboard", {
+        url: '/',
+        onEnter: validUser,
+        views: {
+            content: {
+                templateUrl: '/views/_application/_dashboard/main.html',
+            }
+        },
+            abstract:true
+    })
+    .state("application.dashboard.list", {
+        url: '',
+        onEnter: validUser,
+        views: {
+            'inner': {
+                templateUrl: '/views/_application/_dashboard/_sensor_grid/list.html',
+                controller: 'DashboardCtrl'
+            }
+        }
+    })
+     .state("application.dashboard.create", {
+        url: 'create',
+        onEnter: validUser,
+        views: {
+            'inner': {
+                templateUrl: '/views/_application/_dashboard/_sensor_grid/create.html',
+                controller: 'CreateSensorGridCtrl'
+            }
+        }
+    })
+    .state("application.dashboard.detail", {
+        url: ':id',
+        onEnter: validUser,
+        views: {
+            'inner': {
+                templateUrl: '/views/_application/_dashboard/_sensor_grid/show.html',
+                controller: 'DetailSensorGridCtrl'
             }
         }
     })

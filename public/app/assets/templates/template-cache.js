@@ -140,9 +140,7 @@ try {
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('/views/_application/_dashboard/main.html',
     '<ui-title>Dashboard</ui-title>\n' +
-    '\n' +
-    '\n' +
-    'hello world');
+    '<div layout="column" ui-view="inner"></div>');
 }]);
 })();
 
@@ -906,7 +904,7 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '\n' +
     '    <div class="popover-main-item" layout="row" flex>\n' +
-    '        <a class="popover-main-link" flex layout="column"   ui-sref="application.dashboard" layout-align="space-around center">\n' +
+    '        <a class="popover-main-link" flex layout="column"   ui-sref="application.dashboard.list" layout-align="space-around center">\n' +
     '            <md-icon  md-font-icon="mdi-bowling" class="mdi" flex></md-icon>\n' +
     '            <span flex> Dashboard</span>\n' +
     '\n' +
@@ -972,5 +970,98 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '\n' +
     '</div>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('Application');
+} catch (e) {
+  module = angular.module('Application', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('/views/_application/_dashboard/_sensor_grid/create.html',
+    '<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">\n' +
+    '    <div class=" toolbar-create md-toolbar-tools" layout="row">\n' +
+    '        <md-button aria-label="Go Back" flex="10" class="button-back" ng-click="goBack()">\n' +
+    '            <i class="mdi mdi-chevron-left"></i>Go Back\n' +
+    '        </md-button>\n' +
+    '        <h2 flex>\n' +
+    '            <span>New Sensor Grid</span>\n' +
+    '        </h2>\n' +
+    '    </div>\n' +
+    '</md-toolbar>\n' +
+    '<md-content layout-padding layout="column" md-theme="smartTheme">\n' +
+    '    <div layout="row" flex class="input-create">\n' +
+    '        <div  flex="20"  flex-offset="5">\n' +
+    '            <h3>Display Name <br>(optional)</h3>\n' +
+    '            <p>Leave blank and we\'ll choose one for you</p>\n' +
+    '        </div>\n' +
+    '\n' +
+    '        <md-input-container flex="50" flex-offset="10">\n' +
+    '            <input ng-model="sensor_grid.display_name" aria-label="Display Name">\n' +
+    '        </md-input-container>\n' +
+    '\n' +
+    '    </div>\n' +
+    '    <md-divider ></md-divider>\n' +
+    '    <div layout="row" flex class="input-create">\n' +
+    '        <div  flex="20"  flex-offset="5">\n' +
+    '            <h3>Zone Location</h3>\n' +
+    '            <p>Sensor grid is located in one zone of the city</p>\n' +
+    '        </div>\n' +
+    '\n' +
+    '        <md-input-container flex="30" flex-offset="20" class="select">\n' +
+    '            <label>Select Zone</label>\n' +
+    '            <md-select ng-model="sensor_grid.zone">\n' +
+    '                <md-option ng-repeat="zone in zones" value="{{zone._id}}">\n' +
+    '                    {{zone.display_name}}\n' +
+    '                </md-option>\n' +
+    '            </md-select>\n' +
+    '        </md-input-container>\n' +
+    '\n' +
+    '    </div>\n' +
+    '    <md-divider></md-divider>\n' +
+    '    <div flex class="button-create" layout="row" layout-align="center center">\n' +
+    '        <md-button class="md-raised md-primary" ng-click="create()" ng-disabled="!sensor_grid.zone">Create Sensor Grid</md-button>\n' +
+    '    </div>\n' +
+    '</md-content>\n' +
+    '\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('Application');
+} catch (e) {
+  module = angular.module('Application', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('/views/_application/_dashboard/_sensor_grid/list.html',
+    '<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">\n' +
+    '    <div class="md-toolbar-tools" layout="row"  layout-align="start center">\n' +
+    '\n' +
+    '        <md-input-container md-no-float class="md-block" flex> \n' +
+    '            <md-icon  md-font-icon="mdi-magnify" class="mdi"></md-icon>             \n' +
+    '            <input type="text" ng-model="searchObject.text" placeholder="Filter sensor grids">\n' +
+    '        </md-input-container>\n' +
+    '\n' +
+    '        <md-button class="md-icon-button" aria-label="More" flex="5" ng-click="create()">\n' +
+    '            <md-icon md-font-icon="mdi-plus" class="mdi"></md-icon>\n' +
+    '        </md-button>\n' +
+    '    </div>\n' +
+    '</md-toolbar>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('Application');
+} catch (e) {
+  module = angular.module('Application', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('/views/_application/_dashboard/_sensor_grid/show.html',
+    '');
 }]);
 })();

@@ -1,0 +1,45 @@
+<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">
+    <div class=" toolbar-create md-toolbar-tools" layout="row">
+        <md-button aria-label="Go Back" flex="10" class="button-back" ng-click="goBack()">
+            <i class="mdi mdi-chevron-left"></i>Go Back
+        </md-button>
+        <h2 flex>
+            <span>New Sensor Grid</span>
+        </h2>
+    </div>
+</md-toolbar>
+<md-content layout-padding layout="column" md-theme="smartTheme">
+    <div layout="row" flex class="input-create">
+        <div  flex="20"  flex-offset="5">
+            <h3>Display Name <br>(optional)</h3>
+            <p>Leave blank and we'll choose one for you</p>
+        </div>
+
+        <md-input-container flex="50" flex-offset="10">
+            <input ng-model="sensor_grid.display_name" aria-label="Display Name">
+        </md-input-container>
+
+    </div>
+    <md-divider ></md-divider>
+    <div layout="row" flex class="input-create">
+        <div  flex="20"  flex-offset="5">
+            <h3>Zone Location</h3>
+            <p>Sensor grid is located in one zone of the city</p>
+        </div>
+
+        <md-input-container flex="30" flex-offset="20" class="select">
+            <label>Select Zone</label>
+            <md-select ng-model="sensor_grid.zone">
+                <md-option ng-repeat="zone in zones" value="{{zone._id}}">
+                    {{zone.display_name}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+
+    </div>
+    <md-divider></md-divider>
+    <div flex class="button-create" layout="row" layout-align="center center">
+        <md-button class="md-raised md-primary" ng-click="create()" ng-disabled="!sensor_grid.zone">Create Sensor Grid</md-button>
+    </div>
+</md-content>
+
