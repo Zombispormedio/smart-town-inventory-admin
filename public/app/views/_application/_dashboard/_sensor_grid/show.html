@@ -8,3 +8,82 @@
         </h2>
     </div>
 </md-toolbar>
+
+
+<div  class="detail-toolbar md-toolbar-tools" layout="row"layout-align="space-between stretch">
+
+    <div flex class="detail-toolbar-item md-button" ng-click="select('info')" ng-class="{'active':SelectedIndex==='info'}">
+        <span>Info</span>  <i class="mdi mdi-information-outline"></i>
+    </div>
+    <div flex class="detail-toolbar-item md-button" ng-click="select('sensors')" ng-class="{'active':SelectedIndex==='sensors'}">
+        <span>Sensors</span>  <i class="mdi mdi-access-point-network"></i>
+    </div>
+    <div flex class="detail-toolbar-item md-button" ng-click="select('location')" ng-class="{'active':SelectedIndex==='location'}">
+        <span>Location</span>  <i class="mdi mdi-map-marker"></i>
+    </div>
+    <div flex class="detail-toolbar-item md-button" ng-click="select('settings')" ng-class="{'active':SelectedIndex==='settings'}">
+        <span>Settings</span>  <i class="mdi mdi-cake"></i>
+    </div>
+
+
+</div>
+
+
+<md-content  ng-switch on="SelectedIndex" class="detail background-theme-orange" layout-padding >
+    <div class="detail-info" ng-switch-when="info" layout="column" layout-align="center stretch">
+       
+            <md-card class="detail-form" flex>
+                <md-toolbar class="md-whiteframe-1dp">
+                    <div class="md-toolbar-tools" layout="row"  layout-align="start center">
+                        <h3 flex>Communication Center</h3>
+                        <md-button flex="5" ng-click="editable.communication_center=true" ng-if="!editable.communication_center" class="md-primary" aria-label="Start Update communication_center">
+                            <i class="mdi mdi-pencil orange"></i>
+                        </md-button>
+                        <md-button flex="5" ng-click="changeCommunicationCenter()" ng-if="editable.communication_center" class="md-primary" aria-label="Update communication_center">
+                            <span class="orange">Update</span>
+                        </md-button>
+                    </div>
+                </md-toolbar>
+                <md-card-content md-theme="smartTheme" layout="row">
+                    <md-input-container class="md-block" flex="20">
+                        <label>Device Name</label>
+                        <input ng-model="sensor_grid.device_name" type="text" flex ng-disabled="!editable.communication_center" aria-label="communication_center device name">
+
+                    </md-input-container>
+                    
+                       <md-input-container class="md-block" flex flex-offset="10">
+                        <label>Description</label>
+                        <textarea ng-model="sensor_grid.description" ng-disabled="!editable.communication_center" md-maxlength="150" rows="5" md-select-on-focus aria-label="Description"></textarea>
+
+                    </md-input-container>
+                </md-card-content>
+            </md-card>
+            
+            <md-card class="detail-form" flex>
+                <md-toolbar class="md-whiteframe-1dp">
+                    <div class="md-toolbar-tools">
+                        <h3 flex>Credentials</h3>
+                       
+                    </div>
+                </md-toolbar>
+                <md-card-content md-theme="smartTheme">
+                    <md-input-container class="md-block" flex="80">
+                        <label>Client ID</label>
+                         <md-icon md-font-icon="mdi-clipboard-outline" class="mdi copy-icon" title="Copy Client ID" ng-click="clickHandler(sensor_grid.client_id)"></md-icon>
+                        <input ng-model="sensor_grid.client_id" type="text" ng-disabled="true" aria-label="client id">
+
+                    </md-input-container>
+                    
+                       <md-input-container class="md-block" flex="80">
+                        <label>Client Secret</label>
+                        <md-icon md-font-icon="mdi-clipboard-outline" class="mdi copy-icon" title="Copy Client Secret" ng-click="clickHandler(sensor_grid.client_secret)"></md-icon>
+                         <input ng-model="sensor_grid.client_secret" type="{{showSecret}}"  ng-disabled="true" aria-label="client secret">
+                    </md-input-container>
+                </md-card-content>
+            </md-card>
+
+         
+      
+       
+    </div>
+</md-content>

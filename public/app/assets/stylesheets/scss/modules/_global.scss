@@ -211,6 +211,14 @@
             background: $orange;
             color: $white;
         }
+        .detail-form{
+            .copy-icon{
+                    font-size: 1.5em;
+                &:hover{
+                    color:$clear_black;
+                }
+            }
+        }
 
     }
     
