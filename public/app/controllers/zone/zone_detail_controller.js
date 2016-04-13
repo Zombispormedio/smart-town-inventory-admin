@@ -127,7 +127,6 @@ angular.module('Application')
 
     $scope.changeLocation=function(){
         var shape=$scope.zone.shape;
-	console.log(self);
         var map_shape=self.getMap().shapes;
         switch(shape.type){
             case "rectangle":{
