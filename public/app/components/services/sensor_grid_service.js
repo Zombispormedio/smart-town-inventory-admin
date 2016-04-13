@@ -10,6 +10,16 @@ angular.module('Application')
                 del:{method:"DELETE", params:{id:"@id"}}
 
             });
+        },
+         Secret:function(){
+            return ApiService.rest(this.base+"/:id/secret", {
+                reload:{method:"GET", params:{id:"@id"}}
+            });
+        },
+         CommunicationCenter:function(){
+            return ApiService.rest(this.base+"/:id/communication_center", {
+                set:{method:"PUT", params:{id:"@id"}}
+            });
         }
     }
 });

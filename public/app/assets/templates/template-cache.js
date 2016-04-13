@@ -1118,60 +1118,65 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '<md-content  ng-switch on="SelectedIndex" class="detail background-theme-orange" layout-padding >\n' +
     '    <div class="detail-info" ng-switch-when="info" layout="column" layout-align="center stretch">\n' +
-    '       \n' +
-    '            <md-card class="detail-form" flex>\n' +
-    '                <md-toolbar class="md-whiteframe-1dp">\n' +
-    '                    <div class="md-toolbar-tools" layout="row"  layout-align="start center">\n' +
-    '                        <h3 flex>Communication Center</h3>\n' +
-    '                        <md-button flex="5" ng-click="editable.communication_center=true" ng-if="!editable.communication_center" class="md-primary" aria-label="Start Update communication_center">\n' +
-    '                            <i class="mdi mdi-pencil orange"></i>\n' +
-    '                        </md-button>\n' +
-    '                        <md-button flex="5" ng-click="changeCommunicationCenter()" ng-if="editable.communication_center" class="md-primary" aria-label="Update communication_center">\n' +
-    '                            <span class="orange">Update</span>\n' +
-    '                        </md-button>\n' +
-    '                    </div>\n' +
-    '                </md-toolbar>\n' +
-    '                <md-card-content md-theme="smartTheme" layout="row">\n' +
-    '                    <md-input-container class="md-block" flex="20">\n' +
-    '                        <label>Device Name</label>\n' +
-    '                        <input ng-model="sensor_grid.device_name" type="text" flex ng-disabled="!editable.communication_center" aria-label="communication_center device name">\n' +
     '\n' +
-    '                    </md-input-container>\n' +
-    '                    \n' +
-    '                       <md-input-container class="md-block" flex flex-offset="10">\n' +
-    '                        <label>Description</label>\n' +
-    '                        <textarea ng-model="sensor_grid.description" ng-disabled="!editable.communication_center" md-maxlength="150" rows="5" md-select-on-focus aria-label="Description"></textarea>\n' +
+    '        <md-card class="detail-form" flex>\n' +
+    '            <md-toolbar class="md-whiteframe-1dp">\n' +
+    '                <div class="md-toolbar-tools" layout="row"  layout-align="start center">\n' +
+    '                    <h3 flex>Communication Center</h3>\n' +
+    '                    <md-button flex="5" ng-click="editable.communication_center=true" ng-if="!editable.communication_center" class="md-primary" aria-label="Start Update communication_center">\n' +
+    '                        <i class="mdi mdi-pencil orange"></i>\n' +
+    '                    </md-button>\n' +
+    '                    <md-button flex="5" ng-click="changeCommunicationCenter()" ng-if="editable.communication_center" class="md-primary" aria-label="Update communication_center">\n' +
+    '                        <span class="orange">Update</span>\n' +
+    '                    </md-button>\n' +
+    '                </div>\n' +
+    '            </md-toolbar>\n' +
+    '            <md-card-content md-theme="smartTheme" layout="row">\n' +
+    '                <md-input-container class="md-block" flex="20">\n' +
+    '                    <label>Device Name</label>\n' +
+    '                    <input ng-model="sensor_grid.device_name" type="text" flex ng-disabled="!editable.communication_center" aria-label="communication_center device name">\n' +
     '\n' +
-    '                    </md-input-container>\n' +
-    '                </md-card-content>\n' +
-    '            </md-card>\n' +
-    '            \n' +
-    '            <md-card class="detail-form" flex>\n' +
-    '                <md-toolbar class="md-whiteframe-1dp">\n' +
-    '                    <div class="md-toolbar-tools">\n' +
-    '                        <h3 flex>Credentials</h3>\n' +
-    '                       \n' +
-    '                    </div>\n' +
-    '                </md-toolbar>\n' +
-    '                <md-card-content md-theme="smartTheme">\n' +
-    '                    <md-input-container class="md-block" flex="80">\n' +
-    '                        <label>Client ID</label>\n' +
-    '                         <md-icon md-font-icon="mdi-clipboard-outline" class="mdi copy-icon" title="Copy Client ID" ng-click="clickHandler(sensor_grid.client_id)"></md-icon>\n' +
-    '                        <input ng-model="sensor_grid.client_id" type="text" ng-disabled="true" aria-label="client id">\n' +
+    '                </md-input-container>\n' +
     '\n' +
-    '                    </md-input-container>\n' +
-    '                    \n' +
-    '                       <md-input-container class="md-block" flex="80">\n' +
-    '                        <label>Client Secret</label>\n' +
-    '                        <md-icon md-font-icon="mdi-clipboard-outline" class="mdi copy-icon" title="Copy Client Secret" ng-click="clickHandler(sensor_grid.client_secret)"></md-icon>\n' +
-    '                         <input ng-model="sensor_grid.client_secret" type="{{showSecret}}"  ng-disabled="true" aria-label="client secret">\n' +
-    '                    </md-input-container>\n' +
-    '                </md-card-content>\n' +
-    '            </md-card>\n' +
+    '                <md-input-container class="md-block" flex flex-offset="10">\n' +
+    '                    <label>Description</label>\n' +
+    '                    <textarea ng-model="sensor_grid.description" ng-disabled="!editable.communication_center" md-maxlength="150" rows="5" md-select-on-focus aria-label="Description"></textarea>\n' +
     '\n' +
-    '         \n' +
-    '      \n' +
-    '       \n' +
+    '                </md-input-container>\n' +
+    '            </md-card-content>\n' +
+    '        </md-card>\n' +
+    '\n' +
+    '        <md-card class="detail-form" flex>\n' +
+    '            <md-toolbar class="md-whiteframe-1dp">\n' +
+    '                <div class="md-toolbar-tools">\n' +
+    '                    <h3 flex>Credentials</h3>\n' +
+    '\n' +
+    '                </div>\n' +
+    '            </md-toolbar>\n' +
+    '            <md-card-content md-theme="smartTheme">\n' +
+    '                <md-input-container class="md-block" flex>\n' +
+    '                    <label>Client ID</label>\n' +
+    '                    <md-icon md-font-icon="mdi-clipboard-outline" class="mdi copy-icon" title="Copy Client ID" ng-click="copyToClipboard(sensor_grid.client_id)"></md-icon>\n' +
+    '                    <input ng-model="sensor_grid.client_id" type="text" ng-disabled="true" aria-label="client id">\n' +
+    '\n' +
+    '                </md-input-container>\n' +
+    '\n' +
+    '                <md-input-container class="md-icon-float md-icon-right md-block" flex>\n' +
+    '                    <label>Client Secret</label>\n' +
+    '                    <md-icon md-font-icon="mdi-clipboard-outline" class="mdi copy-icon" title="Copy Client Secret" ng-click="copyToClipboard(sensor_grid.client_secret)"></md-icon>\n' +
+    '                    <input ng-model="sensor_grid.client_secret" type="{{show.secret}}"  ng-disabled="true" aria-label="client secret">\n' +
+    '                    <md-icon md-font-icon="mdi-lock" class="mdi copy-icon" title="Show Client Secret" ng-click="showSecret()" ng-if="show.secret===\'password\'"></md-icon>\n' +
+    '                    <md-icon md-font-icon="mdi-reload" class="mdi copy-icon" title="Reload Client Secret" ng-if="show.secret===\'text\'" ng-click="reloadSecret()"></md-icon>\n' +
+    '                </md-input-container>\n' +
+    '\n' +
+    '\n' +
+    '\n' +
+    '            </md-card-content>\n' +
+    '        </md-card>\n' +
+    '\n' +
+    '\n' +
+    '\n' +
+    '\n' +
     '    </div>\n' +
     '</md-content>');
 }]);
