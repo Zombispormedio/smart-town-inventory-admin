@@ -40,6 +40,13 @@ angular.module('Application')
             return ApiService.rest(this.base+"/:id/location", {
                 set:{method:"PUT", params:{id:"@id"}}
             });
+        },
+        
+         Sensors:function(){
+            return ApiService.rest(this.base+"/:id/sensors", {
+                all:{method:"GET", params:{id:"@id"}}
+            });
         }
+        
     }
 });

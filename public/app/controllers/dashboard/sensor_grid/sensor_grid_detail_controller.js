@@ -133,6 +133,17 @@ angular.module('Application')
         $scope.go("application.sensor.create", {sensor_grid:sensor_grid_id});
     }
     
+     
+    this.SensorsAll=function(){
+
+        SensorGridService.Sensors().all({id:sensor_grid_id}, RequestService.Data(function(data){
+            $scope.sensors=data;
+        }), RequestService.Error());
+    };
+
+    this.SensorsAll();
+    
+    
     this.ZoneAll=function(){
 
         ZoneService.Basic().all( RequestService.Data(function(data){
