@@ -40,7 +40,7 @@ angular.module('Application')
         }
         
         sensor.sensor_grid=sensor_grid;
-        console.log(sensor);
+
 
         SensorService.Basic().new(sensor, RequestService.Message($scope.goBack), RequestService.Error())
     }
