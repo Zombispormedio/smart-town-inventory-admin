@@ -1009,10 +1009,10 @@ module.run(['$templateCache', function($templateCache) {
     '            <h3>Magnitude &amp; Data Info</h3>\n' +
     '        </div>\n' +
     '\n' +
-    '        <div flex-offset="20" flex="70" layout="column">\n' +
+    '        <div flex-offset="10" flex="60" layout="column">\n' +
     '\n' +
-    '            <div flex layout="row">\n' +
-    '                <md-input-container flex>\n' +
+    '            <div flex layout="row" class="sensor-input sensor-magnitude-input">\n' +
+    '                <md-input-container flex="40">\n' +
     '                    <label>Select Magnitude</label>\n' +
     '                    <md-select ng-model="SelectedMagnitude" ng-change="setMagnitude()">\n' +
     '                        <md-option ng-repeat="magnitude in magnitudes" ng-value="magnitude">\n' +
@@ -1021,7 +1021,7 @@ module.run(['$templateCache', function($templateCache) {
     '                    </md-select>\n' +
     '                </md-input-container>\n' +
     '\n' +
-    '                <md-input-container ng-if="SelectedMagnitude.type===\'0\'">\n' +
+    '                <md-input-container  flex flex-offset="10" ng-if="SelectedMagnitude.type===\'0\'">\n' +
     '                    <label>Select Analog Unit</label>\n' +
     '                    <md-select ng-model="sensor.unit">\n' +
     '                        <md-option ng-repeat="unit in SelectedMagnitude.analog_units" value="{{unit._id}}">\n' +
@@ -1035,12 +1035,14 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '            </div>\n' +
     '\n' +
-    '            <div flex layout="row">\n' +
-    '                <md-checkbox ng-model="sensor.raw_data" flex="20" aria-label="Raw Data">\n' +
+    '            <div flex layout="row" class="sensor-input sensor-raw-input">\n' +
+    '               <div flex="40" >\n' +
+    '                   <md-checkbox ng-model="sensor.is_raw_data" aria-label="Raw Data">\n' +
     '                    Raw Data\n' +
     '                </md-checkbox>\n' +
-    '\n' +
-    '                <md-input-container flex ng-if="sensor.raw_data">\n' +
+    '               </div>\n' +
+    '                \n' +
+    '                <md-input-container  flex-offset="10"  flex ng-if="sensor.is_raw_data">\n' +
     '                    <label>Conversion</label>\n' +
     '                    <input ng-model="sensor.raw_conversion" aria-label="Raw Operation">\n' +
     '                </md-input-container>\n' +
@@ -1053,7 +1055,7 @@ module.run(['$templateCache', function($templateCache) {
     '    </div>\n' +
     '    <md-divider></md-divider>\n' +
     '    <div flex class="button-create" layout="row" layout-align="center center">\n' +
-    '        <md-button class="md-raised md-primary" ng-click="create()">Create Sensor</md-button>\n' +
+    '        <md-button class="md-raised md-primary" ng-disabled="!sensor.magnitude" ng-click="create()">Create Sensor</md-button>\n' +
     '    </div>\n' +
     '</md-content>');
 }]);

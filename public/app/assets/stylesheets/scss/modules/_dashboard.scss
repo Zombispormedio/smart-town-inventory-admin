@@ -33,32 +33,51 @@
 }
 
 .detail-sensors-list{
-      .detail-content{
-            overflow-y: auto;
-            background-color: $white;
-            max-height: 400px;
-            .button-add{
-                position:fixed;
-                margin-right: 4%;
-                right: 0;
-                margin-top: -1%;
-                font-size: 1.8em;
+    .detail-content{
+        overflow-y: auto;
+        background-color: $white;
+        max-height: 400px;
+        .button-add{
+            position:fixed;
+            margin-right: 4%;
+            right: 0;
+            margin-top: -1%;
+            font-size: 1.8em;
+            background-color: #FF9800;
+            &:hover{
                 background-color: #FF9800;
-                &:hover{
-                    background-color: #FF9800;
-                }
-                md-icon{
-                    margin-top: -13px;
-                    color: $white;
-                }
             }
-            
-            .operation{
-                    padding-top: 1.5%;
-            }
-            
-            .md-delete{
-                 min-width: 20px !important;
+            md-icon{
+                margin-top: -13px;
+                color: $white;
             }
         }
+
+        .operation{
+            padding-top: 1.5%;
+        }
+
+        .md-delete{
+            min-width: 20px !important;
+        }
+    }
+}
+
+.input-create{
+    .sensor-input{
+        md-input-container{
+            margin-top: 0;
+        }
+    }
+    .sensor-magnitude-input{
+        margin-top: 3%;
+    }
+    .sensor-raw-input{
+        margin-top: 4%;
+            height: 4em;
+        md-checkbox{
+            margin-left: 30%;
+        }
+    }
+
 }

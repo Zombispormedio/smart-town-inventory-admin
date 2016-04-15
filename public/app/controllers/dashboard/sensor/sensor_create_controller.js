@@ -31,6 +31,19 @@ angular.module('Application')
     };
 
     this.AllMagnitudes();
+    
+    $scope.create=function(){
+         var sensor=angular.copy($scope.sensor);
+     
+        if(sensor.display_name==""){
+            sensor.display_name=chance.sentence({words: 3}).split(" ").join("").replace(".", "");
+        }
+        
+        sensor.sensor_grid=sensor_grid;
+        console.log(sensor);
+
+        SensorService.Basic().new(sensor, RequestService.Message($scope.goBack), RequestService.Error())
+    }
 
 
 });

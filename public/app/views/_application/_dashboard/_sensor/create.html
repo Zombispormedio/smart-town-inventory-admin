@@ -26,10 +26,10 @@
             <h3>Magnitude &amp; Data Info</h3>
         </div>
 
-        <div flex-offset="20" flex="70" layout="column">
+        <div flex-offset="10" flex="60" layout="column">
 
-            <div flex layout="row">
-                <md-input-container flex>
+            <div flex layout="row" class="sensor-input sensor-magnitude-input">
+                <md-input-container flex="40">
                     <label>Select Magnitude</label>
                     <md-select ng-model="SelectedMagnitude" ng-change="setMagnitude()">
                         <md-option ng-repeat="magnitude in magnitudes" ng-value="magnitude">
@@ -38,7 +38,7 @@
                     </md-select>
                 </md-input-container>
 
-                <md-input-container ng-if="SelectedMagnitude.type==='0'">
+                <md-input-container  flex flex-offset="10" ng-if="SelectedMagnitude.type==='0'">
                     <label>Select Analog Unit</label>
                     <md-select ng-model="sensor.unit">
                         <md-option ng-repeat="unit in SelectedMagnitude.analog_units" value="{{unit._id}}">
@@ -52,12 +52,14 @@
 
             </div>
 
-            <div flex layout="row">
-                <md-checkbox ng-model="sensor.raw_data" flex="20" aria-label="Raw Data">
+            <div flex layout="row" class="sensor-input sensor-raw-input">
+               <div flex="40" >
+                   <md-checkbox ng-model="sensor.is_raw_data" aria-label="Raw Data">
                     Raw Data
                 </md-checkbox>
-
-                <md-input-container flex ng-if="sensor.raw_data">
+               </div>
+                
+                <md-input-container  flex-offset="10"  flex ng-if="sensor.is_raw_data">
                     <label>Conversion</label>
                     <input ng-model="sensor.raw_conversion" aria-label="Raw Operation">
                 </md-input-container>
@@ -70,6 +72,6 @@
     </div>
     <md-divider></md-divider>
     <div flex class="button-create" layout="row" layout-align="center center">
-        <md-button class="md-raised md-primary" ng-click="create()">Create Sensor</md-button>
+        <md-button class="md-raised md-primary" ng-disabled="!sensor.magnitude" ng-click="create()">Create Sensor</md-button>
     </div>
 </md-content>
