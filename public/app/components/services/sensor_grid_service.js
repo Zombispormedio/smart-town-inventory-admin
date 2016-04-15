@@ -20,6 +20,26 @@ angular.module('Application')
             return ApiService.rest(this.base+"/:id/communication_center", {
                 set:{method:"PUT", params:{id:"@id"}}
             });
+        },
+        DisplayName:function(){
+            return ApiService.rest(this.base+"/:id/display_name", {
+                set:{method:"PUT", params:{id:"@id"}}
+            });
+        },
+        Zone:function(){
+            return ApiService.rest(this.base+"/:id/zone", {
+                set:{method:"PUT", params:{id:"@id"}}
+            });
+        },
+         Access:function(){
+            return ApiService.rest(this.base+"/:id/access", {
+                allow:{method:"GET", params:{id:"@id"}}
+            });
+        },
+        Location:function(){
+            return ApiService.rest(this.base+"/:id/location", {
+                set:{method:"PUT", params:{id:"@id"}}
+            });
         }
     }
 });

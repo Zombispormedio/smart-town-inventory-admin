@@ -1,5 +1,5 @@
 angular.module('Application')
-    .controller('DetailSensorGridCtrl',function($rootScope, $scope, $stateParams, SensorGridService, RequestService, ThemeService, clipboard){
+    .controller('DetailSensorGridCtrl',function($rootScope, $scope, $stateParams, SensorGridService, ZoneService, RequestService, ThemeService, clipboard, NgMap){
 
     ThemeService.Content($scope, "background-theme-orange");
 
@@ -12,48 +12,150 @@ angular.module('Application')
 
     var sensor_grid_id=$stateParams.id;
 
-    $scope.SelectedIndex="info";
+    $scope.SelectedIndex="location";
 
     $scope.select=function(index){
         $scope.SelectedIndex=index;
     }
 
     $scope.editable={
-        communication_center:false
+        communication_center:false,
+        display_name:false,
+        zone:false,
+        haveAccess:false,
+        location:false,
+        center:null
     }
     $scope.show={
         secret:"password"
     };
-    
+
     $scope.showSecret=function(){
         $scope.show.secret="text";
     }
-    
-    
-     $scope.reloadSecret=function(){
+
+
+    $scope.reloadSecret=function(){
         SensorGridService.Secret().reload({id:sensor_grid_id}, RequestService.Data(function(data){
             $scope.sensor_grid=data;
-              $scope.show.secret="password";
+            $scope.show.secret="password";
         }), RequestService.Error());
     }
-        
-     
-     $scope.changeCommunicationCenter=function(){
-          var result=_.pick($scope.sensor_grid, ["device_name", "description"]);
+
+
+    $scope.changeCommunicationCenter=function(){
+        var result=_.pick($scope.sensor_grid, ["device_name", "description"]);
 
         SensorGridService.CommunicationCenter().set({id:sensor_grid_id},result, RequestService.Data(function(data){
             $scope.sensor_grid=data;
-             $scope.editable.communication_center=false;
+            $scope.editable.communication_center=false;
         }), RequestService.Error());
-     }
+    }
 
     $scope.copyToClipboard = function (text) {
         clipboard.copyText(text);
     };
 
+    $scope.changeDisplayName=function(){
+        var result=_.pick($scope.sensor_grid, ["display_name"]);
+        SensorGridService.DisplayName().set({id:sensor_grid_id},result, RequestService.Data(function(data){
+            $scope.sensor_grid=data;
+            $scope.editable.display_name=false;
+        }), RequestService.Error());
+    }
+
+
+    $scope.changeZone=function(){
+        var result=_.pick($scope.sensor_grid, ["zone"]);
+        SensorGridService.Zone().set({id:sensor_grid_id},result, RequestService.Data(function(data){
+            $scope.sensor_grid=data;
+            $scope.editable.zone=false;
+        }), RequestService.Error());
+    }
+
+    $scope.allowAccess=function(){
+        SensorGridService.Access().allow({id:sensor_grid_id}, RequestService.Data(function(data){
+            $scope.sensor_grid=data;
+            $scope.editable.haveAccess= checkAccess();
+        }), RequestService.Error());
+    }
+
+    var checkAccess=function(){
+        return $scope.sensor_grid.client_secret!==void 0 && $scope.sensor_grid.client_secret!=="";
+    }
+
+
+
+    $scope.getCurrentLocation=function(){
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position){
+                $scope.$apply(function(){
+                    $scope.sensor_grid.location[0]=position.coords.latitude;
+                    $scope.sensor_grid.location[1]=position.coords.longitude;
+                    $scope.editable.center=_.clone($scope.sensor_grid.location);
+                })
+            });
+        } 
+    }
+
+    NgMap.getMap().then(function(map) {
+        var marker=map.markers[0];
+
+
+        marker.addListener('dragend', function() {
+
+            var loc=marker.getPosition();
+
+            $scope.$apply(function () {
+                $scope.sensor_grid.location[0]=loc.lat();
+                $scope.sensor_grid.location[1]=loc.lng();
+
+            });
+
+
+
+        });
+
+    });
+
+    $scope.changeLocation=function(){
+        var result=_.pick($scope.sensor_grid, ["location"]);
+
+        SensorGridService.Location().set({id:sensor_grid_id},result, RequestService.Data(function(data){
+            $scope.sensor_grid=data;
+            $scope.editable.location=false;
+        }), RequestService.Error());
+    }
+
+
+    this.ZoneAll=function(){
+
+        ZoneService.Basic().all( RequestService.Data(function(data){
+            $scope.zones=data;
+        }), RequestService.Error());
+    };
+
+    this.ZoneAll();
+
+
     this.SensorGridById=function(){
         SensorGridService.Basic().byId({id:sensor_grid_id}, RequestService.Data(function(data){
             $scope.sensor_grid=data;
+
+            $scope.editable.haveAccess= checkAccess();
+
+            var location= $scope.sensor_grid.location;
+
+            if( $scope.sensor_grid.location==void 0 || (location&&location.length==0) ){
+                if($scope.sensor_grid.location==void 0)$scope.sensor_grid.location=[];
+                $scope.getCurrentLocation();
+            }else{
+                console.log($scope.editable.center)
+                $scope.editable.center=_.clone($scope.sensor_grid.location);
+                 console.log($scope.editable.center)
+            }
+
         }), RequestService.Error());
     }
 

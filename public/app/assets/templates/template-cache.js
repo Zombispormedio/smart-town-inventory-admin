@@ -151,19 +151,6 @@ try {
   module = angular.module('Application', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('/views/_application/_tasks/main.html',
-    '<ui-title>Tasks</ui-title>\n' +
-    'hello tasks');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('Application');
-} catch (e) {
-  module = angular.module('Application', []);
-}
-module.run(['$templateCache', function($templateCache) {
   $templateCache.put('/views/_application/_magnitudes/conversion.html',
     '<md-dialog aria-label="New Conversion"  ng-cloak class="conversion-dialog">\n' +
     '    <form>\n' +
@@ -539,6 +526,19 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '\n' +
     '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('Application');
+} catch (e) {
+  module = angular.module('Application', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('/views/_application/_tasks/main.html',
+    '<ui-title>Tasks</ui-title>\n' +
+    'hello tasks');
 }]);
 })();
 
@@ -1117,7 +1117,7 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '\n' +
     '<md-content  ng-switch on="SelectedIndex" class="detail background-theme-orange" layout-padding >\n' +
-    '   \n' +
+    '\n' +
     '    <div class="detail-info" ng-switch-when="info" layout="column" layout-align="center stretch">\n' +
     '        <md-card class="detail-form" flex>\n' +
     '            <md-toolbar class="md-whiteframe-1dp">\n' +
@@ -1169,13 +1169,105 @@ module.run(['$templateCache', function($templateCache) {
     '                    <md-icon md-font-icon="mdi-reload" class="mdi copy-icon" title="Reload Client Secret" ng-if="show.secret===\'text\'" ng-click="reloadSecret()"></md-icon>\n' +
     '                </md-input-container>\n' +
     '\n' +
-    '\n' +
-    '\n' +
     '            </md-card-content>\n' +
     '        </md-card>\n' +
     '\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div class="detail-settings md-whiteframe-1dp" ng-switch-when="settings" layout="column" md-theme="smartTheme">\n' +
+    '\n' +
+    '        <div layout="row" flex class="input-create">\n' +
+    '            <div  flex="20"  flex-offset="5">\n' +
+    '                <h3>Display Name</h3>\n' +
+    '\n' +
+    '            </div>\n' +
+    '\n' +
+    '            <md-input-container flex="50" flex-offset="10">\n' +
+    '                <input ng-model="sensor_grid.display_name" aria-label="Display Name" ng-disabled="!editable.display_name">\n' +
+    '            </md-input-container>\n' +
+    '            <div flex="10" layout="row" layout-align="center center">\n' +
+    '                <md-button flex ng-click="editable.display_name=true" ng-if="!editable.display_name" class="md-primary" aria-label="Start Update display_name">\n' +
+    '                    <i class="mdi mdi-pencil orange"></i>\n' +
+    '                </md-button>\n' +
+    '                <md-button flex ng-click="changeDisplayName()" ng-if="editable.display_name" class="md-primary" aria-label="Update display_name">\n' +
+    '                    <span class="orange">Update</span>\n' +
+    '                </md-button>\n' +
+    '            </div>\n' +
     '\n' +
     '\n' +
+    '        </div>\n' +
+    '        <md-divider ></md-divider>\n' +
+    '        <div layout="row" flex class="input-create">\n' +
+    '            <div  flex="20"  flex-offset="5">\n' +
+    '                <h3>Zone Location</h3>\n' +
+    '\n' +
+    '            </div>\n' +
+    '\n' +
+    '            <md-input-container flex="30" flex-offset="20" class="select">\n' +
+    '                <label>Select Zone</label>\n' +
+    '                <md-select ng-model="sensor_grid.zone" ng-disabled="!editable.zone">\n' +
+    '                    <md-option ng-repeat="zone in zones" value="{{zone._id}}">\n' +
+    '                        {{zone.display_name}}\n' +
+    '                    </md-option>\n' +
+    '                </md-select>\n' +
+    '            </md-input-container>\n' +
+    '            <div flex="10" layout="row" layout-align="center center">\n' +
+    '                <md-button flex ng-click="editable.zone=true" ng-if="!editable.zone" class="md-primary" aria-label="Start Update zone">\n' +
+    '                    <i class="mdi mdi-pencil orange"></i>\n' +
+    '                </md-button>\n' +
+    '                <md-button flex ng-click="changeZone()" ng-if="editable.zone" class="md-primary" aria-label="Update zone">\n' +
+    '                    <span class="orange">Update</span>\n' +
+    '                </md-button>\n' +
+    '            </div>\n' +
+    '\n' +
+    '\n' +
+    '        </div>\n' +
+    '\n' +
+    '        <md-divider ></md-divider>\n' +
+    '        <div layout="row" flex class="input-create">\n' +
+    '            <div  flex="20"  flex-offset="5">\n' +
+    '                <h3>Allow Access</h3>\n' +
+    '\n' +
+    '            </div>\n' +
+    '            <md-switch flex="30" class="select" ng-model="editable.haveAccess" aria-label="Allow Access" ng-change="allowAccess()">\n' +
+    '            </md-switch>\n' +
+    '\n' +
+    '\n' +
+    '\n' +
+    '        </div>\n' +
+    '\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div class="detail-location md-whiteframe-1dp" ng-switch-when="location" layout="column" md-theme="smartTheme">\n' +
+    '\n' +
+    '        <div layout="row" flex>\n' +
+    '\n' +
+    '            <span class="location" flex="10">\n' +
+    '                <i class="mdi mdi-crosshairs-gps" ng-click="editable.location&&getCurrentLocation()"></i>\n' +
+    '            </span>\n' +
+    '\n' +
+    '            <md-input-container flex>\n' +
+    '                <label>Latitude</label>\n' +
+    '                <input input="text" ng-model="sensor_grid.location[0]" ng-disabled="!editable.location">\n' +
+    '            </md-input-container>\n' +
+    '            <md-input-container flex>\n' +
+    '                <label>Longitude</label>\n' +
+    '                <input input="text" ng-model="sensor_grid.location[1]" ng-disabled="!editable.location">\n' +
+    '            </md-input-container>\n' +
+    '            \n' +
+    '            <div flex="10" layout="row" layout-align="center center">\n' +
+    '                <md-button flex ng-click="editable.location=true" ng-if="!editable.location" class="md-primary" aria-label="Start Update location">\n' +
+    '                    <i class="mdi mdi-pencil orange"></i>\n' +
+    '                </md-button>\n' +
+    '                <md-button flex ng-click="changeLocation()" ng-if="editable.location" class="md-primary" aria-label="Update location">\n' +
+    '                    <span class="orange">Update</span>\n' +
+    '                </md-button>\n' +
+    '            </div>\n' +
+    '\n' +
+    '        </div>\n' +
+    '        <ng-map center="{{editable.center}}">\n' +
+    '            <marker position="{{sensor_grid.location||\'[40.74, -74.18]\'}}" title="drag me" draggable="{{editable.location}}"></marker>\n' +
+    '        </ng-map>\n' +
     '\n' +
     '    </div>\n' +
     '</md-content>');

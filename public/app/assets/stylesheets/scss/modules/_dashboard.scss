@@ -1,0 +1,33 @@
+.detail-settings{
+    overflow-y: auto;
+    background-color: white;
+    height: 420px;
+    md-input-container {
+        margin-top: 4%;
+    }
+
+    md-switch{
+        margin-left: 30%;
+        &.md-checked {
+            .md-thumb, .md-ink-ripple{
+                background-color: $orange !important;
+            }
+        }
+
+
+    }
+}
+
+.detail-location{
+    overflow-y: auto;
+    background-color: white;
+    height: 420px;
+    .location i{
+        font-size: 2em;
+        margin-top: 10%;
+        margin-left: 25%;
+    }
+    ng-map{
+        height: 340px;
+    }
+}
