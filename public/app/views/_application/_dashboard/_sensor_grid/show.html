@@ -167,7 +167,7 @@
                 <label>Longitude</label>
                 <input input="text" ng-model="sensor_grid.location[1]" ng-disabled="!editable.location">
             </md-input-container>
-            
+
             <div flex="10" layout="row" layout-align="center center">
                 <md-button flex ng-click="editable.location=true" ng-if="!editable.location" class="md-primary" aria-label="Start Update location">
                     <i class="mdi mdi-pencil orange"></i>
@@ -182,5 +182,34 @@
             <marker position="{{sensor_grid.location||'[40.74, -74.18]'}}" title="drag me" draggable="{{editable.location}}"></marker>
         </ng-map>
 
+    </div>
+
+    <div class="detail-sensors-list" ng-switch-when="sensors" layout="column" md-theme="smartTheme">
+
+        <div class="md-whiteframe-1dp detail-content">
+            <md-button class="md-fab button-add" aria-label="Add sensor" ng-click="createSensor()">
+                <md-icon md-font-icon="mdi-plus" class="mdi"></md-icon>
+            </md-button>
+            <md-list md-theme="smartTheme">
+                <div ng-repeat="sensor in sensors | orderBy:'-'" >
+                    <md-list-item layout="row">
+
+                        <h3 flex="20" flex-offset="5">{{ sensor.display_name }}</h3>
+                      
+
+
+                        <md-button flex="nogrow" aria-label="Delete Sensor" class="md-primary md-delete" ng-click="deleteSensor(sensor)">
+                            <i class="mdi mdi-delete"></i>
+                        </md-button>
+
+                    </md-list-item>
+                    <md-divider ng-if="!$last"></md-divider>
+                </div>
+                <md-list-item ng-if="sensors.length==0">
+                    No Sensors
+                </md-list-item>
+
+            </md-list>
+        </div>
     </div>
 </md-content>

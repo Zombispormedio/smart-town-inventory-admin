@@ -225,3 +225,18 @@
    
 }
 
+  md-switch, md-checkbox{
+     
+        &.md-checked {
+            .md-thumb, .md-ink-ripple, .md-icon{
+                background-color: $orange !important;
+            }
+            .md-icon:after{
+                color: $white !important;
+                border-color: $white !important;
+            }
+        }
+
+
+    }
+

@@ -159,6 +159,36 @@ angular.module('Application')
             }
         }
     })
+    .state("application.sensor", {
+        url: '/sensor',
+        onEnter: validUser,
+        views: {
+            content: {
+                templateUrl: '/views/_application/_dashboard/_sensor/main.html',
+            }
+        },
+            abstract:true
+    })
+     .state("application.sensor.create", {
+        url: '/create?sensor_grid',
+        onEnter: validUser,
+        views: {
+            'inner': {
+                templateUrl: '/views/_application/_dashboard/_sensor/create.html',
+                controller: 'CreateSensorCtrl'
+            }
+        }
+    })
+    .state("application.sensor.detail", {
+        url: '/:id',
+        onEnter: validUser,
+        views: {
+            'inner': {
+                templateUrl: '/views/_application/_dashboard/_sensor/show.html',
+                controller: 'DetailSensorCtrl'
+            }
+        }
+    })
 
 
 

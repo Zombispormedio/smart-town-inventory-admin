@@ -31,3 +31,34 @@
         height: 340px;
     }
 }
+
+.detail-sensors-list{
+      .detail-content{
+            overflow-y: auto;
+            background-color: $white;
+            max-height: 400px;
+            .button-add{
+                position:fixed;
+                margin-right: 4%;
+                right: 0;
+                margin-top: -1%;
+                font-size: 1.8em;
+                background-color: #FF9800;
+                &:hover{
+                    background-color: #FF9800;
+                }
+                md-icon{
+                    margin-top: -13px;
+                    color: $white;
+                }
+            }
+            
+            .operation{
+                    padding-top: 1.5%;
+            }
+            
+            .md-delete{
+                 min-width: 20px !important;
+            }
+        }
+}

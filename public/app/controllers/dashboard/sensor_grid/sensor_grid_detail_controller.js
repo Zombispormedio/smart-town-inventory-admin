@@ -12,7 +12,7 @@ angular.module('Application')
 
     var sensor_grid_id=$stateParams.id;
 
-    $scope.SelectedIndex="location";
+    $scope.SelectedIndex="sensors";
 
     $scope.select=function(index){
         $scope.SelectedIndex=index;
@@ -129,6 +129,10 @@ angular.module('Application')
     }
 
 
+    $scope.createSensor=function(){
+        $scope.go("application.sensor.create", {sensor_grid:sensor_grid_id});
+    }
+    
     this.ZoneAll=function(){
 
         ZoneService.Basic().all( RequestService.Data(function(data){

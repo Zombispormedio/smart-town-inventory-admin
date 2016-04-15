@@ -1,0 +1,75 @@
+<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">
+    <div class=" toolbar-create md-toolbar-tools" layout="row">
+        <md-button aria-label="Go Back" flex="10" class="button-back" ng-click="goBack()">
+            <i class="mdi mdi-chevron-left"></i>Go Back
+        </md-button>
+        <h2 flex>
+            <span>New Sensor</span>
+        </h2>
+    </div>
+</md-toolbar>
+<md-content layout-padding layout="column" md-theme="smartTheme">
+    <div layout="row" flex class="input-create">
+        <div  flex="20"  flex-offset="5">
+            <h3>Display Name <br>(optional)</h3>
+            <p>Leave blank and we'll choose one for you</p>
+        </div>
+
+        <md-input-container flex="50" flex-offset="10">
+            <input ng-model="sensor.display_name" aria-label="Display Name">
+        </md-input-container>
+
+    </div>
+    <md-divider ></md-divider>
+    <div layout="row" flex class="input-create">
+        <div  flex="20"  flex-offset="5">
+            <h3>Magnitude &amp; Data Info</h3>
+        </div>
+
+        <div flex-offset="20" flex="70" layout="column">
+
+            <div flex layout="row">
+                <md-input-container flex>
+                    <label>Select Magnitude</label>
+                    <md-select ng-model="SelectedMagnitude" ng-change="setMagnitude()">
+                        <md-option ng-repeat="magnitude in magnitudes" ng-value="magnitude">
+                            {{magnitude.display_name}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container ng-if="SelectedMagnitude.type==='0'">
+                    <label>Select Analog Unit</label>
+                    <md-select ng-model="sensor.unit">
+                        <md-option ng-repeat="unit in SelectedMagnitude.analog_units" value="{{unit._id}}">
+                            {{unit.display_name}}
+                        </md-option>
+                        <md-option ng-if="SelectedMagnitude.analog_units.length===0">
+                            No Units
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+
+            </div>
+
+            <div flex layout="row">
+                <md-checkbox ng-model="sensor.raw_data" flex="20" aria-label="Raw Data">
+                    Raw Data
+                </md-checkbox>
+
+                <md-input-container flex ng-if="sensor.raw_data">
+                    <label>Conversion</label>
+                    <input ng-model="sensor.raw_conversion" aria-label="Raw Operation">
+                </md-input-container>
+            </div>
+
+        </div>
+
+
+
+    </div>
+    <md-divider></md-divider>
+    <div flex class="button-create" layout="row" layout-align="center center">
+        <md-button class="md-raised md-primary" ng-click="create()">Create Sensor</md-button>
+    </div>
+</md-content>
