@@ -15,22 +15,55 @@
 
 <md-content layout-padding layout="column" md-theme="smartTheme" class="list">
 
-    <md-list  ng-cloak class="list-content">
+  <md-list  ng-cloak class="list-content">
         <div ng-repeat="task in tasks| search:'display_name':searchObject">
-            <div  layout="row">
-                <md-list-item flex>
-                    <!--<md-icon  md-font-icon="{{Icon(sensor_grid.display_name)}}" class="mdi list-type-icon"></md-icon>  -->
-                    <p> {{ task.display_name }} </p>
-                  
+
+                <md-list-item layout="row" class="task-item" ng-init="task.editable=false">
+                  <md-icon flex="5" md-font-icon="mdi-alarm-check" class="mdi list-type-icon"></md-icon> 
+
+                    <md-input-container flex="20">
+                        <label>Display Name</label>
+                        <input ng-model="task.display_name" type="text" aria-label="Display Name"  ng-disabled="!task.editable">
+                    </md-input-container>
+
+                    <md-input-container flex="50">
+                        <label>Webhook</label>
+                        <input ng-model="task.webhook" type="text" aria-label="Webhook"  ng-disabled="!task.editable">
+                    </md-input-container>
+
+                    <md-input-container flex="10" class="task-select">
+                        <label>Frequency</label>
+                        <md-select ng-model="task.frequency" ng-disabled="!task.editable">
+                            <md-option  value="week">
+                                Each Week
+                            </md-option>
+                            <md-option  value="day">
+                                Each Day
+                            </md-option>
+                            <md-option  value="hour">
+                                Each Hour
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-button class="md-primary" aria-label="start update" ng-if="!task.editable" ng-click="task.editable=true">
+                        <i class="mdi mdi-pencil"></i>
+                    </md-button>
+                      <md-button class="md-primary" aria-label="update" ng-if="task.editable" ng-click="update(task, $index)">
+                          <span>Update</span>
+                    </md-button>
+                    <md-button class="md-primary" aria-label="Delete" ng-click="delete(task._id)">
+                        <i class="mdi mdi-delete"></i>
+                    </md-button>
 
                 </md-list-item>
-
-                <md-button class="md-primary" aria-label="Delete" ng-click="delete(task._id)" flex="5">
-                    <i class="mdi mdi-delete"></i>
-                </md-button>
-            </div>
+                
+                 
+            
             <md-divider ng-if="!$last"></md-divider>
         </div>
+        <md-list-item ng-if="tasks.length==0">
+            No Tasks
+        </md-list-item>
     </md-list>
 
 </md-content>
