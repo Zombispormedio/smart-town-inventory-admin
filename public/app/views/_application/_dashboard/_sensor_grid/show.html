@@ -190,25 +190,22 @@
             <md-button class="md-fab button-add" aria-label="Add sensor" ng-click="createSensor()">
                 <md-icon md-font-icon="mdi-plus" class="mdi"></md-icon>
             </md-button>
-            <md-list md-theme="smartTheme">
-                <div ng-repeat="sensor in sensors | orderBy:'-'" >
-                    <md-list-item layout="row">
+            <md-list  ng-cloak class="list-content">
+                <div ng-repeat="sensor in sensors | orderBy:'-'">
+                    <div  layout="row">
+                        <md-list-item  ng-click="goToSensorDetail(sensor._id)" flex="75">
+                            <md-icon  md-font-icon="{{Icon(sensor.display_name)}}" class="mdi list-type-icon"></md-icon> 
+                            <p> {{ sensor.display_name }} </p>
 
-                        <h3 flex="20" flex-offset="5">{{ sensor.display_name }}</h3>
-                      
 
+                        </md-list-item>
 
-                        <md-button flex="nogrow" aria-label="Delete Sensor" class="md-primary md-delete" ng-click="deleteSensor(sensor)">
+                        <md-button class="md-primary" aria-label="Delete" ng-click="deleteSensor(sensor._id)" flex="5">
                             <i class="mdi mdi-delete"></i>
                         </md-button>
-
-                    </md-list-item>
+                    </div>
                     <md-divider ng-if="!$last"></md-divider>
                 </div>
-                <md-list-item ng-if="sensors.length==0">
-                    No Sensors
-                </md-list-item>
-
             </md-list>
         </div>
     </div>

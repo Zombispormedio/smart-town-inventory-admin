@@ -536,19 +536,6 @@ try {
   module = angular.module('Application', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('/views/_application/_tasks/main.html',
-    '<ui-title>Tasks</ui-title>\n' +
-    'hello tasks');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('Application');
-} catch (e) {
-  module = angular.module('Application', []);
-}
-module.run(['$templateCache', function($templateCache) {
   $templateCache.put('/views/_application/_zones/create.html',
     '<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">\n' +
     '    <div class=" toolbar-create md-toolbar-tools" layout="row">\n' +
@@ -882,6 +869,19 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '</md-content>\n' +
     '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('Application');
+} catch (e) {
+  module = angular.module('Application', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('/views/_application/_tasks/main.html',
+    '<ui-title>Tasks</ui-title>\n' +
+    'hello tasks');
 }]);
 })();
 
@@ -1390,25 +1390,22 @@ module.run(['$templateCache', function($templateCache) {
     '            <md-button class="md-fab button-add" aria-label="Add sensor" ng-click="createSensor()">\n' +
     '                <md-icon md-font-icon="mdi-plus" class="mdi"></md-icon>\n' +
     '            </md-button>\n' +
-    '            <md-list md-theme="smartTheme">\n' +
-    '                <div ng-repeat="sensor in sensors | orderBy:\'-\'" >\n' +
-    '                    <md-list-item layout="row">\n' +
+    '            <md-list  ng-cloak class="list-content">\n' +
+    '                <div ng-repeat="sensor in sensors | orderBy:\'-\'">\n' +
+    '                    <div  layout="row">\n' +
+    '                        <md-list-item  ng-click="goToSensorDetail(sensor._id)" flex="75">\n' +
+    '                            <md-icon  md-font-icon="{{Icon(sensor.display_name)}}" class="mdi list-type-icon"></md-icon> \n' +
+    '                            <p> {{ sensor.display_name }} </p>\n' +
     '\n' +
-    '                        <h3 flex="20" flex-offset="5">{{ sensor.display_name }}</h3>\n' +
-    '                      \n' +
     '\n' +
+    '                        </md-list-item>\n' +
     '\n' +
-    '                        <md-button flex="nogrow" aria-label="Delete Sensor" class="md-primary md-delete" ng-click="deleteSensor(sensor)">\n' +
+    '                        <md-button class="md-primary" aria-label="Delete" ng-click="deleteSensor(sensor._id)" flex="5">\n' +
     '                            <i class="mdi mdi-delete"></i>\n' +
     '                        </md-button>\n' +
-    '\n' +
-    '                    </md-list-item>\n' +
+    '                    </div>\n' +
     '                    <md-divider ng-if="!$last"></md-divider>\n' +
     '                </div>\n' +
-    '                <md-list-item ng-if="sensors.length==0">\n' +
-    '                    No Sensors\n' +
-    '                </md-list-item>\n' +
-    '\n' +
     '            </md-list>\n' +
     '        </div>\n' +
     '    </div>\n' +

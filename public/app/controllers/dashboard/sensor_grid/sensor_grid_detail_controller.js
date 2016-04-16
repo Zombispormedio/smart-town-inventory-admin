@@ -1,6 +1,7 @@
 angular.module('Application')
     .controller('DetailSensorGridCtrl',function($rootScope, $scope, $stateParams, SensorGridService, ZoneService, RequestService, ThemeService, clipboard, NgMap){
 
+    var self=this;
     ThemeService.Content($scope, "background-theme-orange");
 
     $scope.go=function(state, params){
@@ -133,6 +134,21 @@ angular.module('Application')
         $scope.go("application.sensor.create", {sensor_grid:sensor_grid_id});
     }
     
+    var icons=["album", "barcode", "airballoon", "binoculars", "bulletin-board", "cat", "chemical-weapon", "cookie", "emoticon-poop", "fire"];    
+    $scope.Icon=function(name){
+        
+        var index=name.charCodeAt(0)%icons.length;
+        return "mdi-"+icons[index];
+    };
+    
+    
+    $scope.deleteSensor=function(id){
+          SensorGridService.Sensors().del({id:sensor_grid_id, sensor_id:id}, self.SensorsAll, RequestService.Error());
+    }
+    
+    $scope.goToSensorDetail=function(id){
+        $rootScope.go("application.sensor.detail", {id:id});
+    }
      
     this.SensorsAll=function(){
 

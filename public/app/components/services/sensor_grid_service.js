@@ -43,8 +43,9 @@ angular.module('Application')
         },
         
          Sensors:function(){
-            return ApiService.rest(this.base+"/:id/sensors", {
-                all:{method:"GET", params:{id:"@id"}}
+            return ApiService.rest(this.base+"/:id/sensors/:sensor_id", {
+                all:{method:"GET", params:{id:"@id"}},
+                 del:{method:"DELETE", params:{id:"@id", sensor_id:"@sensor_id"}}
             });
         }
         
