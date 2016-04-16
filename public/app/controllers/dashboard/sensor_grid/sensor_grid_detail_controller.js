@@ -13,7 +13,7 @@ angular.module('Application')
 
     var sensor_grid_id=$stateParams.id;
 
-    $scope.SelectedIndex="sensors";
+    $scope.SelectedIndex="info";
 
     $scope.select=function(index){
         $scope.SelectedIndex=index;

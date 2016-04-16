@@ -536,6 +536,54 @@ try {
   module = angular.module('Application', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('/views/_application/_tasks/main.html',
+    '<ui-title>Tasks</ui-title>\n' +
+    '<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">\n' +
+    '    <div class="md-toolbar-tools" layout="row"  layout-align="start center">\n' +
+    '\n' +
+    '        <md-input-container md-no-float class="md-block" flex> \n' +
+    '            <md-icon  md-font-icon="mdi-magnify" class="mdi"></md-icon>             \n' +
+    '            <input type="text" ng-model="searchObject.text" placeholder="Filter tasks">\n' +
+    '        </md-input-container>\n' +
+    '\n' +
+    '        <md-button class="md-icon-button" aria-label="More" flex="5" ng-click="create()">\n' +
+    '            <md-icon md-font-icon="mdi-plus" class="mdi"></md-icon>\n' +
+    '        </md-button>\n' +
+    '    </div>\n' +
+    '</md-toolbar>\n' +
+    '\n' +
+    '<md-content layout-padding layout="column" md-theme="smartTheme" class="list">\n' +
+    '\n' +
+    '    <md-list  ng-cloak class="list-content">\n' +
+    '        <div ng-repeat="task in tasks| search:\'display_name\':searchObject">\n' +
+    '            <div  layout="row">\n' +
+    '                <md-list-item flex>\n' +
+    '                    <!--<md-icon  md-font-icon="{{Icon(sensor_grid.display_name)}}" class="mdi list-type-icon"></md-icon>  -->\n' +
+    '                    <p> {{ task.display_name }} </p>\n' +
+    '                  \n' +
+    '\n' +
+    '                </md-list-item>\n' +
+    '\n' +
+    '                <md-button class="md-primary" aria-label="Delete" ng-click="delete(task._id)" flex="5">\n' +
+    '                    <i class="mdi mdi-delete"></i>\n' +
+    '                </md-button>\n' +
+    '            </div>\n' +
+    '            <md-divider ng-if="!$last"></md-divider>\n' +
+    '        </div>\n' +
+    '    </md-list>\n' +
+    '\n' +
+    '</md-content>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('Application');
+} catch (e) {
+  module = angular.module('Application', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('/views/_application/_zones/create.html',
     '<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">\n' +
     '    <div class=" toolbar-create md-toolbar-tools" layout="row">\n' +
@@ -879,19 +927,6 @@ try {
   module = angular.module('Application', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('/views/_application/_tasks/main.html',
-    '<ui-title>Tasks</ui-title>\n' +
-    'hello tasks');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('Application');
-} catch (e) {
-  module = angular.module('Application', []);
-}
-module.run(['$templateCache', function($templateCache) {
   $templateCache.put('/views/_application/__utils/popover-main.html',
     '<div class="popover-layer" ng-if="showMain" ng-click="closePopoverMain()"></div>\n' +
     '\n' +
@@ -1082,7 +1117,165 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('/views/_application/_dashboard/_sensor/show.html',
-    'hello');
+    '<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">\n' +
+    '    <div class=" toolbar-create md-toolbar-tools" layout="row">\n' +
+    '        <md-button aria-label="Go Back" flex="10" class="button-back" ng-click="goBack()">\n' +
+    '            <i class="mdi mdi-chevron-left"></i>Go Back\n' +
+    '        </md-button>\n' +
+    '        <h2 flex>\n' +
+    '            <span>{{sensor.display_name}}</span>\n' +
+    '        </h2>\n' +
+    '    </div>\n' +
+    '</md-toolbar>\n' +
+    '\n' +
+    '\n' +
+    '<div  class="detail-toolbar md-toolbar-tools" layout="row"layout-align="space-between stretch">\n' +
+    '\n' +
+    '    <div flex class="detail-toolbar-item md-button" ng-click="select(\'info\')" ng-class="{\'active\':SelectedIndex===\'info\'}">\n' +
+    '        <span>Info</span>  <i class="mdi mdi-information-outline"></i>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div flex class="detail-toolbar-item md-button" ng-click="select(\'settings\')" ng-class="{\'active\':SelectedIndex===\'settings\'}">\n' +
+    '        <span>Settings</span>  <i class="mdi mdi-cake"></i>\n' +
+    '    </div>\n' +
+    '\n' +
+    '\n' +
+    '</div>\n' +
+    '\n' +
+    '\n' +
+    '<md-content  ng-switch on="SelectedIndex" class="detail background-theme-orange" layout-padding >\n' +
+    '    <div class="detail-info" ng-switch-when="info" layout="column" layout-align="center stretch">\n' +
+    '        <md-card class="detail-form" flex>\n' +
+    '            <md-toolbar class="md-whiteframe-1dp">\n' +
+    '                <div class="md-toolbar-tools" layout="row"  layout-align="start center">\n' +
+    '                    <h3 flex>Transmissor</h3>\n' +
+    '                    <md-button flex="5" ng-click="editable.transmissor=true" ng-if="!editable.transmissor" class="md-primary" aria-label="Start Update transmissor">\n' +
+    '                        <i class="mdi mdi-pencil orange"></i>\n' +
+    '                    </md-button>\n' +
+    '                    <md-button flex="5" ng-click="changeTransmissor()" ng-if="editable.transmissor" class="md-primary" aria-label="Update transmissor">\n' +
+    '                        <span class="orange">Update</span>\n' +
+    '                    </md-button>\n' +
+    '                </div>\n' +
+    '            </md-toolbar>\n' +
+    '            <md-card-content md-theme="smartTheme" layout="row">\n' +
+    '                <md-input-container class="md-block" flex="20">\n' +
+    '                    <label>Device Name</label>\n' +
+    '                    <input ng-model="sensor.device_name" type="text" flex ng-disabled="!editable.transmissor" aria-label="transmissor device name">\n' +
+    '\n' +
+    '                </md-input-container>\n' +
+    '\n' +
+    '                <md-input-container class="md-block" flex flex-offset="10">\n' +
+    '                    <label>Description</label>\n' +
+    '                    <textarea ng-model="sensor.description" ng-disabled="!editable.transmissor" md-maxlength="150" rows="5" md-select-on-focus aria-label="Description"></textarea>\n' +
+    '\n' +
+    '                </md-input-container>\n' +
+    '            </md-card-content>\n' +
+    '        </md-card>\n' +
+    '\n' +
+    '        <md-card class="detail-form" flex>\n' +
+    '            <md-toolbar class="md-whiteframe-1dp">\n' +
+    '                <div class="md-toolbar-tools">\n' +
+    '                    <h3 flex>Credentials</h3>\n' +
+    '\n' +
+    '                </div>\n' +
+    '            </md-toolbar>\n' +
+    '            <md-card-content md-theme="smartTheme">\n' +
+    '                <md-input-container class="md-block" flex>\n' +
+    '                    <label>Node ID</label>\n' +
+    '                    <md-icon md-font-icon="mdi-clipboard-outline" class="mdi copy-icon" title="Copy Node ID" ng-click="copyToClipboard(sensor.node_id)"></md-icon>\n' +
+    '                    <input ng-model="sensor.node_id" type="text" ng-disabled="true" aria-label="Node id">\n' +
+    '\n' +
+    '                </md-input-container>\n' +
+    '\n' +
+    '            </md-card-content>\n' +
+    '        </md-card>\n' +
+    '\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div class="detail-settings md-whiteframe-1dp" id="sensor-detail" ng-switch-when="settings" layout="column" md-theme="smartTheme">\n' +
+    '\n' +
+    '        <div layout="row" flex class="input-create display-name">\n' +
+    '            <div  flex="20"  flex-offset="5">\n' +
+    '                <h3>Display Name</h3>\n' +
+    '\n' +
+    '            </div>\n' +
+    '\n' +
+    '            <md-input-container flex="50" flex-offset="10">\n' +
+    '                <input ng-model="sensor.display_name" aria-label="Display Name" ng-disabled="!editable.display_name">\n' +
+    '            </md-input-container>\n' +
+    '            <div flex="10" layout="row" layout-align="center center">\n' +
+    '                <md-button flex ng-click="editable.display_name=true" ng-if="!editable.display_name" class="md-primary" aria-label="Start Update display_name">\n' +
+    '                    <i class="mdi mdi-pencil orange"></i>\n' +
+    '                </md-button>\n' +
+    '                <md-button flex ng-click="changeDisplayName()" ng-if="editable.display_name" class="md-primary" aria-label="Update display_name">\n' +
+    '                    <span class="orange">Update</span>\n' +
+    '                </md-button>\n' +
+    '            </div>\n' +
+    '\n' +
+    '\n' +
+    '        </div>\n' +
+    '        <md-divider class="divider-display-name"></md-divider>\n' +
+    '        <div layout="row" flex class="input-create">\n' +
+    '            <div  flex="20"  flex-offset="5">\n' +
+    '                <h3>Magnitude &amp; Data Info</h3>\n' +
+    '            </div>\n' +
+    '\n' +
+    '            <div flex-offset="10" id="sensor-magnitude" flex="60" layout="column">\n' +
+    '\n' +
+    '                <div flex layout="row" layout-align="center center">\n' +
+    '                    <md-button flex="10" flex-offset="90" ng-click="editable.magnitude=true" ng-if="!editable.magnitude" class="md-primary" aria-label="Start Update magnitude">\n' +
+    '                        <i class="mdi mdi-pencil orange"></i>\n' +
+    '                    </md-button>\n' +
+    '                    <md-button flex="10" flex-offset="90" ng-click="changeMagnitude()" ng-if="editable.magnitude" class="md-primary" aria-label="Update magnitude">\n' +
+    '                        <span class="orange">Update</span>\n' +
+    '                    </md-button>\n' +
+    '                </div>\n' +
+    '                <div flex layout="row"  class="sensor-input sensor-magnitude-input">\n' +
+    '                    <md-input-container flex="40">\n' +
+    '                        <label>Select Magnitude</label>\n' +
+    '                        <md-select ng-model="sensor.magnitude" ng-change="onChangeSelectedMagnitude()" ng-disabled="!editable.magnitude">\n' +
+    '                            <md-option ng-repeat="magnitude in magnitudes" ng-value="magnitude._id">\n' +
+    '                                {{magnitude.display_name}}\n' +
+    '                            </md-option>\n' +
+    '                        </md-select>\n' +
+    '                    </md-input-container>\n' +
+    '\n' +
+    '                    <md-input-container  flex flex-offset="10" ng-if="SelectedMagnitude.type===\'0\'">\n' +
+    '                        <label>Select Analog Unit</label>\n' +
+    '                        <md-select ng-model="sensor.unit" ng-disabled="!editable.magnitude">\n' +
+    '                            <md-option ng-repeat="unit in SelectedMagnitude.analog_units" ng-value="unit._id">\n' +
+    '                                {{unit.display_name}}\n' +
+    '                            </md-option>\n' +
+    '                            <md-option ng-if="SelectedMagnitude.analog_units.length===0">\n' +
+    '                                No Units\n' +
+    '                            </md-option>\n' +
+    '                        </md-select>\n' +
+    '                    </md-input-container>\n' +
+    '\n' +
+    '                </div>\n' +
+    '\n' +
+    '                <div flex layout="row" class="sensor-input sensor-raw-input">\n' +
+    '                    <div flex="40" >\n' +
+    '                        <md-checkbox ng-model="sensor.is_raw_data" aria-label="Raw Data" ng-disabled="!editable.magnitude">\n' +
+    '                            Raw Data\n' +
+    '                        </md-checkbox>\n' +
+    '                    </div>\n' +
+    '\n' +
+    '                    <md-input-container  flex-offset="10"  flex ng-if="sensor.is_raw_data">\n' +
+    '                        <label>Conversion</label>\n' +
+    '                        <input ng-model="sensor.raw_conversion" aria-label="Raw Operation" ng-disabled="!editable.magnitude">\n' +
+    '                    </md-input-container>\n' +
+    '                </div>\n' +
+    '\n' +
+    '            </div>\n' +
+    '\n' +
+    '\n' +
+    '\n' +
+    '        </div>\n' +
+    '\n' +
+    '\n' +
+    '    </div>\n' +
+    '</md-content>');
 }]);
 })();
 
@@ -1406,6 +1599,9 @@ module.run(['$templateCache', function($templateCache) {
     '                    </div>\n' +
     '                    <md-divider ng-if="!$last"></md-divider>\n' +
     '                </div>\n' +
+    '                <md-list-item ng-if="sensors.length===0">\n' +
+    '                    No Sensors\n' +
+    '                </md-list-item>\n' +
     '            </md-list>\n' +
     '        </div>\n' +
     '    </div>\n' +

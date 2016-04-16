@@ -1,2 +1,36 @@
 <ui-title>Tasks</ui-title>
-hello tasks
+<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">
+    <div class="md-toolbar-tools" layout="row"  layout-align="start center">
+
+        <md-input-container md-no-float class="md-block" flex> 
+            <md-icon  md-font-icon="mdi-magnify" class="mdi"></md-icon>             
+            <input type="text" ng-model="searchObject.text" placeholder="Filter tasks">
+        </md-input-container>
+
+        <md-button class="md-icon-button" aria-label="More" flex="5" ng-click="create()">
+            <md-icon md-font-icon="mdi-plus" class="mdi"></md-icon>
+        </md-button>
+    </div>
+</md-toolbar>
+
+<md-content layout-padding layout="column" md-theme="smartTheme" class="list">
+
+    <md-list  ng-cloak class="list-content">
+        <div ng-repeat="task in tasks| search:'display_name':searchObject">
+            <div  layout="row">
+                <md-list-item flex>
+                    <!--<md-icon  md-font-icon="{{Icon(sensor_grid.display_name)}}" class="mdi list-type-icon"></md-icon>  -->
+                    <p> {{ task.display_name }} </p>
+                  
+
+                </md-list-item>
+
+                <md-button class="md-primary" aria-label="Delete" ng-click="delete(task._id)" flex="5">
+                    <i class="mdi mdi-delete"></i>
+                </md-button>
+            </div>
+            <md-divider ng-if="!$last"></md-divider>
+        </div>
+    </md-list>
+
+</md-content>

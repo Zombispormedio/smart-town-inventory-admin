@@ -1,1 +1,159 @@
-hello
+<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">
+    <div class=" toolbar-create md-toolbar-tools" layout="row">
+        <md-button aria-label="Go Back" flex="10" class="button-back" ng-click="goBack()">
+            <i class="mdi mdi-chevron-left"></i>Go Back
+        </md-button>
+        <h2 flex>
+            <span>{{sensor.display_name}}</span>
+        </h2>
+    </div>
+</md-toolbar>
+
+
+<div  class="detail-toolbar md-toolbar-tools" layout="row"layout-align="space-between stretch">
+
+    <div flex class="detail-toolbar-item md-button" ng-click="select('info')" ng-class="{'active':SelectedIndex==='info'}">
+        <span>Info</span>  <i class="mdi mdi-information-outline"></i>
+    </div>
+
+    <div flex class="detail-toolbar-item md-button" ng-click="select('settings')" ng-class="{'active':SelectedIndex==='settings'}">
+        <span>Settings</span>  <i class="mdi mdi-cake"></i>
+    </div>
+
+
+</div>
+
+
+<md-content  ng-switch on="SelectedIndex" class="detail background-theme-orange" layout-padding >
+    <div class="detail-info" ng-switch-when="info" layout="column" layout-align="center stretch">
+        <md-card class="detail-form" flex>
+            <md-toolbar class="md-whiteframe-1dp">
+                <div class="md-toolbar-tools" layout="row"  layout-align="start center">
+                    <h3 flex>Transmissor</h3>
+                    <md-button flex="5" ng-click="editable.transmissor=true" ng-if="!editable.transmissor" class="md-primary" aria-label="Start Update transmissor">
+                        <i class="mdi mdi-pencil orange"></i>
+                    </md-button>
+                    <md-button flex="5" ng-click="changeTransmissor()" ng-if="editable.transmissor" class="md-primary" aria-label="Update transmissor">
+                        <span class="orange">Update</span>
+                    </md-button>
+                </div>
+            </md-toolbar>
+            <md-card-content md-theme="smartTheme" layout="row">
+                <md-input-container class="md-block" flex="20">
+                    <label>Device Name</label>
+                    <input ng-model="sensor.device_name" type="text" flex ng-disabled="!editable.transmissor" aria-label="transmissor device name">
+
+                </md-input-container>
+
+                <md-input-container class="md-block" flex flex-offset="10">
+                    <label>Description</label>
+                    <textarea ng-model="sensor.description" ng-disabled="!editable.transmissor" md-maxlength="150" rows="5" md-select-on-focus aria-label="Description"></textarea>
+
+                </md-input-container>
+            </md-card-content>
+        </md-card>
+
+        <md-card class="detail-form" flex>
+            <md-toolbar class="md-whiteframe-1dp">
+                <div class="md-toolbar-tools">
+                    <h3 flex>Credentials</h3>
+
+                </div>
+            </md-toolbar>
+            <md-card-content md-theme="smartTheme">
+                <md-input-container class="md-block" flex>
+                    <label>Node ID</label>
+                    <md-icon md-font-icon="mdi-clipboard-outline" class="mdi copy-icon" title="Copy Node ID" ng-click="copyToClipboard(sensor.node_id)"></md-icon>
+                    <input ng-model="sensor.node_id" type="text" ng-disabled="true" aria-label="Node id">
+
+                </md-input-container>
+
+            </md-card-content>
+        </md-card>
+
+    </div>
+
+    <div class="detail-settings md-whiteframe-1dp" id="sensor-detail" ng-switch-when="settings" layout="column" md-theme="smartTheme">
+
+        <div layout="row" flex class="input-create display-name">
+            <div  flex="20"  flex-offset="5">
+                <h3>Display Name</h3>
+
+            </div>
+
+            <md-input-container flex="50" flex-offset="10">
+                <input ng-model="sensor.display_name" aria-label="Display Name" ng-disabled="!editable.display_name">
+            </md-input-container>
+            <div flex="10" layout="row" layout-align="center center">
+                <md-button flex ng-click="editable.display_name=true" ng-if="!editable.display_name" class="md-primary" aria-label="Start Update display_name">
+                    <i class="mdi mdi-pencil orange"></i>
+                </md-button>
+                <md-button flex ng-click="changeDisplayName()" ng-if="editable.display_name" class="md-primary" aria-label="Update display_name">
+                    <span class="orange">Update</span>
+                </md-button>
+            </div>
+
+
+        </div>
+        <md-divider class="divider-display-name"></md-divider>
+        <div layout="row" flex class="input-create">
+            <div  flex="20"  flex-offset="5">
+                <h3>Magnitude &amp; Data Info</h3>
+            </div>
+
+            <div flex-offset="10" id="sensor-magnitude" flex="60" layout="column">
+
+                <div flex layout="row" layout-align="center center">
+                    <md-button flex="10" flex-offset="90" ng-click="editable.magnitude=true" ng-if="!editable.magnitude" class="md-primary" aria-label="Start Update magnitude">
+                        <i class="mdi mdi-pencil orange"></i>
+                    </md-button>
+                    <md-button flex="10" flex-offset="90" ng-click="changeMagnitude()" ng-if="editable.magnitude" class="md-primary" aria-label="Update magnitude">
+                        <span class="orange">Update</span>
+                    </md-button>
+                </div>
+                <div flex layout="row"  class="sensor-input sensor-magnitude-input">
+                    <md-input-container flex="40">
+                        <label>Select Magnitude</label>
+                        <md-select ng-model="sensor.magnitude" ng-change="onChangeSelectedMagnitude()" ng-disabled="!editable.magnitude">
+                            <md-option ng-repeat="magnitude in magnitudes" ng-value="magnitude._id">
+                                {{magnitude.display_name}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+
+                    <md-input-container  flex flex-offset="10" ng-if="SelectedMagnitude.type==='0'">
+                        <label>Select Analog Unit</label>
+                        <md-select ng-model="sensor.unit" ng-disabled="!editable.magnitude">
+                            <md-option ng-repeat="unit in SelectedMagnitude.analog_units" ng-value="unit._id">
+                                {{unit.display_name}}
+                            </md-option>
+                            <md-option ng-if="SelectedMagnitude.analog_units.length===0">
+                                No Units
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+
+                </div>
+
+                <div flex layout="row" class="sensor-input sensor-raw-input">
+                    <div flex="40" >
+                        <md-checkbox ng-model="sensor.is_raw_data" aria-label="Raw Data" ng-disabled="!editable.magnitude">
+                            Raw Data
+                        </md-checkbox>
+                    </div>
+
+                    <md-input-container  flex-offset="10"  flex ng-if="sensor.is_raw_data">
+                        <label>Conversion</label>
+                        <input ng-model="sensor.raw_conversion" aria-label="Raw Operation" ng-disabled="!editable.magnitude">
+                    </md-input-container>
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+</md-content>

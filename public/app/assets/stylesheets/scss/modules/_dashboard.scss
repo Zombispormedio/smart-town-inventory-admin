@@ -81,3 +81,20 @@
     }
 
 }
+
+#sensor-detail{
+    .display-name{
+           height: 8em; 
+    }
+    .divider-display-name{
+           margin-top: -15%; 
+    }
+    
+    .sensor-magnitude-input{
+        margin-top: -4%;
+    }
+    .sensor-raw-input{
+        margin-top: -3%;
+        
+    }
+}
