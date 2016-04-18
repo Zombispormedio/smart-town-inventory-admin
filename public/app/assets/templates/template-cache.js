@@ -295,7 +295,7 @@ module.run(['$templateCache', function($templateCache) {
     '        <input ng-model="guest.email" aria-label="email" >\n' +
     '    </md-input-container>\n' +
     '    <div flex class="button-create button-invite" layout="row" layout-align="center center">\n' +
-    '     <md-button class="md-raised md-primary md-invite">Invite, please</md-button>\n' +
+    '     <md-button class="md-raised md-primary md-invite" ng-click="sendInvitation()">Invite, please</md-button>\n' +
     '    </div>\n' +
     '</md-content>');
 }]);

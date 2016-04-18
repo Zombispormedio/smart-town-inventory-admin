@@ -39,6 +39,11 @@ angular.module('Application')
                 del:{method:"DELETE", params:{}}
 
             });
-        }
+        },
+          Invitation:function(){
+            return ApiService.rest(this.base+"/invitation", {
+                set:{method:"POST", params:{}}
+            });
+        },
     };
 });
