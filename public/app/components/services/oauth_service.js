@@ -17,6 +17,16 @@ angular.module('Application')
             return ApiService.rest(this.base+"/whoiam", {
                 _:{method:"GET", params:{}}
             });
+        },
+        DisplayName:function(){
+            return ApiService.rest(this.base+"/display_name", {
+                set:{method:"PUT", params:{}}
+            });
+        },
+        Email:function(){
+            return ApiService.rest(this.base+"/email", {
+                set:{method:"PUT", params:{}}
+            });
         }
     };
 });

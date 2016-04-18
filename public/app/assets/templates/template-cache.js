@@ -138,9 +138,89 @@ try {
   module = angular.module('Application', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('/views/_application/_account/main.html',
+    '<ui-title>Account</ui-title>\n' +
+    '<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">\n' +
+    '    <div class=" toolbar-create md-toolbar-tools" layout="row">\n' +
+    '        <md-button aria-label="Go Back" flex="10" class="button-back" ng-click="goBack()">\n' +
+    '            <i class="mdi mdi-chevron-left"></i>Go Back\n' +
+    '        </md-button>\n' +
+    '        <h2 flex>\n' +
+    '            <span>Your Account</span>\n' +
+    '        </h2>\n' +
+    '    </div>\n' +
+    '</md-toolbar>\n' +
+    '<md-content layout-padding layout="column" md-theme="smartTheme">\n' +
+    '    <div layout="row" flex class="input-create">\n' +
+    '        <div  flex="20"  flex-offset="5">\n' +
+    '            <h3>Display Name <br>(optional)</h3>\n' +
+    '        </div>\n' +
+    '\n' +
+    '        <md-input-container flex="50" flex-offset="10">\n' +
+    '            <input ng-model="account.display_name" aria-label="Display Name" ng-disabled="!editable.display_name">\n' +
+    '        </md-input-container>\n' +
+    '        <div flex="10" layout="row" layout-align="center center" class="account-update-button">\n' +
+    '            <md-button flex ng-click="editable.display_name=true" ng-if="!editable.display_name" class="md-primary" aria-label="Start Update display_name">\n' +
+    '                <i class="mdi mdi-pencil orange"></i>\n' +
+    '            </md-button>\n' +
+    '            <md-button flex ng-click="changeDisplayName()" ng-if="editable.display_name" class="md-primary" aria-label="Update display_name">\n' +
+    '                <span class="orange">Update</span>\n' +
+    '            </md-button>\n' +
+    '        </div>\n' +
+    '\n' +
+    '    </div>\n' +
+    '    <md-divider ></md-divider>\n' +
+    '    <div layout="row" flex class="input-create">\n' +
+    '        <div  flex="20"  flex-offset="5">\n' +
+    '            <h3>Email <br>(not optional)</h3>\n' +
+    '            <p>This is important</p>\n' +
+    '        </div>\n' +
+    '\n' +
+    '        <md-input-container flex="50" flex-offset="10">\n' +
+    '            <input ng-model="account.email" aria-label="email" ng-disabled="!editable.email">\n' +
+    '        </md-input-container>\n' +
+    '        <div flex="10" layout="row" layout-align="center center" class="account-update-button">\n' +
+    '            <md-button flex ng-click="editable.email=true" ng-if="!editable.email" class="md-primary" aria-label="Start Update email">\n' +
+    '                <i class="mdi mdi-pencil orange"></i>\n' +
+    '            </md-button>\n' +
+    '            <md-button flex ng-click="changeEmail()" ng-if="editable.email" class="md-primary" aria-label="Update email">\n' +
+    '                <span class="orange">Update</span>\n' +
+    '            </md-button>\n' +
+    '        </div>\n' +
+    '\n' +
+    '    </div>\n' +
+    '    <md-divider></md-divider>\n' +
+    '    <div flex class="button-create" layout="row" layout-align="center center">\n' +
+    '        <md-button class="md-raised md-primary">Change Password</md-button>\n' +
+    '        <md-button class="md-raised md-primary" style="background-color: #FF5722; margin-left: 10%;">Delete Account</md-button>\n' +
+    '    </div>\n' +
+    '</md-content>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('Application');
+} catch (e) {
+  module = angular.module('Application', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('/views/_application/_dashboard/main.html',
     '<ui-title>Dashboard</ui-title>\n' +
     '<div layout="column" ui-view="inner"></div>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('Application');
+} catch (e) {
+  module = angular.module('Application', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('/views/_application/_invite/main.html',
+    '<ui-title>Invite</ui-title>');
 }]);
 })();
 
@@ -1016,13 +1096,13 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '\n' +
     '    <div layout="column" layout-align="space-between none" class="popover-content">\n' +
-    '        <a  flex layout="row"  layout-align="space-between center" class="item-popover">\n' +
+    '        <a  flex layout="row"  layout-align="space-between center" ui-sref="application.account" class="item-popover">\n' +
     '            <i class="mdi mdi-account-circle" flex="40"></i>\n' +
     '            <span  flex>Account</span>\n' +
     '\n' +
     '        </a>\n' +
     '\n' +
-    '        <a  flex layout="row"  layout-align="space-between center" class="item-popover">\n' +
+    '        <a  flex layout="row"  layout-align="space-between center" ui-sref="application.invite" class="item-popover">\n' +
     '            <i class="mdi mdi-football-helmet" flex="40"></i>\n' +
     '            <span flex>Invite</span>\n' +
     '\n' +

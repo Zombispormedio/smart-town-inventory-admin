@@ -189,6 +189,26 @@ angular.module('Application')
             }
         }
     })
+    .state("application.account", {
+        url: '/account',
+        onEnter: validUser,
+        views: {
+            content: {
+                templateUrl: '/views/_application/_account/main.html',
+                controller: 'AccountCtrl'
+            }
+        }
+    })
+    .state("application.invite", {
+        url: '/invite',
+        onEnter: validUser,
+        views: {
+            content: {
+                templateUrl: '/views/_application/_invite/main.html',
+                controller: 'InviteCtrl'
+            }
+        }
+    })
 
 
 

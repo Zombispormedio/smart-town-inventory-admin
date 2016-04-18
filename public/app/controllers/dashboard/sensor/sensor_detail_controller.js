@@ -14,7 +14,7 @@ angular.module('Application')
     }
 
 
-    $scope.SelectedIndex="settings";
+    $scope.SelectedIndex="info";
 
     $scope.select=function(index){
         $scope.SelectedIndex=index;

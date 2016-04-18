@@ -1,0 +1,56 @@
+<ui-title>Account</ui-title>
+<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">
+    <div class=" toolbar-create md-toolbar-tools" layout="row">
+        <md-button aria-label="Go Back" flex="10" class="button-back" ng-click="goBack()">
+            <i class="mdi mdi-chevron-left"></i>Go Back
+        </md-button>
+        <h2 flex>
+            <span>Your Account</span>
+        </h2>
+    </div>
+</md-toolbar>
+<md-content layout-padding layout="column" md-theme="smartTheme">
+    <div layout="row" flex class="input-create">
+        <div  flex="20"  flex-offset="5">
+            <h3>Display Name <br>(optional)</h3>
+        </div>
+
+        <md-input-container flex="50" flex-offset="10">
+            <input ng-model="account.display_name" aria-label="Display Name" ng-disabled="!editable.display_name">
+        </md-input-container>
+        <div flex="10" layout="row" layout-align="center center" class="account-update-button">
+            <md-button flex ng-click="editable.display_name=true" ng-if="!editable.display_name" class="md-primary" aria-label="Start Update display_name">
+                <i class="mdi mdi-pencil orange"></i>
+            </md-button>
+            <md-button flex ng-click="changeDisplayName()" ng-if="editable.display_name" class="md-primary" aria-label="Update display_name">
+                <span class="orange">Update</span>
+            </md-button>
+        </div>
+
+    </div>
+    <md-divider ></md-divider>
+    <div layout="row" flex class="input-create">
+        <div  flex="20"  flex-offset="5">
+            <h3>Email <br>(not optional)</h3>
+            <p>This is important</p>
+        </div>
+
+        <md-input-container flex="50" flex-offset="10">
+            <input ng-model="account.email" aria-label="email" ng-disabled="!editable.email">
+        </md-input-container>
+        <div flex="10" layout="row" layout-align="center center" class="account-update-button">
+            <md-button flex ng-click="editable.email=true" ng-if="!editable.email" class="md-primary" aria-label="Start Update email">
+                <i class="mdi mdi-pencil orange"></i>
+            </md-button>
+            <md-button flex ng-click="changeEmail()" ng-if="editable.email" class="md-primary" aria-label="Update email">
+                <span class="orange">Update</span>
+            </md-button>
+        </div>
+
+    </div>
+    <md-divider></md-divider>
+    <div flex class="button-create" layout="row" layout-align="center center">
+        <md-button class="md-raised md-primary">Change Password</md-button>
+        <md-button class="md-raised md-primary" style="background-color: #FF5722; margin-left: 10%;">Delete Account</md-button>
+    </div>
+</md-content>
