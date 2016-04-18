@@ -192,7 +192,7 @@ module.run(['$templateCache', function($templateCache) {
     '    <md-divider></md-divider>\n' +
     '    <div flex class="button-create" layout="row" layout-align="center center">\n' +
     '        <md-button class="md-raised md-primary" ng-click="OpenPasswordDialog($event)">Change Password</md-button>\n' +
-    '        <md-button class="md-raised md-primary" style="background-color: #FF5722; margin-left: 10%;">Delete Account</md-button>\n' +
+    '        <md-button class="md-raised md-primary" ng-click="deleteAccount($event)" style="background-color: #FF5722; margin-left: 10%;">Delete Account</md-button>\n' +
     '    </div>\n' +
     '</md-content>\n' +
     '');
@@ -231,8 +231,8 @@ module.run(['$templateCache', function($templateCache) {
     '                </md-input-container>\n' +
     '                \n' +
     '                <div class="errors" flex>\n' +
-    '                    <p ng-if="errors.Empty" >Error: PasswordEmpty</p>\n' +
-    '                    <p ng-if="errors.Equals">Error: Password Equals</p>\n' +
+    '                    <p ng-if="errors.Empty" >Error: Password Empty</p>\n' +
+    '                    <p ng-if="errors.Equals">Error: Password not Equals</p>\n' +
     '               \n' +
     '                </div>\n' +
     '            </div>\n' +

@@ -27,7 +27,7 @@ angular.module('Application')
 
     $scope.logout=function(){
         OAuthService.logout()._(function(data){
-            console.log(data);
+            
             deleteLocal("user");
 
             $rootScope.go("login");

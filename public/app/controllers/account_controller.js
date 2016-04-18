@@ -40,11 +40,14 @@ angular.module('Application')
 
 
     $scope.OpenPasswordDialog=function(ev){
- 
+
         $mdDialog.show({
             controller: function($scope, $mdDialog){
 
-
+                $scope.user={
+                    password:"",
+                    repeat_password:""
+                }
                 $scope.errors={
                     Empty:false,
                     Equals:false
@@ -57,9 +60,10 @@ angular.module('Application')
                 };
 
                 var checkErrors=function(){
-                    var check=true
-                    
-                    return check;
+                    $scope.errors.Empty=$scope.user.password===""||$scope.user.repeat_password==="";
+                    $scope.errors.Equals=!$scope.errors.Empty&&($scope.user.password!==$scope.user.repeat_password);
+
+                    return $scope.errors.Empty&&$scope.errors.Equals;
                 }
                 $scope.confirm = function() {
 
@@ -76,9 +80,31 @@ angular.module('Application')
 
         })
             .then(function(user){
-            console.log(user);
+            var result=_.pick(user, ["password"]);
+            OAuthService.Password().set(result, RequestService.Data(function(data){
+                $scope.account=data;
+
+            }), RequestService.Error());
+        });
+    }
+
+    $scope.deleteAccount=function(ev){
+        var confirm = $mdDialog.confirm()
+        .title('Would you like to delete your account')
+        .textContent("Don't let me")
+        .ariaLabel('Lucky day')
+        .targetEvent(ev)
+        .ok('Confirm')
+        .cancel('Cancel');
+        $mdDialog.show(confirm).then(function() {
+            OAuthService.Basic().del(result, RequestService.Message(function(){
+                 deleteLocal("user");
+                $rootScope.go("login");
+            }), RequestService.Error());
+            
+            
         });
     }
 
 
-    });
+});

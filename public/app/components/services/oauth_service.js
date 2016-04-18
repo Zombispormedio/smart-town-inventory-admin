@@ -27,6 +27,18 @@ angular.module('Application')
             return ApiService.rest(this.base+"/email", {
                 set:{method:"PUT", params:{}}
             });
+        },
+        Password:function(){
+            return ApiService.rest(this.base+"/password", {
+                set:{method:"PUT", params:{}}
+            });
+        },
+        Basic:function(){
+            return ApiService.rest(this.base, {
+
+                del:{method:"DELETE", params:{}}
+
+            });
         }
     };
 });
