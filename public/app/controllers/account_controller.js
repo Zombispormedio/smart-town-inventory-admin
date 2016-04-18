@@ -97,7 +97,7 @@ angular.module('Application')
         .ok('Confirm')
         .cancel('Cancel');
         $mdDialog.show(confirm).then(function() {
-            OAuthService.Basic().del(result, RequestService.Message(function(){
+            OAuthService.Basic().del(RequestService.Message(function(){
                  deleteLocal("user");
                 $rootScope.go("login");
             }), RequestService.Error());
