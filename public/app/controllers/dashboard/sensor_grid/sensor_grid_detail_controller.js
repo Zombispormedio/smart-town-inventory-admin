@@ -10,13 +10,17 @@ angular.module('Application')
     $scope.goBack=function(){
         $scope.go("application.dashboard.list");
     }
+    
+    
 
     var sensor_grid_id=$stateParams.id;
 
-    $scope.SelectedIndex="info";
+    var tabs=["info", "sensors", "location", "settings"];
+    
+    $scope.SelectedIndex=tabs.indexOf($stateParams.tab)>-1?$stateParams.tab:"info";
 
     $scope.select=function(index){
-        $scope.SelectedIndex=index;
+        $rootScope.go("application.dashboard.detail", {id:sensor_grid_id, tab:index });
     }
 
     $scope.editable={

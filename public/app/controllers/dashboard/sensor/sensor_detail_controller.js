@@ -14,10 +14,12 @@ angular.module('Application')
     }
 
 
-    $scope.SelectedIndex="info";
+    var tabs=["info", "settings"];
+    
+    $scope.SelectedIndex=tabs.indexOf($stateParams.tab)>-1?$stateParams.tab:"info";
 
     $scope.select=function(index){
-        $scope.SelectedIndex=index;
+        $rootScope.go("application.sensor.detail", {id:sensor_id, tab:index });
     }
 
     $scope.copyToClipboard = function (text) {

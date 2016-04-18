@@ -12,7 +12,7 @@ angular.module('Application')
 
     var magnitude_id=$stateParams.id;
     
-    $scope.SelectedIndex="info";
+   
     
     $scope.Digital=function(){
         return $scope.magnitude?$scope.magnitude.type==="1":false;
@@ -24,12 +24,16 @@ angular.module('Application')
         type:false,
         digital_units:false
     };
+    
+     var tabs=["info", "units", "conversions"];
+    
+    $scope.SelectedIndex=tabs.indexOf($stateParams.tab)>-1?$stateParams.tab:"info";
 
 
     $scope.select=function(index){
         if($scope.magnitude.type){
             if((index!=="conversions"&&$scope.magnitude.type!==1)||(index=="conversions"&&$scope.magnitude.type==0)){
-                $scope.SelectedIndex=index;
+                  $rootScope.go("application.magnitudes.detail", {id:magnitude_id, tab:index });
 
             }
         }

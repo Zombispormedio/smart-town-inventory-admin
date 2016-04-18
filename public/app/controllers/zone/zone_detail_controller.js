@@ -17,10 +17,13 @@ angular.module('Application')
     var zone_id=$stateParams.id;
 
 
-    $scope.SelectedIndex="info";
+    
+    var tabs=["info", "location"];
+    
+    $scope.SelectedIndex=tabs.indexOf($stateParams.tab)>-1?$stateParams.tab:"info";
 
     $scope.select=function(index){
-        $scope.SelectedIndex=index;
+        $rootScope.go("application.zones.detail", {id:zone_id, tab:index });
     }
 
 

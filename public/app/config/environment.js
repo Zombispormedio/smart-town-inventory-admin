@@ -80,7 +80,7 @@ angular.module('Application')
         }
     })
     .state("application.magnitudes.detail", {
-        url: '/:id/:tab',
+        url: '/:id?:tab',
         onEnter: validUser,
         views: {
             'inner': {
@@ -121,7 +121,7 @@ angular.module('Application')
         }
     })
     .state("application.zones.detail", {
-        url: '/:id/:tab',
+        url: '/:id?:tab',
         onEnter: validUser,
         views: {
             'inner': {
@@ -161,7 +161,7 @@ angular.module('Application')
         }
     })
     .state("application.dashboard.detail", {
-        url: 'sensor_grid/:id/:tab',
+        url: 'sensor_grid/:id?:tab',
         onEnter: validUser,
         views: {
             'inner': {
@@ -191,7 +191,7 @@ angular.module('Application')
         }
     })
     .state("application.sensor.detail", {
-        url: '/:id//:tab',
+        url: '/:id?:tab',
         onEnter: validUser,
         views: {
             'inner': {
