@@ -1,0 +1,49 @@
+<ui-title>Invitation</ui-title>
+<div  layout="row" layout-align="center center" layout-fill id="login-body" md-theme="smartTheme">
+
+
+    <div layout="column" flex-gt-md="35" flex-xs="50" flex-gt-xs="50" layout-padding>
+
+        <div layout="row" layout-align="center center">
+            <h2><i class="icon house_with_garden_72"></i><br>Welcome! <br>Smart Town Administration</h2>
+        </div>
+
+        <md-card layout="row" >
+            <form name="loginForm" flex layout="column" layout-align="center stretch" layout-padding layout-margin>
+                <h3 flex>Join us!</h3>
+                <md-input-container  class="md-block" flex>
+                    <label>Password</label>
+
+                    <input type="password" required name="password" ng-model="user.password" >
+                    <div ng-messages="loginForm.password.$error" multiple md-auto-hide="false" ng-if='loginForm.password.$dirty'>
+                        <div ng-message="required">This is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container   class="md-block" flex>
+                    <label>Repeat Password</label>
+
+                    <input ng-model="user.repeat_password" type="password" name="repeatPassword" required>
+                    <div ng-messages="loginForm.repeatPassword.$error" md-auto-hide="false" ng-if="loginForm.repeatPassword.$dirty">
+                        <div ng-message="required">This is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container layout-align="center center" flex>
+                    <div layout="row" layout-sm="column" layout-margin>
+                        <md-button class="md-raised" type="submit" ng-click="signIn()" flex flex-sm="100" ng>Sign in</md-button>
+
+                    </div>
+                </md-input-container>
+
+            </form>
+
+        </md-card>
+
+
+        <div layout="row" layout-align="center center">
+            <h5><i class="mdi mdi-copyright"></i> Smart Town 2016</h5>
+        </div>
+
+
+    </div>
+
+</div>

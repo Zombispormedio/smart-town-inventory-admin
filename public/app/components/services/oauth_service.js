@@ -40,8 +40,14 @@ angular.module('Application')
 
             });
         },
-          Invitation:function(){
-            return ApiService.rest(this.base+"/invitation", {
+          Invite:function(){
+            return ApiService.rest(this.base+"/invite", {
+                set:{method:"POST", params:{}}
+            });
+        },
+        Invitation:function(){
+            return ApiService.rest(this.base+"/invitation/:code", {
+                check:{method:"GET", params:{code:"@code"}},
                 set:{method:"POST", params:{}}
             });
         },

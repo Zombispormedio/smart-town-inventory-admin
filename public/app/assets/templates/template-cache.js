@@ -71,6 +71,66 @@ try {
   module = angular.module('Application', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('/views/_invitation/main.html',
+    '<ui-title>Invitation</ui-title>\n' +
+    '<div  layout="row" layout-align="center center" layout-fill id="login-body" md-theme="smartTheme">\n' +
+    '\n' +
+    '\n' +
+    '    <div layout="column" flex-gt-md="35" flex-xs="50" flex-gt-xs="50" layout-padding>\n' +
+    '\n' +
+    '        <div layout="row" layout-align="center center">\n' +
+    '            <h2><i class="icon house_with_garden_72"></i><br>Welcome! <br>Smart Town Administration</h2>\n' +
+    '        </div>\n' +
+    '\n' +
+    '        <md-card layout="row" >\n' +
+    '            <form name="loginForm" flex layout="column" layout-align="center stretch" layout-padding layout-margin>\n' +
+    '                <h3 flex>Join us!</h3>\n' +
+    '                <md-input-container  class="md-block" flex>\n' +
+    '                    <label>Password</label>\n' +
+    '\n' +
+    '                    <input type="password" required name="password" ng-model="user.password" >\n' +
+    '                    <div ng-messages="loginForm.password.$error" multiple md-auto-hide="false" ng-if=\'loginForm.password.$dirty\'>\n' +
+    '                        <div ng-message="required">This is required.</div>\n' +
+    '                    </div>\n' +
+    '                </md-input-container>\n' +
+    '                <md-input-container   class="md-block" flex>\n' +
+    '                    <label>Repeat Password</label>\n' +
+    '\n' +
+    '                    <input ng-model="user.repeat_password" type="password" name="repeatPassword" required>\n' +
+    '                    <div ng-messages="loginForm.repeatPassword.$error" md-auto-hide="false" ng-if="loginForm.repeatPassword.$dirty">\n' +
+    '                        <div ng-message="required">This is required.</div>\n' +
+    '                    </div>\n' +
+    '                </md-input-container>\n' +
+    '                <md-input-container layout-align="center center" flex>\n' +
+    '                    <div layout="row" layout-sm="column" layout-margin>\n' +
+    '                        <md-button class="md-raised" type="submit" ng-click="signIn()" flex flex-sm="100" ng>Sign in</md-button>\n' +
+    '\n' +
+    '                    </div>\n' +
+    '                </md-input-container>\n' +
+    '\n' +
+    '            </form>\n' +
+    '\n' +
+    '        </md-card>\n' +
+    '\n' +
+    '\n' +
+    '        <div layout="row" layout-align="center center">\n' +
+    '            <h5><i class="mdi mdi-copyright"></i> Smart Town 2016</h5>\n' +
+    '        </div>\n' +
+    '\n' +
+    '\n' +
+    '    </div>\n' +
+    '\n' +
+    '</div>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('Application');
+} catch (e) {
+  module = angular.module('Application', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('/views/_login/main.html',
     '<ui-title>Sign in</ui-title>\n' +
     '\n' +

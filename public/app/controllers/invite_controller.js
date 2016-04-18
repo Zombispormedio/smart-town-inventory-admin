@@ -10,7 +10,7 @@ angular.module('Application')
     
     $scope.sendInvitation=function(){
         if($scope.guest.email!==""){
-             OAuthService.Invitation().set($scope.guest, RequestService.Message($scope.goBack), RequestService.Error());
+             OAuthService.Invite().set($scope.guest, RequestService.Message($scope.goBack), RequestService.Error());
         }
     }
 });

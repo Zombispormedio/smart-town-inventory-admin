@@ -20,6 +20,17 @@ angular.module('Application')
         controller:"LoginCtrl"
 
     })
+    .state("invitation", {
+        url:"/invitation/:code",
+        onEnter:function($rootScope){
+            if(getLocal("user")){
+                $rootScope.go("application.dashboard.list");
+            } 
+        },
+        templateUrl:'/views/_invitation/main.html',
+        controller:"InvitationCtrl"
+
+    })
         .state("application", {
         url:"",
         onEnter:validUser,
@@ -209,6 +220,7 @@ angular.module('Application')
             }
         }
     })
+    
 
 
 
