@@ -274,7 +274,30 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('/views/_application/_invite/main.html',
-    '<ui-title>Invite</ui-title>');
+    '<ui-title>Invite</ui-title>\n' +
+    '<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">\n' +
+    '    <div class=" toolbar-create md-toolbar-tools" layout="row">\n' +
+    '        <md-button aria-label="Go Back" flex="10" class="button-back" ng-click="goBack()">\n' +
+    '            <i class="mdi mdi-chevron-left"></i>Go Back\n' +
+    '        </md-button>\n' +
+    '        <h2 flex>\n' +
+    '            <span>Invite People</span>\n' +
+    '        </h2>\n' +
+    '    </div>\n' +
+    '</md-toolbar>\n' +
+    '<md-content layout-padding layout="column" md-theme="smartTheme" layout-align="none center">\n' +
+    '\n' +
+    '    <h3 style="font-size:2.5em" flex>Invite someone to work in the project</h3>\n' +
+    '    <p style="font-size:2em; margin-top: -3%;" flex>More admin, more sensors</p>\n' +
+    '\n' +
+    '    <md-input-container flex style="width: 40%;">\n' +
+    '       <label>Someone Email</label>\n' +
+    '        <input ng-model="guest.email" aria-label="email" >\n' +
+    '    </md-input-container>\n' +
+    '    <div flex class="button-create button-invite" layout="row" layout-align="center center">\n' +
+    '     <md-button class="md-raised md-primary md-invite">Invite, please</md-button>\n' +
+    '    </div>\n' +
+    '</md-content>');
 }]);
 })();
 
