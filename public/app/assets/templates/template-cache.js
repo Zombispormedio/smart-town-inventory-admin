@@ -88,7 +88,7 @@ module.run(['$templateCache', function($templateCache) {
     '                <md-input-container  class="md-block" flex>\n' +
     '                    <label>Password</label>\n' +
     '\n' +
-    '                    <input type="password" required name="password" ng-model="user.password" >\n' +
+    '                    <input type="password" required name="password" ng-model="guest.password" >\n' +
     '                    <div ng-messages="loginForm.password.$error" multiple md-auto-hide="false" ng-if=\'loginForm.password.$dirty\'>\n' +
     '                        <div ng-message="required">This is required.</div>\n' +
     '                    </div>\n' +
@@ -96,7 +96,7 @@ module.run(['$templateCache', function($templateCache) {
     '                <md-input-container   class="md-block" flex>\n' +
     '                    <label>Repeat Password</label>\n' +
     '\n' +
-    '                    <input ng-model="user.repeat_password" type="password" name="repeatPassword" required>\n' +
+    '                    <input ng-model="guest.repeat_password" type="password" name="repeatPassword" required>\n' +
     '                    <div ng-messages="loginForm.repeatPassword.$error" md-auto-hide="false" ng-if="loginForm.repeatPassword.$dirty">\n' +
     '                        <div ng-message="required">This is required.</div>\n' +
     '                    </div>\n' +
