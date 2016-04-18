@@ -191,11 +191,65 @@ module.run(['$templateCache', function($templateCache) {
     '    </div>\n' +
     '    <md-divider></md-divider>\n' +
     '    <div flex class="button-create" layout="row" layout-align="center center">\n' +
-    '        <md-button class="md-raised md-primary">Change Password</md-button>\n' +
+    '        <md-button class="md-raised md-primary" ng-click="OpenPasswordDialog($event)">Change Password</md-button>\n' +
     '        <md-button class="md-raised md-primary" style="background-color: #FF5722; margin-left: 10%;">Delete Account</md-button>\n' +
     '    </div>\n' +
     '</md-content>\n' +
     '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('Application');
+} catch (e) {
+  module = angular.module('Application', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('/views/_application/_account/password.html',
+    '<md-dialog aria-label="New Conversion"  ng-cloak class="conversion-dialog">\n' +
+    '    <form>\n' +
+    '        <md-toolbar>\n' +
+    '            <div class="md-toolbar-tools">\n' +
+    '                <h2>Change Password</h2>\n' +
+    '                <span flex></span>\n' +
+    '                <md-button class="md-icon-button" ng-click="cancel()">\n' +
+    '                    <md-icon class="mdi" md-font-icon="mdi-close"  aria-label="Close dialog"></md-icon>\n' +
+    '                </md-button>\n' +
+    '            </div>\n' +
+    '        </md-toolbar>\n' +
+    '        <md-dialog-content md-theme="smartTheme">\n' +
+    '            <div class="md-dialog-content" layout="column">\n' +
+    '                <md-input-container flex >\n' +
+    '                    <label>Password</label>\n' +
+    '                    <input ng-model="user.password" type="password" aria-label="Password" >\n' +
+    '                </md-input-container>\n' +
+    '                \n' +
+    '                 <md-input-container flex >\n' +
+    '                    <label>Repeat Password</label>\n' +
+    '                    <input ng-model="user.repeat_password" type="password" aria-label="Repeat Password" >\n' +
+    '                </md-input-container>\n' +
+    '                \n' +
+    '                <div class="errors" flex>\n' +
+    '                    <p ng-if="errors.Empty" >Error: PasswordEmpty</p>\n' +
+    '                    <p ng-if="errors.Equals">Error: Password Equals</p>\n' +
+    '               \n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '        </md-dialog-content>\n' +
+    '        <md-dialog-actions layout="row">\n' +
+    '\n' +
+    '            <span flex></span>\n' +
+    '            <md-button ng-click="cancel()">\n' +
+    '                Cancel\n' +
+    '            </md-button>\n' +
+    '            <md-button ng-click="confirm()" >\n' +
+    '                Confirm\n' +
+    '            </md-button>\n' +
+    '\n' +
+    '        </md-dialog-actions>\n' +
+    '    </form>\n' +
+    '</md-dialog>');
 }]);
 })();
 
