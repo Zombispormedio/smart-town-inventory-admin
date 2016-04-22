@@ -17,9 +17,9 @@ angular.module('Application')
     var zone_id=$stateParams.id;
 
 
-    
+
     var tabs=["info", "location"];
-    
+
     $scope.SelectedIndex=tabs.indexOf($stateParams.tab)>-1?$stateParams.tab:"info";
 
     $scope.select=function(index){
@@ -157,11 +157,24 @@ angular.module('Application')
 
                 break;
         }
-       ZoneService.Shape().set({id:zone_id},{shape:$scope.zone.shape}, RequestService.Data(function(data){
+
+
+        var zone=angular.copy($scope.zone);
+        zone.center=reverse(zone.center);
+        zone.shape.center=reverse(zone.shape.center);
+        zone.shape.bounds=reverse2d(zone.shape.bounds);
+        zone.shape.paths=  reverse2d(zone.shape.paths);
+
+
+        ZoneService.Shape().set({id:zone_id},{shape:zone.shape, center:zone.center}, RequestService.Data(function(data){
             $scope.zone=data;
+            $scope.zone.center=reverse(zone.center);
+            $scope.zone.shape.center=reverse(zone.shape.center);
+            $scope.zone.shape.bounds=reverse2d(zone.shape.bounds);
+            $scope.zone.shape.paths=  reverse2d(zone.shape.paths);
             $scope.editable.location=false;                                                  
         }), RequestService.Error());
-  
+
     }
 
     $scope.updateLocation=function(){
@@ -216,7 +229,13 @@ angular.module('Application')
 
     this.ZoneById=function(){
         ZoneService.Basic().byId({id:zone_id}, RequestService.Data(function(data){
-            $scope.zone=data;
+            var zone=data;
+
+            zone.center=reverse(zone.center);
+            zone.shape.center=reverse(zone.shape.center);
+            zone.shape.bounds=reverse2d(zone.shape.bounds);
+            zone.shape.paths=  reverse2d(zone.shape.paths);
+            $scope.zone=zone;
         }), RequestService.Error());
     }
 

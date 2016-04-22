@@ -368,87 +368,6 @@ try {
   module = angular.module('Application', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('/views/_application/_tasks/main.html',
-    '<ui-title>Tasks</ui-title>\n' +
-    '<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">\n' +
-    '    <div class="md-toolbar-tools" layout="row"  layout-align="start center">\n' +
-    '\n' +
-    '        <md-input-container md-no-float class="md-block" flex> \n' +
-    '            <md-icon  md-font-icon="mdi-magnify" class="mdi"></md-icon>             \n' +
-    '            <input type="text" ng-model="searchObject.text" placeholder="Filter tasks">\n' +
-    '        </md-input-container>\n' +
-    '\n' +
-    '        <md-button class="md-icon-button" aria-label="More" flex="5" ng-click="create()">\n' +
-    '            <md-icon md-font-icon="mdi-plus" class="mdi"></md-icon>\n' +
-    '        </md-button>\n' +
-    '    </div>\n' +
-    '</md-toolbar>\n' +
-    '\n' +
-    '<md-content layout-padding layout="column" md-theme="smartTheme" class="list">\n' +
-    '\n' +
-    '  <md-list  ng-cloak class="list-content">\n' +
-    '        <div ng-repeat="task in tasks| search:\'display_name\':searchObject">\n' +
-    '\n' +
-    '                <md-list-item layout="row" class="task-item" ng-init="task.editable=false">\n' +
-    '                  <md-icon flex="5" md-font-icon="mdi-alarm-check" class="mdi list-type-icon"></md-icon> \n' +
-    '\n' +
-    '                    <md-input-container flex="20">\n' +
-    '                        <label>Display Name</label>\n' +
-    '                        <input ng-model="task.display_name" type="text" aria-label="Display Name"  ng-disabled="!task.editable">\n' +
-    '                    </md-input-container>\n' +
-    '\n' +
-    '                    <md-input-container flex="50">\n' +
-    '                        <label>Webhook</label>\n' +
-    '                        <input ng-model="task.webhook" type="text" aria-label="Webhook"  ng-disabled="!task.editable">\n' +
-    '                    </md-input-container>\n' +
-    '\n' +
-    '                    <md-input-container flex="10" class="task-select">\n' +
-    '                        <label>Frequency</label>\n' +
-    '                        <md-select ng-model="task.frequency" ng-disabled="!task.editable">\n' +
-    '                            <md-option  value="week">\n' +
-    '                                Each Week\n' +
-    '                            </md-option>\n' +
-    '                            <md-option  value="day">\n' +
-    '                                Each Day\n' +
-    '                            </md-option>\n' +
-    '                            <md-option  value="hour">\n' +
-    '                                Each Hour\n' +
-    '                            </md-option>\n' +
-    '                        </md-select>\n' +
-    '                    </md-input-container>\n' +
-    '                    <md-button class="md-primary" aria-label="start update" ng-if="!task.editable" ng-click="task.editable=true">\n' +
-    '                        <i class="mdi mdi-pencil"></i>\n' +
-    '                    </md-button>\n' +
-    '                      <md-button class="md-primary" aria-label="update" ng-if="task.editable" ng-click="update(task, $index)">\n' +
-    '                          <span>Update</span>\n' +
-    '                    </md-button>\n' +
-    '                    <md-button class="md-primary" aria-label="Delete" ng-click="delete(task._id)">\n' +
-    '                        <i class="mdi mdi-delete"></i>\n' +
-    '                    </md-button>\n' +
-    '\n' +
-    '                </md-list-item>\n' +
-    '                \n' +
-    '                 \n' +
-    '            \n' +
-    '            <md-divider ng-if="!$last"></md-divider>\n' +
-    '        </div>\n' +
-    '        <md-list-item ng-if="tasks.length==0">\n' +
-    '            No Tasks\n' +
-    '        </md-list-item>\n' +
-    '    </md-list>\n' +
-    '\n' +
-    '</md-content>\n' +
-    '');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('Application');
-} catch (e) {
-  module = angular.module('Application', []);
-}
-module.run(['$templateCache', function($templateCache) {
   $templateCache.put('/views/_application/_magnitudes/conversion.html',
     '<md-dialog aria-label="New Conversion"  ng-cloak class="conversion-dialog">\n' +
     '    <form>\n' +
@@ -823,6 +742,87 @@ module.run(['$templateCache', function($templateCache) {
     '</md-content>\n' +
     '\n' +
     '\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('Application');
+} catch (e) {
+  module = angular.module('Application', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('/views/_application/_tasks/main.html',
+    '<ui-title>Tasks</ui-title>\n' +
+    '<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">\n' +
+    '    <div class="md-toolbar-tools" layout="row"  layout-align="start center">\n' +
+    '\n' +
+    '        <md-input-container md-no-float class="md-block" flex> \n' +
+    '            <md-icon  md-font-icon="mdi-magnify" class="mdi"></md-icon>             \n' +
+    '            <input type="text" ng-model="searchObject.text" placeholder="Filter tasks">\n' +
+    '        </md-input-container>\n' +
+    '\n' +
+    '        <md-button class="md-icon-button" aria-label="More" flex="5" ng-click="create()">\n' +
+    '            <md-icon md-font-icon="mdi-plus" class="mdi"></md-icon>\n' +
+    '        </md-button>\n' +
+    '    </div>\n' +
+    '</md-toolbar>\n' +
+    '\n' +
+    '<md-content layout-padding layout="column" md-theme="smartTheme" class="list">\n' +
+    '\n' +
+    '  <md-list  ng-cloak class="list-content">\n' +
+    '        <div ng-repeat="task in tasks| search:\'display_name\':searchObject">\n' +
+    '\n' +
+    '                <md-list-item layout="row" class="task-item" ng-init="task.editable=false">\n' +
+    '                  <md-icon flex="5" md-font-icon="mdi-alarm-check" class="mdi list-type-icon"></md-icon> \n' +
+    '\n' +
+    '                    <md-input-container flex="20">\n' +
+    '                        <label>Display Name</label>\n' +
+    '                        <input ng-model="task.display_name" type="text" aria-label="Display Name"  ng-disabled="!task.editable">\n' +
+    '                    </md-input-container>\n' +
+    '\n' +
+    '                    <md-input-container flex="50">\n' +
+    '                        <label>Webhook</label>\n' +
+    '                        <input ng-model="task.webhook" type="text" aria-label="Webhook"  ng-disabled="!task.editable">\n' +
+    '                    </md-input-container>\n' +
+    '\n' +
+    '                    <md-input-container flex="10" class="task-select">\n' +
+    '                        <label>Frequency</label>\n' +
+    '                        <md-select ng-model="task.frequency" ng-disabled="!task.editable">\n' +
+    '                            <md-option  value="week">\n' +
+    '                                Each Week\n' +
+    '                            </md-option>\n' +
+    '                            <md-option  value="day">\n' +
+    '                                Each Day\n' +
+    '                            </md-option>\n' +
+    '                            <md-option  value="hour">\n' +
+    '                                Each Hour\n' +
+    '                            </md-option>\n' +
+    '                        </md-select>\n' +
+    '                    </md-input-container>\n' +
+    '                    <md-button class="md-primary" aria-label="start update" ng-if="!task.editable" ng-click="task.editable=true">\n' +
+    '                        <i class="mdi mdi-pencil"></i>\n' +
+    '                    </md-button>\n' +
+    '                      <md-button class="md-primary" aria-label="update" ng-if="task.editable" ng-click="update(task, $index)">\n' +
+    '                          <span>Update</span>\n' +
+    '                    </md-button>\n' +
+    '                    <md-button class="md-primary" aria-label="Delete" ng-click="delete(task._id)">\n' +
+    '                        <i class="mdi mdi-delete"></i>\n' +
+    '                    </md-button>\n' +
+    '\n' +
+    '                </md-list-item>\n' +
+    '                \n' +
+    '                 \n' +
+    '            \n' +
+    '            <md-divider ng-if="!$last"></md-divider>\n' +
+    '        </div>\n' +
+    '        <md-list-item ng-if="tasks.length==0">\n' +
+    '            No Tasks\n' +
+    '        </md-list-item>\n' +
+    '    </md-list>\n' +
+    '\n' +
+    '</md-content>\n' +
     '');
 }]);
 })();
@@ -1804,11 +1804,11 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '            <md-input-container flex>\n' +
     '                <label>Latitude</label>\n' +
-    '                <input input="text" ng-model="sensor_grid.location[0]" ng-disabled="!editable.location">\n' +
+    '                <input input="text" ng-model="sensor_grid.location[1]" ng-disabled="!editable.location">\n' +
     '            </md-input-container>\n' +
     '            <md-input-container flex>\n' +
     '                <label>Longitude</label>\n' +
-    '                <input input="text" ng-model="sensor_grid.location[1]" ng-disabled="!editable.location">\n' +
+    '                <input input="text" ng-model="sensor_grid.location[0]" ng-disabled="!editable.location">\n' +
     '            </md-input-container>\n' +
     '\n' +
     '            <div flex="10" layout="row" layout-align="center center">\n' +
@@ -1821,8 +1821,8 @@ module.run(['$templateCache', function($templateCache) {
     '            </div>\n' +
     '\n' +
     '        </div>\n' +
-    '        <ng-map center="{{editable.center}}">\n' +
-    '            <marker position="{{sensor_grid.location||\'[40.74, -74.18]\'}}" title="drag me" draggable="{{editable.location}}"></marker>\n' +
+    '        <ng-map center="{{editable.center|reverse}}">\n' +
+    '            <marker position="{{(sensor_grid.location| reverse)||\'[40.74, -74.18]\'}}" title="drag me" draggable="{{editable.location}}"></marker>\n' +
     '        </ng-map>\n' +
     '\n' +
     '    </div>\n' +

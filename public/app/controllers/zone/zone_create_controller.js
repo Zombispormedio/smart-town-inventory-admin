@@ -175,6 +175,13 @@ angular.module('Application')
             zone.display_name=chance.sentence({words: 3}).split(" ").join("").replace(".", "");
         }
 
+        zone.center=reverse(zone.center);
+        zone.shape.center=reverse(zone.shape.center);
+        zone.shape.bounds=reverse2d(zone.shape.bounds);
+        zone.shape.paths=  reverse2d(zone.shape.paths);
+
+
+
         ZoneService.Basic().new(zone, RequestService.Message($scope.goBack), RequestService.Error())
 
     }

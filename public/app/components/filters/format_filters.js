@@ -23,3 +23,32 @@ angular.module('Application').filter(
             return result;
         }}
 )
+
+
+angular.module('Application').filter(
+    "reverse", function(){
+        return function(items) {
+           var result=items;
+            
+            if(result){
+                result=_.clone(items).reverse();
+            }
+            
+            return result;
+        }}
+)
+
+angular.module('Application').filter(
+    "reverse2d", function(){
+        return function(items) {
+           var result=items;
+            
+            if(result){
+                result=_.clone(items).map(function(a){
+                    return a.reverse();
+                });
+            }
+            
+            return result;
+        }}
+)

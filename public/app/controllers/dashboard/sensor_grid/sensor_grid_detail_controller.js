@@ -10,13 +10,13 @@ angular.module('Application')
     $scope.goBack=function(){
         $scope.go("application.dashboard.list");
     }
-    
-    
+
+
 
     var sensor_grid_id=$stateParams.id;
 
     var tabs=["info", "sensors", "location", "settings"];
-    
+
     $scope.SelectedIndex=tabs.indexOf($stateParams.tab)>-1?$stateParams.tab:"info";
 
     $scope.select=function(index){
@@ -96,8 +96,8 @@ angular.module('Application')
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position){
                 $scope.$apply(function(){
-                    $scope.sensor_grid.location[0]=position.coords.latitude;
-                    $scope.sensor_grid.location[1]=position.coords.longitude;
+                    $scope.sensor_grid.location[1]=position.coords.latitude;
+                    $scope.sensor_grid.location[0]=position.coords.longitude;
                     $scope.editable.center=_.clone($scope.sensor_grid.location);
                 })
             });
@@ -113,8 +113,8 @@ angular.module('Application')
             var loc=marker.getPosition();
 
             $scope.$apply(function () {
-                $scope.sensor_grid.location[0]=loc.lat();
-                $scope.sensor_grid.location[1]=loc.lng();
+                $scope.sensor_grid.location[1]=loc.lat();
+                $scope.sensor_grid.location[0]=loc.lng();
 
             });
 
@@ -137,23 +137,23 @@ angular.module('Application')
     $scope.createSensor=function(){
         $scope.go("application.sensor.create", {sensor_grid:sensor_grid_id});
     }
-    
+
     var icons=["album", "barcode", "airballoon", "binoculars", "bulletin-board", "cat", "chemical-weapon", "cookie", "emoticon-poop", "fire"];    
     $scope.Icon=function(name){
-        
+
         var index=name.charCodeAt(0)%icons.length;
         return "mdi-"+icons[index];
     };
-    
-    
+
+
     $scope.deleteSensor=function(id){
-          SensorGridService.Sensors().del({id:sensor_grid_id, sensor_id:id}, self.SensorsAll, RequestService.Error());
+        SensorGridService.Sensors().del({id:sensor_grid_id, sensor_id:id}, self.SensorsAll, RequestService.Error());
     }
-    
+
     $scope.goToSensorDetail=function(id){
         $rootScope.go("application.sensor.detail", {id:id});
     }
-     
+
     this.SensorsAll=function(){
 
         SensorGridService.Sensors().all({id:sensor_grid_id}, RequestService.Data(function(data){
@@ -162,8 +162,8 @@ angular.module('Application')
     };
 
     this.SensorsAll();
-    
-    
+
+
     this.ZoneAll=function(){
 
         ZoneService.Basic().all( RequestService.Data(function(data){
@@ -186,9 +186,9 @@ angular.module('Application')
                 if($scope.sensor_grid.location==void 0)$scope.sensor_grid.location=[];
                 $scope.getCurrentLocation();
             }else{
-                console.log($scope.editable.center)
+
                 $scope.editable.center=_.clone($scope.sensor_grid.location);
-                 console.log($scope.editable.center)
+
             }
 
         }), RequestService.Error());

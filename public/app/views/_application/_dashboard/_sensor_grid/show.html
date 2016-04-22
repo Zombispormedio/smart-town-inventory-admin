@@ -161,11 +161,11 @@
 
             <md-input-container flex>
                 <label>Latitude</label>
-                <input input="text" ng-model="sensor_grid.location[0]" ng-disabled="!editable.location">
+                <input input="text" ng-model="sensor_grid.location[1]" ng-disabled="!editable.location">
             </md-input-container>
             <md-input-container flex>
                 <label>Longitude</label>
-                <input input="text" ng-model="sensor_grid.location[1]" ng-disabled="!editable.location">
+                <input input="text" ng-model="sensor_grid.location[0]" ng-disabled="!editable.location">
             </md-input-container>
 
             <div flex="10" layout="row" layout-align="center center">
@@ -178,8 +178,8 @@
             </div>
 
         </div>
-        <ng-map center="{{editable.center}}">
-            <marker position="{{sensor_grid.location||'[40.74, -74.18]'}}" title="drag me" draggable="{{editable.location}}"></marker>
+        <ng-map center="{{editable.center|reverse}}">
+            <marker position="{{(sensor_grid.location| reverse)||'[40.74, -74.18]'}}" title="drag me" draggable="{{editable.location}}"></marker>
         </ng-map>
 
     </div>
