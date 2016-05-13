@@ -1,5 +1,5 @@
 angular.module('Application')
-    .factory("AuthInterceptor", function($q, $location){
+    .factory("AuthInterceptor", function($rootScope, $q, $location){
     return {
         request: function(config){
             config.headers = config.headers || {};
@@ -24,7 +24,7 @@ angular.module('Application')
         responseError: function(rejection){
             if(rejection.status === 403) {
                  localStorage.user = '';
-                $location.path('/');
+                $rootScope.go("login");
                 return;
             }
             return $q.reject(rejection);
