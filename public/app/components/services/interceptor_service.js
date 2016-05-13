@@ -22,8 +22,7 @@ angular.module('Application')
             return response || $q.when(response);
         },
         responseError: function(rejection){
-            if(rejection.status === 403) {
-                console.error('Error de acceso');
+            if(rejection.status === 403 || rejection.status === 400) {
                  localStorage.user = '';
                 $location.path('/');
                 return;
