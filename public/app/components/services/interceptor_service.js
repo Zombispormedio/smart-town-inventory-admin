@@ -22,7 +22,7 @@ angular.module('Application')
             return response || $q.when(response);
         },
         responseError: function(rejection){
-            if(rejection.status === 403 || rejection.status === 400) {
+            if(rejection.status === 403) {
                  localStorage.user = '';
                 $location.path('/');
                 return;
