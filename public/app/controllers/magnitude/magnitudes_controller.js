@@ -1,11 +1,11 @@
 angular.module('Application')
-    .controller('MagnitudesCtrl',function($scope, $rootScope, MagnitudeService, RequestService, ThemeService){
+    .controller('MagnitudesCtrl',function($scope, $rootScope, MagnitudeService, RequestService, ThemeService, $window){
 
     var query={
         p:0,
         s:5
     }
-    $scope.page={
+    $scope.list={
         numItems:0,
 
         pageSize:0,
@@ -13,6 +13,8 @@ angular.module('Application')
         query:query,
         numPages:0
     };
+
+
 
     ThemeService.Content($scope, "background-theme-orange");
 
@@ -27,10 +29,6 @@ angular.module('Application')
     var types=["ANALOG", "DIGITAL"]
 
     var icons=["record", "adjust"];
-
-    $scope.searchObject={
-        text:""
-    };
 
     $scope.Icon=function(index){
         return "mdi-"+icons[index];
@@ -50,9 +48,9 @@ angular.module('Application')
         $scope.go("application.magnitudes.detail", {id:id});
     }
 
-     var createPagination=function(){
-        $scope.page.numPages=Math.ceil($scope.page.numItems/query.s);
-        $scope.page.pagination=Array.apply(0, Array($scope.page.numPages)).map(function(_, index){
+    var createPagination=function(){
+        $scope.list.numPages=Math.ceil($scope.list.numItems/query.s);
+        $scope.list.pagination=Array.apply(0, Array($scope.list.numPages)).map(function(_, index){
             return index;
         });
     }
@@ -67,9 +65,9 @@ angular.module('Application')
     }
 
     $scope.next=function(){
-        var page=$scope.page.query.p;
-        if(page<$scope.page.numPages){
-            $scope.page.query.p++;
+        var page=query.p+1;
+        if(page<$scope.list.numPages){
+            query.p++;
             fetch();
         }
 
@@ -77,21 +75,30 @@ angular.module('Application')
     }
 
     $scope.prev=function(){
-        var page=$scope.page.query.p;
+        var page=query.p;
         if(page>0){
-            $scope.page.query.p--;
-            console.log(query)
+            query.p--;
+
             fetch();
         }
     }
+    
+    
+    $scope.openTab=function(ev, id){
+        if(ev.which===3 && ev.button===2){
+            
+            $window.open("#/magnitudes/"+id,'_blank');
+        }
+    }
 
-
-
+    $scope.search=function(){
+            fetch();
+    }
 
     var fetch=function(){
 
         MagnitudeService.Count().get(query, RequestService.Data(function(data){
-            $scope.page.numItems=data;
+            $scope.list.numItems=data;
             createPagination();
         }), RequestService.Error());
 

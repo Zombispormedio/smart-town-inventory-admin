@@ -16,6 +16,9 @@ angular.module('Application')
     };
     
     $rootScope.statify=function(parent, child){
+        if(child=="Sensor"){
+            child="Dashboard";
+        }
         return child?$state.href(parent+"."+child.toLowerCase()):"";
     }
     

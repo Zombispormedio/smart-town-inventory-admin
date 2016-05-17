@@ -5,18 +5,29 @@ angular.module('Application')
         Basic:function(){
             return ApiService.rest(this.base+"/:id", {
                 new:{method:"POST", params:{}},
-                all:{method:"GET", params:{}},
                 byId:{method:"GET", params:{id:"@id"}},
                 del:{method:"DELETE", params:{id:"@id"}}
 
             });
         },
-         Secret:function(){
+
+        Search:function(){
+            return ApiService.rest(this.base+"s", {
+                all:{method:"GET", params:{}},
+            });
+        },
+        Count:function(){
+            return ApiService.rest(this.base+"s/count", {
+                get:{method:"GET", params:{}},
+            });
+        },
+
+        Secret:function(){
             return ApiService.rest(this.base+"/:id/secret", {
                 reload:{method:"GET", params:{id:"@id"}}
             });
         },
-         CommunicationCenter:function(){
+        CommunicationCenter:function(){
             return ApiService.rest(this.base+"/:id/communication_center", {
                 set:{method:"PUT", params:{id:"@id"}}
             });
@@ -31,7 +42,7 @@ angular.module('Application')
                 set:{method:"PUT", params:{id:"@id"}}
             });
         },
-         Access:function(){
+        Access:function(){
             return ApiService.rest(this.base+"/:id/access", {
                 allow:{method:"GET", params:{id:"@id"}}
             });
@@ -41,13 +52,19 @@ angular.module('Application')
                 set:{method:"PUT", params:{id:"@id"}}
             });
         },
-        
-         Sensors:function(){
+
+        Sensors:function(){
             return ApiService.rest(this.base+"/:id/sensors/:sensor_id", {
                 all:{method:"GET", params:{id:"@id"}},
-                 del:{method:"DELETE", params:{id:"@id", sensor_id:"@sensor_id"}}
+                del:{method:"DELETE", params:{id:"@id", sensor_id:"@sensor_id"}}
+            });
+        },
+        SensorsCount:function(){
+            return ApiService.rest(this.base+"/:id/sensors/count", {
+                get:{method:"GET", params:{id:"@id"}},
+               
             });
         }
-        
+
     }
 });

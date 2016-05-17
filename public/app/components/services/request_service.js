@@ -36,7 +36,8 @@ angular.module('Application')
         },
         Data:function(cb){
             return function(res){
-                if(!res.data){
+                
+                if(!res.data==void 0){
                     return $rootScope.showSimpleToast("No data");
                 }
                 var values=res.data;

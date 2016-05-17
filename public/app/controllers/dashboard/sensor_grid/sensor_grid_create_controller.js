@@ -23,7 +23,7 @@ angular.module('Application')
     
     this.ZoneAll=function(){
 
-        ZoneService.Basic().all( RequestService.Data(function(data){
+        ZoneService.Search().all( RequestService.Data(function(data){
             $scope.zones=data;
         }), RequestService.Error());
     };

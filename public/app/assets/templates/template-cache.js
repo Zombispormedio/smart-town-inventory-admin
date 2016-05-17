@@ -501,7 +501,7 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '        <md-input-container md-no-float class="md-block" flex> \n' +
     '            <md-icon  md-font-icon="mdi-magnify" class="mdi"></md-icon>             \n' +
-    '            <input type="text" ng-model="searchObject.text" placeholder="Filter magnitudes">\n' +
+    '            <input type="text" ng-model="list.query.search" placeholder="Filter magnitudes" ng-change="search()">\n' +
     '        </md-input-container>\n' +
     '\n' +
     '\n' +
@@ -514,9 +514,9 @@ module.run(['$templateCache', function($templateCache) {
     '    <md-content layout-padding layout="column" md-theme="smartTheme" class="list">\n' +
     '\n' +
     '        <md-list  ng-cloak class="list-content">\n' +
-    '            <div ng-repeat="magnitude in magnitudes| search:\'display_name\':searchObject">\n' +
+    '            <div ng-repeat="magnitude in magnitudes">\n' +
     '                <div  layout="row">\n' +
-    '                    <md-list-item  ng-click="goToDetail(magnitude._id)" flex>\n' +
+    '                    <md-list-item  ng-click="goToDetail(magnitude._id)" ng-mousedown="openTab($event, magnitude._id)" flex>\n' +
     '                        <md-icon  md-font-icon="{{Icon(magnitude.type)}}" class="mdi list-type-icon"></md-icon>  \n' +
     '                        <p> {{ magnitude.display_name }} </p>\n' +
     '                        <p  flex-offset="30"><span class="md-whiteframe-1dp" ng-class="{\'badge\':magnitude.type===\'0\', \'badge-negative\':magnitude.type===\'1\'}">{{Type(magnitude.type)}}</span></p>\n' +
@@ -529,6 +529,11 @@ module.run(['$templateCache', function($templateCache) {
     '                </div>\n' +
     '                <md-divider ng-if="!$last"></md-divider>\n' +
     '            </div>\n' +
+    '\n' +
+    '            <md-list-item ng-if="magnitudes.length==0">\n' +
+    '            No Magnitudes\n' +
+    '\n' +
+    '            </md-list-item>\n' +
     '        </md-list>\n' +
     '\n' +
     '\n' +
@@ -539,22 +544,22 @@ module.run(['$templateCache', function($templateCache) {
     '    <md-button class="md-icon-button" aria-label="Prev" flex="10" ng-click="prev()">\n' +
     '        <md-icon md-font-icon="mdi-skip-previous-circle-outline" class="mdi"></md-icon>\n' +
     '    </md-button>\n' +
-    '    <md-select ng-model="page.query.p" flex="5" md-container-class="pagination-size" class="select-page" ng-change="changePage()">\n' +
-    '        <md-option ng-repeat="p in page.pagination" value="{{p}}">{{p+1}}</md-option>\n' +
+    '    <md-select ng-model="list.query.p" flex="5" md-container-class="pagination-size" class="select-page" ng-change="changePage()" aria-label="Select Page">\n' +
+    '        <md-option ng-repeat="p in list.pagination" value="{{p}}">{{p+1}}</md-option>\n' +
     '    </md-select>\n' +
-    '    <span flex="10" flex-offset="5">/{{page.numPages}}</span>\n' +
+    '    <span flex="10" flex-offset="5">/{{list.numPages}}</span>\n' +
     '\n' +
     '    <md-button class="md-icon-button next" aria-label="Next" flex="10" ng-click="next()">\n' +
     '        <md-icon md-font-icon="mdi-skip-next-circle-outline" class="mdi"></md-icon>\n' +
     '    </md-button>\n' +
     '    <span class="label-size">Page Size</span>\n' +
-    '    <md-select ng-model="page.query.s" flex="5" md-container-class="pagination-size" ng-change="changeSize()">\n' +
-    '       <md-optgroup label="Page Size">\n' +
-    '        <md-option value="1">1</md-option>\n' +
-    '        <md-option value="5">5</md-option>\n' +
-    '        <md-option value="10">10</md-option>\n' +
-    '        <md-option value="50">50</md-option>\n' +
-    '        <md-option value="100">100</md-option>\n' +
+    '    <md-select ng-model="list.query.s" flex="5" md-container-class="pagination-size" ng-change="changeSize()" aria-label="Select Size">\n' +
+    '        <md-optgroup label="Page Size">\n' +
+    '            <md-option value="1">1</md-option>\n' +
+    '            <md-option value="5">5</md-option>\n' +
+    '            <md-option value="10">10</md-option>\n' +
+    '            <md-option value="50">50</md-option>\n' +
+    '            <md-option value="100">100</md-option>\n' +
     '        </md-optgroup>\n' +
     '    </md-select>\n' +
     '\n' +
@@ -973,7 +978,7 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '        <md-input-container md-no-float class="md-block" flex> \n' +
     '            <md-icon  md-font-icon="mdi-magnify" class="mdi"></md-icon>             \n' +
-    '            <input type="text" ng-model="searchObject.text" placeholder="Filter zones">\n' +
+    '            <input type="text" ng-model="list.query.search" placeholder="Filter zones" ng-change="search()">\n' +
     '        </md-input-container>\n' +
     '\n' +
     '\n' +
@@ -983,13 +988,14 @@ module.run(['$templateCache', function($templateCache) {
     '    </div>\n' +
     '</md-toolbar>\n' +
     '\n' +
+    '<div class="list-container">\n' +
     '\n' +
     '<md-content layout-padding layout="column" md-theme="smartTheme" class="list">\n' +
     '\n' +
     '    <md-list  ng-cloak class="list-content">\n' +
-    '        <div ng-repeat="zone in zones| search:\'display_name\':searchObject">\n' +
+    '        <div ng-repeat="zone in zones" >\n' +
     '            <div  layout="row">\n' +
-    '                <md-list-item  ng-click="goToDetail(zone._id)" flex>\n' +
+    '                <md-list-item  ng-click="goToDetail(zone._id)" ng-mousedown="openTab($event, zone._id)" flex>\n' +
     '                    <md-icon  md-font-icon="{{Icon(zone.shape.type)}}" class="mdi list-type-icon"></md-icon>  \n' +
     '                    <p> {{ zone.display_name }} </p>\n' +
     '                   \n' +
@@ -1001,9 +1007,40 @@ module.run(['$templateCache', function($templateCache) {
     '            </div>\n' +
     '            <md-divider ng-if="!$last"></md-divider>\n' +
     '        </div>\n' +
+    '        <md-list-item ng-if="zones.length==0">\n' +
+    '            No Zones\n' +
+    '\n' +
+    '            </md-list-item>\n' +
     '    </md-list>\n' +
     '\n' +
-    '</md-content>');
+    '</md-content>\n' +
+    '</div>\n' +
+    '\n' +
+    '\n' +
+    '<div layout="row" class="pagination"  flex-offset="50" md-theme="smartTheme">\n' +
+    '    <md-button class="md-icon-button" aria-label="Prev" flex="10" ng-click="prev()">\n' +
+    '        <md-icon md-font-icon="mdi-skip-previous-circle-outline" class="mdi"></md-icon>\n' +
+    '    </md-button>\n' +
+    '    <md-select ng-model="list.query.p" flex="5" md-container-class="pagination-size" class="select-page" ng-change="changePage()" aria-label="Select Page">\n' +
+    '        <md-option ng-repeat="p in list.pagination" value="{{p}}">{{p+1}}</md-option>\n' +
+    '    </md-select>\n' +
+    '    <span flex="10" flex-offset="5">/{{list.numPages}}</span>\n' +
+    '\n' +
+    '    <md-button class="md-icon-button next" aria-label="Next" flex="10" ng-click="next()">\n' +
+    '        <md-icon md-font-icon="mdi-skip-next-circle-outline" class="mdi"></md-icon>\n' +
+    '    </md-button>\n' +
+    '    <span class="label-size">Page Size</span>\n' +
+    '    <md-select ng-model="list.query.s" flex="5" md-container-class="pagination-size" ng-change="changeSize()" aria-label="Select Size">\n' +
+    '       <md-optgroup label="Page Size">\n' +
+    '        <md-option value="1">1</md-option>\n' +
+    '        <md-option value="5">5</md-option>\n' +
+    '        <md-option value="10">10</md-option>\n' +
+    '        <md-option value="50">50</md-option>\n' +
+    '        <md-option value="100">100</md-option>\n' +
+    '        </md-optgroup>\n' +
+    '    </md-select>\n' +
+    '\n' +
+    '</div>');
 }]);
 })();
 
@@ -1626,7 +1663,7 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '        <md-input-container md-no-float class="md-block" flex> \n' +
     '            <md-icon  md-font-icon="mdi-magnify" class="mdi"></md-icon>             \n' +
-    '            <input type="text" ng-model="searchObject.text" placeholder="Filter sensor grids">\n' +
+    '            <input type="text" ng-model="list.query.search"  placeholder="Filter sensor grids" ng-change="search()">\n' +
     '        </md-input-container>\n' +
     '\n' +
     '        <md-button class="md-icon-button" aria-label="More" flex="5" ng-click="create()">\n' +
@@ -1635,13 +1672,13 @@ module.run(['$templateCache', function($templateCache) {
     '    </div>\n' +
     '</md-toolbar>\n' +
     '\n' +
-    '\n' +
+    '<div class="list-container">\n' +
     '<md-content layout-padding layout="column" md-theme="smartTheme" class="list">\n' +
     '\n' +
     '    <md-list  ng-cloak class="list-content">\n' +
-    '        <div ng-repeat="sensor_grid in sensor_grids| search:\'display_name\':searchObject">\n' +
+    '        <div ng-repeat="sensor_grid in sensor_grids">\n' +
     '            <div  layout="row">\n' +
-    '                <md-list-item  ng-click="goToDetail(sensor_grid._id)" flex>\n' +
+    '                <md-list-item  ng-click="goToDetail(sensor_grid._id)" ng-mousedown="openTab($event, sensor_grid._id)" flex>\n' +
     '                    <md-icon  md-font-icon="{{Icon(sensor_grid.display_name)}}" class="mdi list-type-icon"></md-icon>  \n' +
     '                    <p> {{ sensor_grid.display_name }} </p>\n' +
     '                  \n' +
@@ -1654,9 +1691,40 @@ module.run(['$templateCache', function($templateCache) {
     '            </div>\n' +
     '            <md-divider ng-if="!$last"></md-divider>\n' +
     '        </div>\n' +
+    '         <md-list-item ng-if="sensor_grids.length==0">\n' +
+    '            No Sensor Grids\n' +
+    '\n' +
+    '            </md-list-item>\n' +
     '    </md-list>\n' +
     '\n' +
-    '</md-content>');
+    '</md-content>\n' +
+    '</div>\n' +
+    '\n' +
+    '\n' +
+    '<div layout="row" class="pagination"  flex-offset="50" md-theme="smartTheme">\n' +
+    '    <md-button class="md-icon-button" aria-label="Prev" flex="10" ng-click="prev()">\n' +
+    '        <md-icon md-font-icon="mdi-skip-previous-circle-outline" class="mdi"></md-icon>\n' +
+    '    </md-button>\n' +
+    '    <md-select ng-model="list.query.p" flex="5" md-container-class="pagination-size" class="select-page" ng-change="changePage()" aria-label="Select Page">\n' +
+    '        <md-option ng-repeat="p in list.pagination" value="{{p}}">{{p+1}}</md-option>\n' +
+    '    </md-select>\n' +
+    '    <span flex="10" flex-offset="5">/{{list.numPages}}</span>\n' +
+    '\n' +
+    '    <md-button class="md-icon-button next" aria-label="Next" flex="10" ng-click="next()">\n' +
+    '        <md-icon md-font-icon="mdi-skip-next-circle-outline" class="mdi"></md-icon>\n' +
+    '    </md-button>\n' +
+    '    <span class="label-size">Page Size</span>\n' +
+    '    <md-select ng-model="list.query.s" flex="5" md-container-class="pagination-size" ng-change="changeSize()" aria-label="Select Size">\n' +
+    '       <md-optgroup label="Page Size">\n' +
+    '        <md-option value="1">1</md-option>\n' +
+    '        <md-option value="5">5</md-option>\n' +
+    '        <md-option value="10">10</md-option>\n' +
+    '        <md-option value="50">50</md-option>\n' +
+    '        <md-option value="100">100</md-option>\n' +
+    '        </md-optgroup>\n' +
+    '    </md-select>\n' +
+    '\n' +
+    '</div>');
 }]);
 })();
 
@@ -1699,7 +1767,7 @@ module.run(['$templateCache', function($templateCache) {
     '</div>\n' +
     '\n' +
     '\n' +
-    '<md-content  ng-switch on="SelectedIndex" class="detail background-theme-orange" layout-padding >\n' +
+    '<md-content  ng-switch on="SelectedIndex" class="detail background-theme-orange" layout-padding ng-class="{\'hiddenY\':SelectedIndex===\'sensors\'}">\n' +
     '\n' +
     '    <div class="detail-info" ng-switch-when="info" layout="column" layout-align="center stretch">\n' +
     '        <md-card class="detail-form" flex>\n' +
@@ -1855,32 +1923,76 @@ module.run(['$templateCache', function($templateCache) {
     '    </div>\n' +
     '\n' +
     '    <div class="detail-sensors-list" ng-switch-when="sensors" layout="column" md-theme="smartTheme">\n' +
+    '        <div class="list-container">\n' +
+    '            <div class="md-whiteframe-1dp detail-content">\n' +
+    '                <md-button class="md-fab button-add" aria-label="Add sensor" ng-click="createSensor()">\n' +
+    '                    <md-icon md-font-icon="mdi-plus" class="mdi"></md-icon>\n' +
+    '                </md-button>\n' +
+    '                <md-list  ng-cloak class="list-content">\n' +
+    '                    <div ng-repeat="sensor in sensors | orderBy:\'-\'">\n' +
+    '                        <div  layout="row">\n' +
+    '                            <md-list-item  ng-click="goToSensorDetail(sensor._id)" flex="75">\n' +
+    '                                <md-icon  md-font-icon="{{Icon(sensor.display_name)}}" class="mdi list-type-icon"></md-icon> \n' +
+    '                                <p> {{ sensor.display_name }} </p>\n' +
     '\n' +
-    '        <div class="md-whiteframe-1dp detail-content">\n' +
-    '            <md-button class="md-fab button-add" aria-label="Add sensor" ng-click="createSensor()">\n' +
-    '                <md-icon md-font-icon="mdi-plus" class="mdi"></md-icon>\n' +
-    '            </md-button>\n' +
-    '            <md-list  ng-cloak class="list-content">\n' +
-    '                <div ng-repeat="sensor in sensors | orderBy:\'-\'">\n' +
-    '                    <div  layout="row">\n' +
-    '                        <md-list-item  ng-click="goToSensorDetail(sensor._id)" flex="75">\n' +
-    '                            <md-icon  md-font-icon="{{Icon(sensor.display_name)}}" class="mdi list-type-icon"></md-icon> \n' +
-    '                            <p> {{ sensor.display_name }} </p>\n' +
     '\n' +
+    '                            </md-list-item>\n' +
     '\n' +
-    '                        </md-list-item>\n' +
-    '\n' +
-    '                        <md-button class="md-primary" aria-label="Delete" ng-click="deleteSensor(sensor._id)" flex="5">\n' +
-    '                            <i class="mdi mdi-delete"></i>\n' +
-    '                        </md-button>\n' +
+    '                            <md-button class="md-primary" aria-label="Delete" ng-click="deleteSensor(sensor._id)" flex="5">\n' +
+    '                                <i class="mdi mdi-delete"></i>\n' +
+    '                            </md-button>\n' +
+    '                        </div>\n' +
+    '                        <md-divider ng-if="!$last"></md-divider>\n' +
     '                    </div>\n' +
-    '                    <md-divider ng-if="!$last"></md-divider>\n' +
-    '                </div>\n' +
-    '                <md-list-item ng-if="sensors.length===0">\n' +
-    '                    No Sensors\n' +
-    '                </md-list-item>\n' +
-    '            </md-list>\n' +
+    '                    <md-list-item ng-if="sensors.length===0">\n' +
+    '                        No Sensors\n' +
+    '                    </md-list-item>\n' +
+    '                </md-list>\n' +
+    '            </div>\n' +
     '        </div>\n' +
+    '\n' +
+    '        <div layout="row"> \n' +
+    '            <div flex="30">\n' +
+    '                <md-input-container md-no-float class="md-block" flex style="padding-top: 0; padding-bottom:0; margin: 0;"> \n' +
+    '                    <md-icon  md-font-icon="mdi-magnify" class="mdi"></md-icon>             \n' +
+    '                    <input type="text" ng-model="list.query.search"  placeholder="Filter sensor" ng-change="searchSensor()">\n' +
+    '                </md-input-container>\n' +
+    '            </div>\n' +
+    '\n' +
+    '\n' +
+    '            <div layout="row" flex class="pagination" flex-offset="20" md-theme="smartTheme">\n' +
+    '\n' +
+    '\n' +
+    '                <md-button class="md-icon-button prev" aria-label="Prev" flex="10" ng-click="prev()">\n' +
+    '                    <md-icon md-font-icon="mdi-skip-previous-circle-outline" class="mdi"></md-icon>\n' +
+    '                </md-button>\n' +
+    '                <div flex="5">\n' +
+    '                    <md-select ng-model="list.query.p" md-container-class="pagination-size" class="select-page" ng-change="changePage()" aria-label="Select Page">\n' +
+    '                        <md-option ng-repeat="p in list.pagination" value="{{p}}">{{p+1}}</md-option>\n' +
+    '                    </md-select>\n' +
+    '                </div>\n' +
+    '\n' +
+    '                <span flex="10" flex-offset="5">/{{list.numPages}}</span>\n' +
+    '\n' +
+    '                <md-button class="md-icon-button next" aria-label="Next" flex="10" ng-click="next()">\n' +
+    '                    <md-icon md-font-icon="mdi-skip-next-circle-outline" class="mdi"></md-icon>\n' +
+    '                </md-button>\n' +
+    '                <span class="label-size">Page Size</span>\n' +
+    '                <div flex="5">\n' +
+    '                    <md-select ng-model="list.query.s" md-container-class="pagination-size" ng-change="changeSize()" aria-label="Select Size">\n' +
+    '                        <md-optgroup label="Page Size">\n' +
+    '                            <md-option value="1">1</md-option>\n' +
+    '                            <md-option value="5">5</md-option>\n' +
+    '                            <md-option value="10">10</md-option>\n' +
+    '                            <md-option value="50">50</md-option>\n' +
+    '                            <md-option value="100">100</md-option>\n' +
+    '                        </md-optgroup>\n' +
+    '                    </md-select>\n' +
+    '                </div>\n' +
+    '\n' +
+    '            </div>\n' +
+    '        </div>\n' +
+    '\n' +
     '    </div>\n' +
     '</md-content>');
 }]);

@@ -10,7 +10,7 @@ angular.module('Application')
     var sensor_id=$stateParams.id;
 
     $scope.goBack=function(){
-        $scope.go("application.dashboard.detail", {id:$scope.sensor.sensor_grid});
+        $scope.go("application.dashboard.detail", {id:$scope.sensor.sensor_grid, tab:"sensors"});
     }
 
 
@@ -62,7 +62,7 @@ angular.module('Application')
 
     this.AllMagnitudes=function(){
 
-        MagnitudeService.Basic().all( RequestService.Data(function(data){
+        MagnitudeService.Search().all( RequestService.Data(function(data){
             $scope.magnitudes=data;
             self.setSelectedMagnitude();
         }), RequestService.Error());

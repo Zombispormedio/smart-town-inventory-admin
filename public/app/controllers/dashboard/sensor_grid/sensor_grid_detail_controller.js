@@ -1,5 +1,5 @@
 angular.module('Application')
-    .controller('DetailSensorGridCtrl',function($rootScope, $scope, $stateParams, SensorGridService, ZoneService, RequestService, ThemeService, clipboard, NgMap){
+    .controller('DetailSensorGridCtrl',function($rootScope, $scope, $stateParams, SensorGridService, ZoneService, RequestService, ThemeService, clipboard, NgMap, $window){
 
     var self=this;
     ThemeService.Content($scope, "background-theme-orange");
@@ -147,26 +147,17 @@ angular.module('Application')
 
 
     $scope.deleteSensor=function(id){
-        SensorGridService.Sensors().del({id:sensor_grid_id, sensor_id:id}, self.SensorsAll, RequestService.Error());
+        SensorGridService.Sensors().del({id:sensor_grid_id, sensor_id:id}, fetchSensor, RequestService.Error());
     }
 
     $scope.goToSensorDetail=function(id){
         $rootScope.go("application.sensor.detail", {id:id});
     }
 
-    this.SensorsAll=function(){
-
-        SensorGridService.Sensors().all({id:sensor_grid_id}, RequestService.Data(function(data){
-            $scope.sensors=data;
-        }), RequestService.Error());
-    };
-
-    this.SensorsAll();
-
 
     this.ZoneAll=function(){
 
-        ZoneService.Basic().all( RequestService.Data(function(data){
+        ZoneService.Search().all( RequestService.Data(function(data){
             $scope.zones=data;
         }), RequestService.Error());
     };
@@ -195,4 +186,88 @@ angular.module('Application')
     }
 
     this.SensorGridById();
+
+
+
+
+    var query={
+        p:0,
+        s:5,
+        id:sensor_grid_id
+    }
+    $scope.list={
+        numItems:0,
+
+        pageSize:0,
+        pagination:[],
+        query:query,
+        numPages:0
+    };
+
+
+
+    var createPagination=function(){
+        $scope.list.numPages=Math.ceil($scope.list.numItems/query.s);
+        $scope.list.pagination=Array.apply(0, Array($scope.list.numPages)).map(function(_, index){
+            return index;
+        });
+    }
+
+    $scope.changePage=function(){
+        fetchSensor();
+    }
+
+    $scope.changeSize=function(){
+        query.p=0;
+        fetchSensor();
+    }
+
+    $scope.next=function(){
+        var page=query.p+1;
+       
+        if(page<$scope.list.numPages){
+            query.p++;
+            fetchSensor();
+        }
+
+
+    }
+
+    $scope.prev=function(){
+        var page=query.p;
+        if(page>0){
+            query.p--;
+
+            fetchSensor();
+        }
+    }
+
+
+    $scope.openSensorTab=function(ev, id){
+        if(ev.which===3 && ev.button===2){
+
+            $window.open("#/sensor/"+id,'_blank');
+        }
+    }
+
+    $scope.searchSensor=function(){
+        fetchSensor();
+    }
+
+    var fetchSensor=function(){
+
+        SensorGridService.SensorsCount().get(query, RequestService.Data(function(data){
+            $scope.list.numItems=data;
+
+            createPagination();
+        }), RequestService.Error());
+
+        SensorGridService.Sensors().all(query, RequestService.Data(function(data){
+            $scope.sensors=data;
+        }), RequestService.Error());
+    };
+
+    fetchSensor();
+
+
 });

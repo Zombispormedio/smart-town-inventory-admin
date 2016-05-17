@@ -18,6 +18,10 @@
     }
 }
 
+.hiddenY{
+    overflow-y: hidden;
+}
+
 .detail-location{
     overflow-y: auto;
     background-color: white;
@@ -33,32 +37,46 @@
 }
 
 .detail-sensors-list{
-    .detail-content{
-        overflow-y: auto;
-        background-color: $white;
-        max-height: 400px;
-        .button-add{
-            position:fixed;
-            margin-right: 4%;
-            right: 0;
-            margin-top: -1%;
-            font-size: 1.8em;
-            background-color: #FF9800;
-            &:hover{
+
+    .list-container{
+        height: 365px;
+        .detail-content{
+            overflow-y: auto;
+            background-color: $white;
+            max-height: 365px;
+            .button-add{
+                position:fixed;
+                margin-right: 4%;
+                right: 0;
+                margin-top: -1%;
+                font-size: 1.8em;
                 background-color: #FF9800;
+                &:hover{
+                    background-color: #FF9800;
+                }
+                md-icon{
+                    margin-top: -13px;
+                    color: $white;
+                }
             }
-            md-icon{
-                margin-top: -13px;
-                color: $white;
+
+            .operation{
+                padding-top: 1.5%;
+            }
+
+            .md-delete{
+                min-width: 20px !important;
             }
         }
 
-        .operation{
-            padding-top: 1.5%;
+    }
+    .pagination{
+        span{
+            margin-top: 1%!important;
         }
+        .prevs{
+            margin-right: 5%;
 
-        .md-delete{
-            min-width: 20px !important;
         }
     }
 }
@@ -74,7 +92,7 @@
     }
     .sensor-raw-input{
         margin-top: 4%;
-            height: 4em;
+        height: 4em;
         md-checkbox{
             margin-left: 30%;
         }
@@ -84,17 +102,17 @@
 
 #sensor-detail{
     .display-name{
-           height: 8em; 
+        height: 8em; 
     }
     .divider-display-name{
-           margin-top: -15%; 
+        margin-top: -15%; 
     }
-    
+
     .sensor-magnitude-input{
         margin-top: -4%;
     }
     .sensor-raw-input{
         margin-top: -3%;
-        
+
     }
 }

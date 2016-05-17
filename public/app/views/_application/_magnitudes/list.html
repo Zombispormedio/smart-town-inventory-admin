@@ -3,7 +3,7 @@
 
         <md-input-container md-no-float class="md-block" flex> 
             <md-icon  md-font-icon="mdi-magnify" class="mdi"></md-icon>             
-            <input type="text" ng-model="searchObject.text" placeholder="Filter magnitudes">
+            <input type="text" ng-model="list.query.search" placeholder="Filter magnitudes" ng-change="search()">
         </md-input-container>
 
 
@@ -16,9 +16,9 @@
     <md-content layout-padding layout="column" md-theme="smartTheme" class="list">
 
         <md-list  ng-cloak class="list-content">
-            <div ng-repeat="magnitude in magnitudes| search:'display_name':searchObject">
+            <div ng-repeat="magnitude in magnitudes">
                 <div  layout="row">
-                    <md-list-item  ng-click="goToDetail(magnitude._id)" flex>
+                    <md-list-item  ng-click="goToDetail(magnitude._id)" ng-mousedown="openTab($event, magnitude._id)" flex>
                         <md-icon  md-font-icon="{{Icon(magnitude.type)}}" class="mdi list-type-icon"></md-icon>  
                         <p> {{ magnitude.display_name }} </p>
                         <p  flex-offset="30"><span class="md-whiteframe-1dp" ng-class="{'badge':magnitude.type==='0', 'badge-negative':magnitude.type==='1'}">{{Type(magnitude.type)}}</span></p>
@@ -31,6 +31,11 @@
                 </div>
                 <md-divider ng-if="!$last"></md-divider>
             </div>
+
+            <md-list-item ng-if="magnitudes.length==0">
+            No Magnitudes
+
+            </md-list-item>
         </md-list>
 
 
@@ -41,22 +46,22 @@
     <md-button class="md-icon-button" aria-label="Prev" flex="10" ng-click="prev()">
         <md-icon md-font-icon="mdi-skip-previous-circle-outline" class="mdi"></md-icon>
     </md-button>
-    <md-select ng-model="page.query.p" flex="5" md-container-class="pagination-size" class="select-page" ng-change="changePage()">
-        <md-option ng-repeat="p in page.pagination" value="{{p}}">{{p+1}}</md-option>
+    <md-select ng-model="list.query.p" flex="5" md-container-class="pagination-size" class="select-page" ng-change="changePage()" aria-label="Select Page">
+        <md-option ng-repeat="p in list.pagination" value="{{p}}">{{p+1}}</md-option>
     </md-select>
-    <span flex="10" flex-offset="5">/{{page.numPages}}</span>
+    <span flex="10" flex-offset="5">/{{list.numPages}}</span>
 
     <md-button class="md-icon-button next" aria-label="Next" flex="10" ng-click="next()">
         <md-icon md-font-icon="mdi-skip-next-circle-outline" class="mdi"></md-icon>
     </md-button>
     <span class="label-size">Page Size</span>
-    <md-select ng-model="page.query.s" flex="5" md-container-class="pagination-size" ng-change="changeSize()">
-       <md-optgroup label="Page Size">
-        <md-option value="1">1</md-option>
-        <md-option value="5">5</md-option>
-        <md-option value="10">10</md-option>
-        <md-option value="50">50</md-option>
-        <md-option value="100">100</md-option>
+    <md-select ng-model="list.query.s" flex="5" md-container-class="pagination-size" ng-change="changeSize()" aria-label="Select Size">
+        <md-optgroup label="Page Size">
+            <md-option value="1">1</md-option>
+            <md-option value="5">5</md-option>
+            <md-option value="10">10</md-option>
+            <md-option value="50">50</md-option>
+            <md-option value="100">100</md-option>
         </md-optgroup>
     </md-select>
 
