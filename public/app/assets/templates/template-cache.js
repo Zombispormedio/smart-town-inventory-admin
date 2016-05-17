@@ -517,7 +517,8 @@ module.run(['$templateCache', function($templateCache) {
     '            <div ng-repeat="magnitude in magnitudes">\n' +
     '                <div  layout="row">\n' +
     '                    <md-list-item  ng-click="goToDetail(magnitude._id)" ng-mousedown="openTab($event, magnitude._id)" flex>\n' +
-    '                        <md-icon  md-font-icon="{{Icon(magnitude.type)}}" class="mdi list-type-icon"></md-icon>  \n' +
+    '                        <md-icon  md-font-icon="{{Icon(magnitude.type)}}" class="mdi list-type-icon"></md-icon> \n' +
+    '                        <p flex="15"> Ref: {{ magnitude.ref|fill:4 }} </p> \n' +
     '                        <p> {{ magnitude.display_name }} </p>\n' +
     '                        <p  flex-offset="30"><span class="md-whiteframe-1dp" ng-class="{\'badge\':magnitude.type===\'0\', \'badge-negative\':magnitude.type===\'1\'}">{{Type(magnitude.type)}}</span></p>\n' +
     '\n' +
@@ -531,7 +532,7 @@ module.run(['$templateCache', function($templateCache) {
     '            </div>\n' +
     '\n' +
     '            <md-list-item ng-if="magnitudes.length==0">\n' +
-    '            No Magnitudes\n' +
+    '                No Magnitudes\n' +
     '\n' +
     '            </md-list-item>\n' +
     '        </md-list>\n' +
@@ -990,30 +991,31 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '<div class="list-container">\n' +
     '\n' +
-    '<md-content layout-padding layout="column" md-theme="smartTheme" class="list">\n' +
+    '    <md-content layout-padding layout="column" md-theme="smartTheme" class="list">\n' +
     '\n' +
-    '    <md-list  ng-cloak class="list-content">\n' +
-    '        <div ng-repeat="zone in zones" >\n' +
-    '            <div  layout="row">\n' +
-    '                <md-list-item  ng-click="goToDetail(zone._id)" ng-mousedown="openTab($event, zone._id)" flex>\n' +
-    '                    <md-icon  md-font-icon="{{Icon(zone.shape.type)}}" class="mdi list-type-icon"></md-icon>  \n' +
-    '                    <p> {{ zone.display_name }} </p>\n' +
-    '                   \n' +
-    '                </md-list-item>\n' +
+    '        <md-list  ng-cloak class="list-content">\n' +
+    '            <div ng-repeat="zone in zones" >\n' +
+    '                <div  layout="row">\n' +
+    '                    <md-list-item  ng-click="goToDetail(zone._id)" ng-mousedown="openTab($event, zone._id)" flex>\n' +
+    '                        <md-icon  md-font-icon="{{Icon(zone.shape.type)}}" class="mdi list-type-icon"></md-icon>\n' +
+    '                        <p flex="15"> Ref: {{ zone.ref|fill:4 }} </p>  \n' +
+    '                        <p> {{ zone.display_name }} </p>\n' +
     '\n' +
-    '                <md-button class="md-primary" aria-label="Delete" ng-click="delete(zone._id)" flex="5">\n' +
-    '                    <i class="mdi mdi-delete"></i>\n' +
-    '                </md-button>\n' +
+    '                    </md-list-item>\n' +
+    '\n' +
+    '                    <md-button class="md-primary" aria-label="Delete" ng-click="delete(zone._id)" flex="5">\n' +
+    '                        <i class="mdi mdi-delete"></i>\n' +
+    '                    </md-button>\n' +
+    '                </div>\n' +
+    '                <md-divider ng-if="!$last"></md-divider>\n' +
     '            </div>\n' +
-    '            <md-divider ng-if="!$last"></md-divider>\n' +
-    '        </div>\n' +
-    '        <md-list-item ng-if="zones.length==0">\n' +
-    '            No Zones\n' +
+    '            <md-list-item ng-if="zones.length==0">\n' +
+    '                No Zones\n' +
     '\n' +
     '            </md-list-item>\n' +
-    '    </md-list>\n' +
+    '        </md-list>\n' +
     '\n' +
-    '</md-content>\n' +
+    '    </md-content>\n' +
     '</div>\n' +
     '\n' +
     '\n' +
@@ -1031,12 +1033,12 @@ module.run(['$templateCache', function($templateCache) {
     '    </md-button>\n' +
     '    <span class="label-size">Page Size</span>\n' +
     '    <md-select ng-model="list.query.s" flex="5" md-container-class="pagination-size" ng-change="changeSize()" aria-label="Select Size">\n' +
-    '       <md-optgroup label="Page Size">\n' +
-    '        <md-option value="1">1</md-option>\n' +
-    '        <md-option value="5">5</md-option>\n' +
-    '        <md-option value="10">10</md-option>\n' +
-    '        <md-option value="50">50</md-option>\n' +
-    '        <md-option value="100">100</md-option>\n' +
+    '        <md-optgroup label="Page Size">\n' +
+    '            <md-option value="1">1</md-option>\n' +
+    '            <md-option value="5">5</md-option>\n' +
+    '            <md-option value="10">10</md-option>\n' +
+    '            <md-option value="50">50</md-option>\n' +
+    '            <md-option value="100">100</md-option>\n' +
     '        </md-optgroup>\n' +
     '    </md-select>\n' +
     '\n' +
@@ -1680,6 +1682,7 @@ module.run(['$templateCache', function($templateCache) {
     '            <div  layout="row">\n' +
     '                <md-list-item  ng-click="goToDetail(sensor_grid._id)" ng-mousedown="openTab($event, sensor_grid._id)" flex>\n' +
     '                    <md-icon  md-font-icon="{{Icon(sensor_grid.display_name)}}" class="mdi list-type-icon"></md-icon>  \n' +
+    '                    <p flex="15"> Ref: {{ sensor_grid.ref|fill:4 }} </p>\n' +
     '                    <p> {{ sensor_grid.display_name }} </p>\n' +
     '                  \n' +
     '\n' +
@@ -1933,6 +1936,7 @@ module.run(['$templateCache', function($templateCache) {
     '                        <div  layout="row">\n' +
     '                            <md-list-item  ng-click="goToSensorDetail(sensor._id)" flex="75">\n' +
     '                                <md-icon  md-font-icon="{{Icon(sensor.display_name)}}" class="mdi list-type-icon"></md-icon> \n' +
+    '                                <p flex="15"> Ref: {{ sensor.ref|fill:4 }} </p>\n' +
     '                                <p> {{ sensor.display_name }} </p>\n' +
     '\n' +
     '\n' +

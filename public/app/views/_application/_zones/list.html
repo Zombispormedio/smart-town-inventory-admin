@@ -15,30 +15,31 @@
 
 <div class="list-container">
 
-<md-content layout-padding layout="column" md-theme="smartTheme" class="list">
+    <md-content layout-padding layout="column" md-theme="smartTheme" class="list">
 
-    <md-list  ng-cloak class="list-content">
-        <div ng-repeat="zone in zones" >
-            <div  layout="row">
-                <md-list-item  ng-click="goToDetail(zone._id)" ng-mousedown="openTab($event, zone._id)" flex>
-                    <md-icon  md-font-icon="{{Icon(zone.shape.type)}}" class="mdi list-type-icon"></md-icon>  
-                    <p> {{ zone.display_name }} </p>
-                   
-                </md-list-item>
+        <md-list  ng-cloak class="list-content">
+            <div ng-repeat="zone in zones" >
+                <div  layout="row">
+                    <md-list-item  ng-click="goToDetail(zone._id)" ng-mousedown="openTab($event, zone._id)" flex>
+                        <md-icon  md-font-icon="{{Icon(zone.shape.type)}}" class="mdi list-type-icon"></md-icon>
+                        <p flex="15"> Ref: {{ zone.ref|fill:4 }} </p>  
+                        <p> {{ zone.display_name }} </p>
 
-                <md-button class="md-primary" aria-label="Delete" ng-click="delete(zone._id)" flex="5">
-                    <i class="mdi mdi-delete"></i>
-                </md-button>
+                    </md-list-item>
+
+                    <md-button class="md-primary" aria-label="Delete" ng-click="delete(zone._id)" flex="5">
+                        <i class="mdi mdi-delete"></i>
+                    </md-button>
+                </div>
+                <md-divider ng-if="!$last"></md-divider>
             </div>
-            <md-divider ng-if="!$last"></md-divider>
-        </div>
-        <md-list-item ng-if="zones.length==0">
-            No Zones
+            <md-list-item ng-if="zones.length==0">
+                No Zones
 
             </md-list-item>
-    </md-list>
+        </md-list>
 
-</md-content>
+    </md-content>
 </div>
 
 
@@ -56,12 +57,12 @@
     </md-button>
     <span class="label-size">Page Size</span>
     <md-select ng-model="list.query.s" flex="5" md-container-class="pagination-size" ng-change="changeSize()" aria-label="Select Size">
-       <md-optgroup label="Page Size">
-        <md-option value="1">1</md-option>
-        <md-option value="5">5</md-option>
-        <md-option value="10">10</md-option>
-        <md-option value="50">50</md-option>
-        <md-option value="100">100</md-option>
+        <md-optgroup label="Page Size">
+            <md-option value="1">1</md-option>
+            <md-option value="5">5</md-option>
+            <md-option value="10">10</md-option>
+            <md-option value="50">50</md-option>
+            <md-option value="100">100</md-option>
         </md-optgroup>
     </md-select>
 

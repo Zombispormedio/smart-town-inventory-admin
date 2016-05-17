@@ -20,6 +20,7 @@
             <div  layout="row">
                 <md-list-item  ng-click="goToDetail(sensor_grid._id)" ng-mousedown="openTab($event, sensor_grid._id)" flex>
                     <md-icon  md-font-icon="{{Icon(sensor_grid.display_name)}}" class="mdi list-type-icon"></md-icon>  
+                    <p flex="15"> Ref: {{ sensor_grid.ref|fill:4 }} </p>
                     <p> {{ sensor_grid.display_name }} </p>
                   
 

@@ -52,3 +52,20 @@ angular.module('Application').filter(
             return result;
         }}
 )
+
+
+angular.module('Application').filter(
+    "fill", function(){
+        return function(items, zeros) {
+            var len=items.toString().length;
+            
+            
+            var result=items;
+            
+            if(len<zeros){
+                result=_.repeat("0", zeros-len)+items;
+            }
+            
+            return result;
+        }}
+);

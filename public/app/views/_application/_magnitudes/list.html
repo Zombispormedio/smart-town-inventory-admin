@@ -19,7 +19,8 @@
             <div ng-repeat="magnitude in magnitudes">
                 <div  layout="row">
                     <md-list-item  ng-click="goToDetail(magnitude._id)" ng-mousedown="openTab($event, magnitude._id)" flex>
-                        <md-icon  md-font-icon="{{Icon(magnitude.type)}}" class="mdi list-type-icon"></md-icon>  
+                        <md-icon  md-font-icon="{{Icon(magnitude.type)}}" class="mdi list-type-icon"></md-icon> 
+                        <p flex="15"> Ref: {{ magnitude.ref|fill:4 }} </p> 
                         <p> {{ magnitude.display_name }} </p>
                         <p  flex-offset="30"><span class="md-whiteframe-1dp" ng-class="{'badge':magnitude.type==='0', 'badge-negative':magnitude.type==='1'}">{{Type(magnitude.type)}}</span></p>
 
@@ -33,7 +34,7 @@
             </div>
 
             <md-list-item ng-if="magnitudes.length==0">
-            No Magnitudes
+                No Magnitudes
 
             </md-list-item>
         </md-list>
