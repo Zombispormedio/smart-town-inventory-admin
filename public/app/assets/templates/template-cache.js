@@ -510,29 +510,56 @@ module.run(['$templateCache', function($templateCache) {
     '        </md-button>\n' +
     '    </div>\n' +
     '</md-toolbar>\n' +
+    '<div class="list-container">\n' +
+    '    <md-content layout-padding layout="column" md-theme="smartTheme" class="list">\n' +
     '\n' +
+    '        <md-list  ng-cloak class="list-content">\n' +
+    '            <div ng-repeat="magnitude in magnitudes| search:\'display_name\':searchObject">\n' +
+    '                <div  layout="row">\n' +
+    '                    <md-list-item  ng-click="goToDetail(magnitude._id)" flex>\n' +
+    '                        <md-icon  md-font-icon="{{Icon(magnitude.type)}}" class="mdi list-type-icon"></md-icon>  \n' +
+    '                        <p> {{ magnitude.display_name }} </p>\n' +
+    '                        <p  flex-offset="30"><span class="md-whiteframe-1dp" ng-class="{\'badge\':magnitude.type===\'0\', \'badge-negative\':magnitude.type===\'1\'}">{{Type(magnitude.type)}}</span></p>\n' +
     '\n' +
-    '<md-content layout-padding layout="column" md-theme="smartTheme" class="list">\n' +
+    '                    </md-list-item>\n' +
     '\n' +
-    '    <md-list  ng-cloak class="list-content">\n' +
-    '        <div ng-repeat="magnitude in magnitudes| search:\'display_name\':searchObject">\n' +
-    '            <div  layout="row">\n' +
-    '                <md-list-item  ng-click="goToDetail(magnitude._id)" flex>\n' +
-    '                    <md-icon  md-font-icon="{{Icon(magnitude.type)}}" class="mdi list-type-icon"></md-icon>  \n' +
-    '                    <p> {{ magnitude.display_name }} </p>\n' +
-    '                    <p  flex-offset="30"><span class="md-whiteframe-1dp" ng-class="{\'badge\':magnitude.type===\'0\', \'badge-negative\':magnitude.type===\'1\'}">{{Type(magnitude.type)}}</span></p>\n' +
-    '\n' +
-    '                </md-list-item>\n' +
-    '\n' +
-    '                <md-button class="md-primary" aria-label="Delete" ng-click="delete(magnitude._id)" flex="5">\n' +
-    '                    <i class="mdi mdi-delete"></i>\n' +
-    '                </md-button>\n' +
+    '                    <md-button class="md-primary" aria-label="Delete" ng-click="delete(magnitude._id)" flex="5">\n' +
+    '                        <i class="mdi mdi-delete"></i>\n' +
+    '                    </md-button>\n' +
+    '                </div>\n' +
+    '                <md-divider ng-if="!$last"></md-divider>\n' +
     '            </div>\n' +
-    '            <md-divider ng-if="!$last"></md-divider>\n' +
-    '        </div>\n' +
-    '    </md-list>\n' +
+    '        </md-list>\n' +
     '\n' +
-    '</md-content>');
+    '\n' +
+    '    </md-content>\n' +
+    '</div>\n' +
+    '\n' +
+    '<div layout="row" class="pagination"  flex-offset="50" md-theme="smartTheme">\n' +
+    '    <md-button class="md-icon-button" aria-label="Prev" flex="10" ng-click="prev()">\n' +
+    '        <md-icon md-font-icon="mdi-skip-previous-circle-outline" class="mdi"></md-icon>\n' +
+    '    </md-button>\n' +
+    '    <md-select ng-model="page.query.p" flex="5" md-container-class="pagination-size" class="select-page" ng-change="changePage()">\n' +
+    '        <md-option ng-repeat="p in page.pagination" value="{{p}}">{{p+1}}</md-option>\n' +
+    '    </md-select>\n' +
+    '    <span flex="10" flex-offset="5">/{{page.numPages}}</span>\n' +
+    '\n' +
+    '    <md-button class="md-icon-button next" aria-label="Next" flex="10" ng-click="next()">\n' +
+    '        <md-icon md-font-icon="mdi-skip-next-circle-outline" class="mdi"></md-icon>\n' +
+    '    </md-button>\n' +
+    '    <span class="label-size">Page Size</span>\n' +
+    '    <md-select ng-model="page.query.s" flex="5" md-container-class="pagination-size" ng-change="changeSize()">\n' +
+    '       <md-optgroup label="Page Size">\n' +
+    '        <md-option value="1">1</md-option>\n' +
+    '        <md-option value="5">5</md-option>\n' +
+    '        <md-option value="10">10</md-option>\n' +
+    '        <md-option value="50">50</md-option>\n' +
+    '        <md-option value="100">100</md-option>\n' +
+    '        </md-optgroup>\n' +
+    '    </md-select>\n' +
+    '\n' +
+    '</div>\n' +
+    '');
 }]);
 })();
 

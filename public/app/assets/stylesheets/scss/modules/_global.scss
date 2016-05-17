@@ -44,7 +44,12 @@
 }
 .list{
     overflow-y: auto;
-    max-height: 495px;
+    max-height: 448px;
+
+}
+
+.list-container{
+    height: 448px;
 }
 
 #main-toolbar{
@@ -213,7 +218,7 @@
         }
         .detail-form{
             .copy-icon{
-                    font-size: 1.5em;
+                font-size: 1.5em;
                 &:hover{
                     color:$clear_black;
                 }
@@ -221,22 +226,54 @@
         }
 
     }
-    
-   
+
+
 }
 
-  md-switch, md-checkbox{
-     
-        &.md-checked {
-            .md-thumb, .md-ink-ripple, .md-icon{
-                background-color: $orange !important;
-            }
-            .md-icon:after{
-                color: $white !important;
-                border-color: $white !important;
-            }
+md-switch, md-checkbox{
+
+    &.md-checked {
+        .md-thumb, .md-ink-ripple, .md-icon{
+            background-color: $orange !important;
         }
-
-
+        .md-icon:after{
+            color: $white !important;
+            border-color: $white !important;
+        }
     }
 
+
+}
+
+.pagination{
+    md-icon{
+        font-size: 2em;
+    }
+    md-select{
+        margin: 0;
+        md-select-value{
+            min-width: 40px;
+        }
+    }
+    span{
+        margin-top: 2%;
+        font-size: 1.1em;
+    }
+    .label-size{
+        margin-right: 1%;
+        margin-left: 10%;
+    }
+    .select-page{
+        margin-left: 8%;
+    }
+
+    margin-bottom: .5%;
+}
+
+.pagination-size{
+    md-select-menu md-content{
+        min-width: 69px;
+        max-height: 130px; 
+    }
+
+}
