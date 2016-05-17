@@ -1667,40 +1667,53 @@ module.run(['$templateCache', function($templateCache) {
     '            <md-icon  md-font-icon="mdi-magnify" class="mdi"></md-icon>             \n' +
     '            <input type="text" ng-model="list.query.search"  placeholder="Filter sensor grids" ng-change="search()">\n' +
     '        </md-input-container>\n' +
-    '\n' +
-    '        <md-button class="md-icon-button" aria-label="More" flex="5" ng-click="create()">\n' +
-    '            <md-icon md-font-icon="mdi-plus" class="mdi"></md-icon>\n' +
-    '        </md-button>\n' +
+    '        <md-menu class="create-menu">    \n' +
+    '            <md-button class="md-icon-button" aria-label="More" ng-click="openMenu($mdOpenMenu, $event)">\n' +
+    '                <md-icon md-menu-align-target md-font-icon="mdi-plus" class="mdi"></md-icon>\n' +
+    '            </md-button>\n' +
+    '            <md-menu-content width="3">\n' +
+    '                <md-menu-item>\n' +
+    '                    <md-button ng-click="create()">\n' +
+    '                        Create new Sensor Grid\n' +
+    '                    </md-button>\n' +
+    '                </md-menu-item>\n' +
+    '                 <md-menu-item>\n' +
+    '                    <md-button>\n' +
+    '                        Import CSV\n' +
+    '                    </md-button>\n' +
+    '                </md-menu-item>\n' +
+    '            </md-menu-content>\n' +
+    '        </md-menu>\n' +
     '    </div>\n' +
     '</md-toolbar>\n' +
     '\n' +
     '<div class="list-container">\n' +
-    '<md-content layout-padding layout="column" md-theme="smartTheme" class="list">\n' +
+    '    <md-content layout-padding layout="column" md-theme="smartTheme" class="list">\n' +
     '\n' +
-    '    <md-list  ng-cloak class="list-content">\n' +
-    '        <div ng-repeat="sensor_grid in sensor_grids">\n' +
-    '            <div  layout="row">\n' +
-    '                <md-list-item  ng-click="goToDetail(sensor_grid._id)" ng-mousedown="openTab($event, sensor_grid._id)" flex>\n' +
-    '                    <md-icon  md-font-icon="{{Icon(sensor_grid.display_name)}}" class="mdi list-type-icon"></md-icon>  \n' +
-    '                    <p flex="15"> Ref: {{ sensor_grid.ref|fill:4 }} </p>\n' +
-    '                    <p> {{ sensor_grid.display_name }} </p>\n' +
-    '                  \n' +
+    '        <md-list  ng-cloak class="list-content">\n' +
+    '            <div ng-repeat="sensor_grid in sensor_grids">\n' +
+    '                <div  layout="row">\n' +
+    '                    <md-list-item  ng-click="goToDetail(sensor_grid._id)" ng-mousedown="openTab($event, sensor_grid._id)" flex>\n' +
+    '                        <md-icon  md-font-icon="{{Icon(sensor_grid.display_name)}}" class="mdi list-type-icon"></md-icon>  \n' +
+    '                        <p flex="15"> Ref: {{ sensor_grid.ref|fill:4 }} </p>\n' +
+    '                        <p> {{ sensor_grid.display_name }} </p>\n' +
     '\n' +
-    '                </md-list-item>\n' +
     '\n' +
-    '                <md-button class="md-primary" aria-label="Delete" ng-click="delete(sensor_grid._id)" flex="5">\n' +
-    '                    <i class="mdi mdi-delete"></i>\n' +
-    '                </md-button>\n' +
+    '                    </md-list-item>\n' +
+    '\n' +
+    '                    <md-button class="md-primary" aria-label="Delete" ng-click="delete(sensor_grid._id)" flex="5">\n' +
+    '                        <i class="mdi mdi-delete"></i>\n' +
+    '                    </md-button>\n' +
+    '                </div>\n' +
+    '                <md-divider ng-if="!$last"></md-divider>\n' +
     '            </div>\n' +
-    '            <md-divider ng-if="!$last"></md-divider>\n' +
-    '        </div>\n' +
-    '         <md-list-item ng-if="sensor_grids.length==0">\n' +
-    '            No Sensor Grids\n' +
+    '            <md-list-item ng-if="sensor_grids.length==0">\n' +
+    '                No Sensor Grids\n' +
     '\n' +
     '            </md-list-item>\n' +
-    '    </md-list>\n' +
+    '        </md-list>\n' +
     '\n' +
-    '</md-content>\n' +
+    '    </md-content>\n' +
     '</div>\n' +
     '\n' +
     '\n' +
@@ -1718,12 +1731,12 @@ module.run(['$templateCache', function($templateCache) {
     '    </md-button>\n' +
     '    <span class="label-size">Page Size</span>\n' +
     '    <md-select ng-model="list.query.s" flex="5" md-container-class="pagination-size" ng-change="changeSize()" aria-label="Select Size">\n' +
-    '       <md-optgroup label="Page Size">\n' +
-    '        <md-option value="1">1</md-option>\n' +
-    '        <md-option value="5">5</md-option>\n' +
-    '        <md-option value="10">10</md-option>\n' +
-    '        <md-option value="50">50</md-option>\n' +
-    '        <md-option value="100">100</md-option>\n' +
+    '        <md-optgroup label="Page Size">\n' +
+    '            <md-option value="1">1</md-option>\n' +
+    '            <md-option value="5">5</md-option>\n' +
+    '            <md-option value="10">10</md-option>\n' +
+    '            <md-option value="50">50</md-option>\n' +
+    '            <md-option value="100">100</md-option>\n' +
     '        </md-optgroup>\n' +
     '    </md-select>\n' +
     '\n' +

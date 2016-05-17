@@ -5,40 +5,53 @@
             <md-icon  md-font-icon="mdi-magnify" class="mdi"></md-icon>             
             <input type="text" ng-model="list.query.search"  placeholder="Filter sensor grids" ng-change="search()">
         </md-input-container>
-
-        <md-button class="md-icon-button" aria-label="More" flex="5" ng-click="create()">
-            <md-icon md-font-icon="mdi-plus" class="mdi"></md-icon>
-        </md-button>
+        <md-menu class="create-menu">    
+            <md-button class="md-icon-button" aria-label="More" ng-click="openMenu($mdOpenMenu, $event)">
+                <md-icon md-menu-align-target md-font-icon="mdi-plus" class="mdi"></md-icon>
+            </md-button>
+            <md-menu-content width="3">
+                <md-menu-item>
+                    <md-button ng-click="create()">
+                        Create new Sensor Grid
+                    </md-button>
+                </md-menu-item>
+                 <md-menu-item>
+                    <md-button>
+                        Import CSV
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
     </div>
 </md-toolbar>
 
 <div class="list-container">
-<md-content layout-padding layout="column" md-theme="smartTheme" class="list">
+    <md-content layout-padding layout="column" md-theme="smartTheme" class="list">
 
-    <md-list  ng-cloak class="list-content">
-        <div ng-repeat="sensor_grid in sensor_grids">
-            <div  layout="row">
-                <md-list-item  ng-click="goToDetail(sensor_grid._id)" ng-mousedown="openTab($event, sensor_grid._id)" flex>
-                    <md-icon  md-font-icon="{{Icon(sensor_grid.display_name)}}" class="mdi list-type-icon"></md-icon>  
-                    <p flex="15"> Ref: {{ sensor_grid.ref|fill:4 }} </p>
-                    <p> {{ sensor_grid.display_name }} </p>
-                  
+        <md-list  ng-cloak class="list-content">
+            <div ng-repeat="sensor_grid in sensor_grids">
+                <div  layout="row">
+                    <md-list-item  ng-click="goToDetail(sensor_grid._id)" ng-mousedown="openTab($event, sensor_grid._id)" flex>
+                        <md-icon  md-font-icon="{{Icon(sensor_grid.display_name)}}" class="mdi list-type-icon"></md-icon>  
+                        <p flex="15"> Ref: {{ sensor_grid.ref|fill:4 }} </p>
+                        <p> {{ sensor_grid.display_name }} </p>
 
-                </md-list-item>
 
-                <md-button class="md-primary" aria-label="Delete" ng-click="delete(sensor_grid._id)" flex="5">
-                    <i class="mdi mdi-delete"></i>
-                </md-button>
+                    </md-list-item>
+
+                    <md-button class="md-primary" aria-label="Delete" ng-click="delete(sensor_grid._id)" flex="5">
+                        <i class="mdi mdi-delete"></i>
+                    </md-button>
+                </div>
+                <md-divider ng-if="!$last"></md-divider>
             </div>
-            <md-divider ng-if="!$last"></md-divider>
-        </div>
-         <md-list-item ng-if="sensor_grids.length==0">
-            No Sensor Grids
+            <md-list-item ng-if="sensor_grids.length==0">
+                No Sensor Grids
 
             </md-list-item>
-    </md-list>
+        </md-list>
 
-</md-content>
+    </md-content>
 </div>
 
 
@@ -56,12 +69,12 @@
     </md-button>
     <span class="label-size">Page Size</span>
     <md-select ng-model="list.query.s" flex="5" md-container-class="pagination-size" ng-change="changeSize()" aria-label="Select Size">
-       <md-optgroup label="Page Size">
-        <md-option value="1">1</md-option>
-        <md-option value="5">5</md-option>
-        <md-option value="10">10</md-option>
-        <md-option value="50">50</md-option>
-        <md-option value="100">100</md-option>
+        <md-optgroup label="Page Size">
+            <md-option value="1">1</md-option>
+            <md-option value="5">5</md-option>
+            <md-option value="10">10</md-option>
+            <md-option value="50">50</md-option>
+            <md-option value="100">100</md-option>
         </md-optgroup>
     </md-select>
 

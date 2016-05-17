@@ -27,6 +27,11 @@ angular.module('Application')
         $rootScope.go("application.dashboard.create")
     };
 
+    $scope.openMenu = function($mdOpenMenu, ev) {
+
+        $mdOpenMenu(ev);
+    };
+
 
 
 
