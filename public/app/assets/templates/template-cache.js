@@ -1678,7 +1678,7 @@ module.run(['$templateCache', function($templateCache) {
     '                    </md-button>\n' +
     '                </md-menu-item>\n' +
     '                 <md-menu-item>\n' +
-    '                    <md-button>\n' +
+    '                    <md-button ng-click="import($event)">\n' +
     '                        Import CSV\n' +
     '                    </md-button>\n' +
     '                </md-menu-item>\n' +
@@ -1740,7 +1740,66 @@ module.run(['$templateCache', function($templateCache) {
     '        </md-optgroup>\n' +
     '    </md-select>\n' +
     '\n' +
-    '</div>');
+    '</div>\n' +
+    '\n' +
+    '\n' +
+    '<input type="file" class="hide" id="importFile" file-reader onfilechange="fileToImport" encoding="encoding">');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('Application');
+} catch (e) {
+  module = angular.module('Application', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('/views/_application/_dashboard/_sensor_grid/sensor_grid_import_dialog.html',
+    '<md-dialog aria-label="New Conversion"  ng-cloak class="conversion-dialog">\n' +
+    '    <form>\n' +
+    '        <md-toolbar>\n' +
+    '            <div class="md-toolbar-tools">\n' +
+    '                <h2>Verify CSV Import</h2>\n' +
+    '                <span flex></span>\n' +
+    '                <md-button class="md-icon-button" ng-click="cancel()">\n' +
+    '                    <md-icon class="mdi" md-font-icon="mdi-close"  aria-label="Close dialog"></md-icon>\n' +
+    '                </md-button>\n' +
+    '            </div>\n' +
+    '        </md-toolbar>\n' +
+    '        <md-dialog-content md-theme="smartTheme">\n' +
+    '            <div class="md-dialog-content" layout="column">\n' +
+    '\n' +
+    '                <md-list>\n' +
+    '                  \n' +
+    '                    <md-list-item class="md-3-line" ng-repeat="sensor_grid in sensor_grids">\n' +
+    '                        <div class="md-list-item-text" layout="column" ng-init="sensor_grid.more=false">\n' +
+    '                            <h3 ng-click="sensor_grid.more=!sensor_grid.more">Display Name: {{ sensor_grid.display_name || \'N/A\' }} <i class="mdi mdi-chevron-down"></i></h3>\n' +
+    '                            <h4> Zone Ref: {{ sensor_grid.zone_ref || \'N/A\' }}</h4>\n' +
+    '                            <div ng-if="sensor_grid.more">\n' +
+    '                                <p>Device Name: {{ sensor_grid.device_name || \'N/A\' }}</p>\n' +
+    '                                  <p>Description: {{ sensor_grid.description|| \'N/A\' }}</p>\n' +
+    '                                <p>Location: {{sensor_grid.location_latitude}}, {{sensor_grid.location_longitude}}</p>\n' +
+    '                            </div>\n' +
+    '                        </div>\n' +
+    '                        <md-divider ng-if="!$last"></md-divider>\n' +
+    '                    </md-list-item>\n' +
+    '                </md-list>\n' +
+    '\n' +
+    '            </div>\n' +
+    '        </md-dialog-content>\n' +
+    '        <md-dialog-actions layout="row">\n' +
+    '\n' +
+    '            <span flex></span>\n' +
+    '            <md-button ng-click="cancel()">\n' +
+    '                Cancel\n' +
+    '            </md-button>\n' +
+    '            <md-button ng-click="confirm()" >\n' +
+    '                Confirm\n' +
+    '            </md-button>\n' +
+    '\n' +
+    '        </md-dialog-actions>\n' +
+    '    </form>\n' +
+    '</md-dialog>');
 }]);
 })();
 

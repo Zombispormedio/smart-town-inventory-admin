@@ -1,5 +1,5 @@
 angular.module('Application')
-    .controller('DashboardCtrl',function($scope, $rootScope, SensorGridService, ThemeService,  RequestService, $window){
+    .controller('DashboardCtrl',function($scope, $rootScope, SensorGridService, ThemeService,  RequestService, $window, ImportService, $mdDialog){
 
 
     var query={
@@ -113,5 +113,39 @@ angular.module('Application')
     };
 
     fetch();
+
+    $scope.encoding="ISO-8859-1";
+
+    $scope.fileToImport=function(result){
+        ImportService.CSV(result, function(r){
+            document.getElementById("importFile").value="";
+
+            OpenImportDialog(r);
+
+        })
+    }
+
+    var importEvent=null;
+    $scope.import=function(ev){
+        importEvent=ev;
+        document.getElementById("importFile").click();
+    }
+
+
+    var OpenImportDialog=function(import_data){
+        $mdDialog.show({
+            controller:'SensorGridImportDialogCtrl',
+            templateUrl: '/views/_application/_dashboard/_sensor_grid/sensor_grid_import_dialog.html',
+            parent: angular.element(document.body),
+            clickOutsideToClose:true,
+            targetEvent: importEvent,
+            locals:{
+                _import:import_data
+            }
+        }).then(function(result){
+
+        });
+    };
+
 
 });

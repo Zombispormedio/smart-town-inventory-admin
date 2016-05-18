@@ -1,0 +1,45 @@
+<md-dialog aria-label="New Conversion"  ng-cloak class="conversion-dialog">
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Verify CSV Import</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon class="mdi" md-font-icon="mdi-close"  aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content md-theme="smartTheme">
+            <div class="md-dialog-content" layout="column">
+
+                <md-list>
+                  
+                    <md-list-item class="md-3-line" ng-repeat="sensor_grid in sensor_grids">
+                        <div class="md-list-item-text" layout="column" ng-init="sensor_grid.more=false">
+                            <h3 ng-click="sensor_grid.more=!sensor_grid.more">Display Name: {{ sensor_grid.display_name || 'N/A' }} <i class="mdi mdi-chevron-down"></i></h3>
+                            <h4> Zone Ref: {{ sensor_grid.zone_ref || 'N/A' }}</h4>
+                            <div ng-if="sensor_grid.more">
+                                <p>Device Name: {{ sensor_grid.device_name || 'N/A' }}</p>
+                                  <p>Description: {{ sensor_grid.description|| 'N/A' }}</p>
+                                <p>Location: {{sensor_grid.location_latitude}}, {{sensor_grid.location_longitude}}</p>
+                            </div>
+                        </div>
+                        <md-divider ng-if="!$last"></md-divider>
+                    </md-list-item>
+                </md-list>
+
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+
+            <span flex></span>
+            <md-button ng-click="cancel()">
+                Cancel
+            </md-button>
+            <md-button ng-click="confirm()" >
+                Confirm
+            </md-button>
+
+        </md-dialog-actions>
+    </form>
+</md-dialog>

@@ -3,21 +3,42 @@ angular.module('Application')
     return {
         restrict:"A",
         scope:{
-            fileReader:"="
+            onfilechange:"=",
+            fileReader:"=",
+            encoding:"="
         },
         link:function(scope, element){
             
             element.bind("change", function(ev){
+               
                var reader= new FileReader();
                 
                 reader.onload=function(lev){
                     scope.$apply(function(){
-                        scope.fileReader=lev.target.result;
+                        
+                        var result=lev.target.result;
+                        if(scope.fileReader){
+                               scope.fileReader=result;
+                        }
+                        
+                        if(scope.onfilechange){
+                               scope.onfilechange(result)
+                        }
+                        
+                    
+                        
+                     
                     });
                 }
-                reader.readAsDataURL(ev.target.files[0]);
                 
+                if(scope.encoding){
+                     reader.readAsText(ev.target.files[0], scope.encoding);
+                }else{
+                   reader.readAsText(ev.target.files[0]); 
+                }
+
             });
+                
             
         }
         

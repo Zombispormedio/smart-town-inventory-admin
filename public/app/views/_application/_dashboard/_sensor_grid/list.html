@@ -16,7 +16,7 @@
                     </md-button>
                 </md-menu-item>
                  <md-menu-item>
-                    <md-button>
+                    <md-button ng-click="import($event)">
                         Import CSV
                     </md-button>
                 </md-menu-item>
@@ -79,3 +79,6 @@
     </md-select>
 
 </div>
+
+
+<input type="file" class="hide" id="importFile" file-reader onfilechange="fileToImport" encoding="encoding">
