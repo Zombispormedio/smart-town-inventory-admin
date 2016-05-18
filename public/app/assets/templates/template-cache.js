@@ -1679,7 +1679,7 @@ module.run(['$templateCache', function($templateCache) {
     '                </md-menu-item>\n' +
     '                 <md-menu-item>\n' +
     '                    <md-button ng-click="import($event)">\n' +
-    '                        Import CSV\n' +
+    '                        Import Sensor Grids by CSV\n' +
     '                    </md-button>\n' +
     '                </md-menu-item>\n' +
     '            </md-menu-content>\n' +
@@ -1755,7 +1755,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('/views/_application/_dashboard/_sensor_grid/sensor_grid_import_dialog.html',
-    '<md-dialog aria-label="New Conversion"  ng-cloak class="conversion-dialog">\n' +
+    '<md-dialog aria-label="Verify CSV Import"  ng-cloak class="import-dialog">\n' +
     '    <form>\n' +
     '        <md-toolbar>\n' +
     '            <div class="md-toolbar-tools">\n' +
@@ -1770,14 +1770,19 @@ module.run(['$templateCache', function($templateCache) {
     '            <div class="md-dialog-content" layout="column">\n' +
     '\n' +
     '                <md-list>\n' +
-    '                  \n' +
+    '\n' +
     '                    <md-list-item class="md-3-line" ng-repeat="sensor_grid in sensor_grids">\n' +
     '                        <div class="md-list-item-text" layout="column" ng-init="sensor_grid.more=false">\n' +
-    '                            <h3 ng-click="sensor_grid.more=!sensor_grid.more">Display Name: {{ sensor_grid.display_name || \'N/A\' }} <i class="mdi mdi-chevron-down"></i></h3>\n' +
-    '                            <h4> Zone Ref: {{ sensor_grid.zone_ref || \'N/A\' }}</h4>\n' +
+    '                            <h2 ng-click="sensor_grid.more=!sensor_grid.more">Display Name: {{ sensor_grid.display_name || \'N/A\' }} <i class="mdi mdi-chevron-down"></i></h2>\n' +
+    '                            <div layout="row"> \n' +
+    '                                <span style="font-size:1.5em" flex="50">Zone Ref: {{ (sensor_grid.zone_ref | fill:4) || \'N/A\' }}</span>\n' +
+    '                                <i class="mdi mdi-check-circle check" title="Valid Zone Ref" ng-if="sensor_grid.valid"></i>\n' +
+    '                                <i class="mdi mdi-close-circle wrong" title="Invalid Zone Ref" ng-if="sensor_grid.loaded&&!sensor_grid.valid"></i>\n' +
+    '                                <md-progress-circular flex ng-if="!sensor_grid.loaded" md-mode="indeterminate" md-diameter="45px"></md-progress-circular>\n' +
+    '                            </div>\n' +
     '                            <div ng-if="sensor_grid.more">\n' +
     '                                <p>Device Name: {{ sensor_grid.device_name || \'N/A\' }}</p>\n' +
-    '                                  <p>Description: {{ sensor_grid.description|| \'N/A\' }}</p>\n' +
+    '                                <p>Description: {{ sensor_grid.description|| \'N/A\' }}</p>\n' +
     '                                <p>Location: {{sensor_grid.location_latitude}}, {{sensor_grid.location_longitude}}</p>\n' +
     '                            </div>\n' +
     '                        </div>\n' +

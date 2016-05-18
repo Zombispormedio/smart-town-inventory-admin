@@ -21,6 +21,12 @@ angular.module('Application')
                 get:{method:"GET", params:{}},
             });
         },
+        
+        Ref:function(){
+            return ApiService.rest(this.base+"s/verify/:ref", {
+                verify:{method:"GET", params:{ref:"@ref"}},
+            });
+        },
 
         DisplayName:function(){
             return ApiService.rest(this.base+"/:id/display_name", {

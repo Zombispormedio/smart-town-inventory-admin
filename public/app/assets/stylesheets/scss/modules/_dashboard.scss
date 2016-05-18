@@ -116,3 +116,26 @@
 
     }
 }
+
+.import-dialog{
+    md-toolbar{
+        color: $white;
+        background-color:$orange;
+    }
+
+    md-icon, i{
+        font-size: 1.5em;
+    }
+
+    md-dialog-content{
+        width: 550px;
+    }
+    
+    .check{
+        color:#8BC34A;
+    }
+    
+    .wrong{
+        color:#F44336;
+    }
+}

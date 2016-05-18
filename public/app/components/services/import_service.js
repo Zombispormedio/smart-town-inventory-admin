@@ -12,8 +12,10 @@ angular.module('Application')
             var labels=elems[0];
 
             var elemsKeys=labels.map(function(item){
-                return item.toLowerCase().replace(" ", "_");
+                return item.toLowerCase().replace(" ", "_").replace("\r", "");
             });
+            
+         
             
             result.labels=elemsKeys.reduce(function(p, i, index){
                 p[i]=labels[index]; 
@@ -28,8 +30,11 @@ angular.module('Application')
                 if(item.length==elemsKeys.length){
                    var obj=item.reduce(function(p, i, index){
                        var key=elemsKeys[index];
+                    
                        
-                       p[key]=i;
+                       p[key]=i.replace("\r", "");
+                       
+                       
                        
                        
                        return p;
@@ -38,7 +43,8 @@ angular.module('Application')
                     
                     prev.push(obj);
                     
-                }                
+                } 
+               
                 return prev;
             }, []);
 

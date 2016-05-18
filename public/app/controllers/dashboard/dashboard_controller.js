@@ -118,6 +118,7 @@ angular.module('Application')
 
     $scope.fileToImport=function(result){
         ImportService.CSV(result, function(r){
+            console.log(r);
             document.getElementById("importFile").value="";
 
             OpenImportDialog(r);
@@ -143,7 +144,9 @@ angular.module('Application')
                 _import:import_data
             }
         }).then(function(result){
-
+             SensorGridService.Import().upload( result, RequestService.Data(function(data){
+            $scope.sensor_grids=data;
+        }), RequestService.Error());
         });
     };
 

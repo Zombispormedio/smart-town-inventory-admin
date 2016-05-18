@@ -21,6 +21,13 @@ angular.module('Application')
                 get:{method:"GET", params:{}},
             });
         },
+        
+        Import:function(){
+            return ApiService.rest(this.base+"s/import", {
+                upload:{method:"POST", params:{}},
+            });
+        },
+
 
         Secret:function(){
             return ApiService.rest(this.base+"/:id/secret", {

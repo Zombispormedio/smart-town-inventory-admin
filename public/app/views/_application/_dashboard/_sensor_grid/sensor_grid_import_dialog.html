@@ -1,4 +1,4 @@
-<md-dialog aria-label="New Conversion"  ng-cloak class="conversion-dialog">
+<md-dialog aria-label="Verify CSV Import"  ng-cloak class="import-dialog">
     <form>
         <md-toolbar>
             <div class="md-toolbar-tools">
@@ -13,14 +13,19 @@
             <div class="md-dialog-content" layout="column">
 
                 <md-list>
-                  
+
                     <md-list-item class="md-3-line" ng-repeat="sensor_grid in sensor_grids">
                         <div class="md-list-item-text" layout="column" ng-init="sensor_grid.more=false">
-                            <h3 ng-click="sensor_grid.more=!sensor_grid.more">Display Name: {{ sensor_grid.display_name || 'N/A' }} <i class="mdi mdi-chevron-down"></i></h3>
-                            <h4> Zone Ref: {{ sensor_grid.zone_ref || 'N/A' }}</h4>
+                            <h2 ng-click="sensor_grid.more=!sensor_grid.more">Display Name: {{ sensor_grid.display_name || 'N/A' }} <i class="mdi mdi-chevron-down"></i></h2>
+                            <div layout="row"> 
+                                <span style="font-size:1.5em" flex="50">Zone Ref: {{ (sensor_grid.zone_ref | fill:4) || 'N/A' }}</span>
+                                <i class="mdi mdi-check-circle check" title="Valid Zone Ref" ng-if="sensor_grid.valid"></i>
+                                <i class="mdi mdi-close-circle wrong" title="Invalid Zone Ref" ng-if="sensor_grid.loaded&&!sensor_grid.valid"></i>
+                                <md-progress-circular flex ng-if="!sensor_grid.loaded" md-mode="indeterminate" md-diameter="45px"></md-progress-circular>
+                            </div>
                             <div ng-if="sensor_grid.more">
                                 <p>Device Name: {{ sensor_grid.device_name || 'N/A' }}</p>
-                                  <p>Description: {{ sensor_grid.description|| 'N/A' }}</p>
+                                <p>Description: {{ sensor_grid.description|| 'N/A' }}</p>
                                 <p>Location: {{sensor_grid.location_latitude}}, {{sensor_grid.location_longitude}}</p>
                             </div>
                         </div>

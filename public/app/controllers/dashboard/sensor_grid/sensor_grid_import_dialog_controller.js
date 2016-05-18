@@ -1,8 +1,33 @@
 angular.module('Application')
-    .controller('SensorGridImportDialogCtrl',function($scope, _import){
+    .controller('SensorGridImportDialogCtrl',function($scope, $mdDialog, ZoneService, RequestService, _import){
     
     $scope.sensor_grids=_import.data;
     $scope.labels=_import.labels;
+
+    
+    async.map( $scope.sensor_grids, function(item, done){
+        
+        $scope.sensor_grids.location_longitude= $scope.sensor_grids.location_longitude.replace(",", ".");
+         $scope.sensor_grids.location_latitude= $scope.sensor_grids.location_latitude.replace(",", ".");
+        
+        ZoneService.Ref().verify({ref:item.zone_ref}, RequestService.Data(function(data){
+           
+            item.loaded=true;
+            item.valid=data;
+            
+            done();
+        }), function(){
+            item.loaded=true;
+            item.valid=false;
+            done();
+        });
+        
+        
+        
+        
+    }, function(){
+        
+    });
     
 
     $scope.hide = function() {
@@ -13,6 +38,12 @@ angular.module('Application')
     };
 
     $scope.confirm = function() {
-        $mdDialog.hide();
+        
+        var to_upload=$scope.sensor_grids.filter(function(item){
+           return item.valid; 
+        });
+        
+        
+        $mdDialog.hide(to_upload);
     };
 });
