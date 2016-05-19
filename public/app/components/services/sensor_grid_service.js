@@ -22,6 +22,12 @@ angular.module('Application')
             });
         },
         
+         Ref:function(){
+            return ApiService.rest(this.base+"s/verify/:ref", {
+                verify:{method:"GET", params:{ref:"@ref"}},
+            });
+        },
+        
         Import:function(){
             return ApiService.rest(this.base+"s/import", {
                 upload:{method:"POST", params:{}},

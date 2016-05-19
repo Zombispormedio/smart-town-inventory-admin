@@ -12,8 +12,6 @@
                 <md-button aria-label="Open main menu" class="md-icon-button" flex ng-click="showMain=!showMain; showOptions=false">
                     <md-icon  md-font-icon="mdi-apps" class="mdi"></md-icon>
                 </md-button>
-
-
             </md-toolbar>
 
         </header>
@@ -24,22 +22,40 @@
                 </span>
                 <md-icon md-font-icon="mdi-chevron-down" class="mdi md-primary" flex ></md-icon>
             </md-subheader>
-
-
         </md-content>
 
+        <md-content class="notifications">
+            <md-toolbar class="md-primary">
+                <h2 class="md-toolbar-tools">
+                   <i class="mdi mdi-alert"></i>&nbsp;
+                    <span>Notifications</span>
+                </h2>
+            </md-toolbar>
+            <md-list>
+                <md-list-item class="md-3-line" ng-repeat="notie in notifications" ng-click="goToNotificationDetail(notie._id)">
+                   <md-icon  md-font-icon="{{Icon(notie.display_name)}}" class="mdi md-avatar" style="font-size: 2em"></md-icon>  
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{notie.display_name}}</h3>
+                        <p>{{notie.last_sync|date:'medium'}}</p>
+                    </div>
+                </md-list-item>
+                
+                <md-list-item ng-if="notifications.length===0">
+                    No Notifications
+                </md-list-item>
+            </md-list>
+        </md-content>
+
+
     </md-sidenav>
-
-
     <div flex layout="column">
         <div ui-view="content" id="content" flex></div>
 
-            <div flex class="footer">
+        <div flex class="footer">
             <md-divider></md-divider>
             <md-toolbar layout="row">
 
                 <h6 flex-offset="85"><i class="mdi mdi-copyright"></i><span>Smart Town 2016</span></h6>
-
 
             </md-toolbar>
 

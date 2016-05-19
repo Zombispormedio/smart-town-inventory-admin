@@ -2,14 +2,14 @@ angular.module('Application')
     .factory("SensorService", function(ApiService){
     return {
         base:"sensor",
-           Basic:function(){
+        Basic:function(){
             return ApiService.rest(this.base+"/:id", {
                 new:{method:"POST", params:{}},
                 byId:{method:"GET", params:{id:"@id"}}
 
             });
         },
-       Transmissor:function(){
+        Transmissor:function(){
             return ApiService.rest(this.base+"/:id/transmissor", {
                 set:{method:"PUT", params:{id:"@id"}}
             });
@@ -19,9 +19,25 @@ angular.module('Application')
                 set:{method:"PUT", params:{id:"@id"}}
             });
         },
-         Magnitude:function(){
+        Magnitude:function(){
             return ApiService.rest(this.base+"/:id/magnitude", {
                 set:{method:"PUT", params:{id:"@id"}}
+            });
+        },
+
+        Fix:function(){
+            return ApiService.rest(this.base+"/:id/fix", {
+                set:{method:"GET", params:{id:"@id"}}
+            });
+        },
+        Import:function(){
+            return ApiService.rest(this.base+"s/import", {
+                upload:{method:"POST", params:{}},
+            });
+        },
+        Notifications:function(){
+            return ApiService.rest(this.base+"s/notifications", {
+                get:{method:"GET", params:{}},
             });
         }
     };

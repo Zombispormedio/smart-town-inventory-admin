@@ -6,6 +6,10 @@
         <h2 flex>
             <span>{{sensor.display_name}}</span>
         </h2>
+        
+         <md-button aria-label="fix sensor" md-theme="smartTheme" style="color:white" flex="15" class="md-raised md-primary" ng-click="fix()" ng-if="sensor.notify">
+            <i class="mdi mdi-alert"></i>&nbsp;&nbsp;Fix Sensor
+        </md-button>
     </div>
 </md-toolbar>
 

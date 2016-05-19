@@ -79,12 +79,20 @@ angular.module('Application')
 
 
 
-    this.SensorGridById=function(){
+    var SensorGridById=function(){
         SensorService.Basic().byId({id:sensor_id}, RequestService.Data(function(data){
             $scope.sensor=data;
             self.AllMagnitudes();
         }), RequestService.Error());
     }
 
-    this.SensorGridById();
+    SensorGridById();
+    
+    $scope.fix=function(){
+         SensorService.Fix().set({id:sensor_id}, RequestService.Data(function(data){
+           $rootScope.notifications=data;
+             SensorGridById();
+        }), RequestService.Error());
+    }
+    
 });

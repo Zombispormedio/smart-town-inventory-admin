@@ -20,8 +20,6 @@ module.run(['$templateCache', function($templateCache) {
     '                <md-button aria-label="Open main menu" class="md-icon-button" flex ng-click="showMain=!showMain; showOptions=false">\n' +
     '                    <md-icon  md-font-icon="mdi-apps" class="mdi"></md-icon>\n' +
     '                </md-button>\n' +
-    '\n' +
-    '\n' +
     '            </md-toolbar>\n' +
     '\n' +
     '        </header>\n' +
@@ -32,22 +30,40 @@ module.run(['$templateCache', function($templateCache) {
     '                </span>\n' +
     '                <md-icon md-font-icon="mdi-chevron-down" class="mdi md-primary" flex ></md-icon>\n' +
     '            </md-subheader>\n' +
-    '\n' +
-    '\n' +
     '        </md-content>\n' +
     '\n' +
+    '        <md-content class="notifications">\n' +
+    '            <md-toolbar class="md-primary">\n' +
+    '                <h2 class="md-toolbar-tools">\n' +
+    '                   <i class="mdi mdi-alert"></i>&nbsp;\n' +
+    '                    <span>Notifications</span>\n' +
+    '                </h2>\n' +
+    '            </md-toolbar>\n' +
+    '            <md-list>\n' +
+    '                <md-list-item class="md-3-line" ng-repeat="notie in notifications" ng-click="goToNotificationDetail(notie._id)">\n' +
+    '                   <md-icon  md-font-icon="{{Icon(notie.display_name)}}" class="mdi md-avatar" style="font-size: 2em"></md-icon>  \n' +
+    '                    <div class="md-list-item-text" layout="column">\n' +
+    '                        <h3>{{notie.display_name}}</h3>\n' +
+    '                        <p>{{notie.last_sync|date:\'medium\'}}</p>\n' +
+    '                    </div>\n' +
+    '                </md-list-item>\n' +
+    '                \n' +
+    '                <md-list-item ng-if="notifications.length===0">\n' +
+    '                    No Notifications\n' +
+    '                </md-list-item>\n' +
+    '            </md-list>\n' +
+    '        </md-content>\n' +
+    '\n' +
+    '\n' +
     '    </md-sidenav>\n' +
-    '\n' +
-    '\n' +
     '    <div flex layout="column">\n' +
     '        <div ui-view="content" id="content" flex></div>\n' +
     '\n' +
-    '            <div flex class="footer">\n' +
+    '        <div flex class="footer">\n' +
     '            <md-divider></md-divider>\n' +
     '            <md-toolbar layout="row">\n' +
     '\n' +
     '                <h6 flex-offset="85"><i class="mdi mdi-copyright"></i><span>Smart Town 2016</span></h6>\n' +
-    '\n' +
     '\n' +
     '            </md-toolbar>\n' +
     '\n' +
@@ -1432,6 +1448,76 @@ try {
   module = angular.module('Application', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('/views/_application/_dashboard/_sensor/sensor_import_dialog.html',
+    '<md-dialog aria-label="Verify CSV Import"  ng-cloak class="import-dialog">\n' +
+    '    <form>\n' +
+    '        <md-toolbar>\n' +
+    '            <div class="md-toolbar-tools">\n' +
+    '                <h2>Verify CSV Import</h2>\n' +
+    '                <span flex></span>\n' +
+    '                <md-button class="md-icon-button" ng-click="cancel()">\n' +
+    '                    <md-icon class="mdi" md-font-icon="mdi-close"  aria-label="Close dialog"></md-icon>\n' +
+    '                </md-button>\n' +
+    '            </div>\n' +
+    '        </md-toolbar>\n' +
+    '        <md-dialog-content md-theme="smartTheme">\n' +
+    '            <div class="md-dialog-content" layout="column">\n' +
+    '\n' +
+    '                <md-list>\n' +
+    '\n' +
+    '                    <md-list-item class="md-3-line" ng-repeat="sensor in sensors">\n' +
+    '                        <div class="md-list-item-text" layout="column" ng-init="sensor.more=false">\n' +
+    '                            <h2 ng-click="sensor.more=!sensor.more"><i class="mdi mdi-chevron-down"></i>Display Name: {{ sensor.display_name || \'N/A\' }} </h2>\n' +
+    '                            <div layout="row"> \n' +
+    '                                <span style="font-size:1.5em" flex="50">Grid Ref: {{ (sensor.grid_ref | fill:4) || \'N/A\' }}</span>\n' +
+    '                                <i class="mdi mdi-check-circle check" title="Valid Grid Ref" ng-if="sensor.grid_valid"></i>\n' +
+    '                                <i class="mdi mdi-close-circle wrong" title="Invalid Grid Ref" ng-if="sensor.grid_verify&&!sensor.grid_valid"></i>\n' +
+    '                                <md-progress-circular flex ng-if="!sensor.grid_verify" md-mode="indeterminate" md-diameter="45px"></md-progress-circular>\n' +
+    '                            </div>\n' +
+    '                            <div layout="row"> \n' +
+    '                                <span style="font-size:1.5em" flex="50">Magnitude Ref: {{ (sensor.magnitude_ref | fill:4) || \'N/A\' }}</span>\n' +
+    '                                <i class="mdi mdi-check-circle check" title="Valid Magniude Ref" ng-if="sensor.magnitude_valid"></i>\n' +
+    '                                <i class="mdi mdi-close-circle wrong" title="Invalid Magnitude Ref" ng-if="sensor.magnitudeverifyd&&!sensor.magnitude_valid"></i>\n' +
+    '                                <md-progress-circular flex ng-if="!sensor.magnitude_verify" md-mode="indeterminate" md-diameter="45px"></md-progress-circular>\n' +
+    '                            </div>\n' +
+    '\n' +
+    '                            <div ng-if="sensor.more">\n' +
+    '                                <p>Device Name: {{ sensor.device_name || \'N/A\' }}</p>\n' +
+    '                                <p>Description: {{ sensor.description|| \'N/A\' }}</p>\n' +
+    '                                <p>Unit: {{sensor.unit}}</p>\n' +
+    '                                <p>Is Raw Data: {{sensor.is_raw_data || \'N/A\'}}</p>\n' +
+    '                                <p ng-if="sensor.is_raw_data">Raw Conversion: {{sensor.raw_conversion || \'N/A\'}}</p>\n' +
+    '                            </div>\n' +
+    '                        </div>\n' +
+    '                        <md-divider ng-if="!$last"></md-divider>\n' +
+    '                    </md-list-item>\n' +
+    '                </md-list>\n' +
+    '\n' +
+    '            </div>\n' +
+    '        </md-dialog-content>\n' +
+    '        <md-dialog-actions layout="row">\n' +
+    '\n' +
+    '            <span flex></span>\n' +
+    '            <md-button ng-click="cancel()">\n' +
+    '                Cancel\n' +
+    '            </md-button>\n' +
+    '            <md-button ng-click="confirm()" >\n' +
+    '                Confirm\n' +
+    '            </md-button>\n' +
+    '\n' +
+    '        </md-dialog-actions>\n' +
+    '    </form>\n' +
+    '</md-dialog>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('Application');
+} catch (e) {
+  module = angular.module('Application', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('/views/_application/_dashboard/_sensor/show.html',
     '<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">\n' +
     '    <div class=" toolbar-create md-toolbar-tools" layout="row">\n' +
@@ -1441,6 +1527,10 @@ module.run(['$templateCache', function($templateCache) {
     '        <h2 flex>\n' +
     '            <span>{{sensor.display_name}}</span>\n' +
     '        </h2>\n' +
+    '        \n' +
+    '         <md-button aria-label="fix sensor" md-theme="smartTheme" style="color:white" flex="15" class="md-raised md-primary" ng-click="fix()" ng-if="sensor.notify">\n' +
+    '            <i class="mdi mdi-alert"></i>&nbsp;&nbsp;Fix Sensor\n' +
+    '        </md-button>\n' +
     '    </div>\n' +
     '</md-toolbar>\n' +
     '\n' +
@@ -1678,8 +1768,13 @@ module.run(['$templateCache', function($templateCache) {
     '                    </md-button>\n' +
     '                </md-menu-item>\n' +
     '                 <md-menu-item>\n' +
-    '                    <md-button ng-click="import($event)">\n' +
+    '                    <md-button ng-click="importSensorGrids($event)">\n' +
     '                        Import Sensor Grids by CSV\n' +
+    '                    </md-button>\n' +
+    '                </md-menu-item>\n' +
+    '                <md-menu-item>\n' +
+    '                    <md-button ng-click="importSensors($event)">\n' +
+    '                        Import Sensors by CSV\n' +
     '                    </md-button>\n' +
     '                </md-menu-item>\n' +
     '            </md-menu-content>\n' +
@@ -1743,7 +1838,8 @@ module.run(['$templateCache', function($templateCache) {
     '</div>\n' +
     '\n' +
     '\n' +
-    '<input type="file" class="hide" id="importFile" file-reader onfilechange="fileToImport" encoding="encoding">');
+    '<input type="file" class="hide" id="importSensorGridFile" file-reader onfilechange="SensorGridfileToImport" encoding="encoding">\n' +
+    '<input type="file" class="hide" id="importSensorFile" file-reader onfilechange="SensorfileToImport" encoding="encoding">');
 }]);
 })();
 

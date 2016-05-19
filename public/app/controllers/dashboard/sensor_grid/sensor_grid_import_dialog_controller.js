@@ -4,11 +4,11 @@ angular.module('Application')
     $scope.sensor_grids=_import.data;
     $scope.labels=_import.labels;
 
-    
+
     async.map( $scope.sensor_grids, function(item, done){
         
-        $scope.sensor_grids.location_longitude= $scope.sensor_grids.location_longitude.replace(",", ".");
-         $scope.sensor_grids.location_latitude= $scope.sensor_grids.location_latitude.replace(",", ".");
+        item.location_longitude= item.location_longitude.replace(",", ".");
+         item.location_latitude= item.location_latitude.replace(",", ".");
         
         ZoneService.Ref().verify({ref:item.zone_ref}, RequestService.Data(function(data){
            

@@ -1,0 +1,59 @@
+<md-dialog aria-label="Verify CSV Import"  ng-cloak class="import-dialog">
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Verify CSV Import</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon class="mdi" md-font-icon="mdi-close"  aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content md-theme="smartTheme">
+            <div class="md-dialog-content" layout="column">
+
+                <md-list>
+
+                    <md-list-item class="md-3-line" ng-repeat="sensor in sensors">
+                        <div class="md-list-item-text" layout="column" ng-init="sensor.more=false">
+                            <h2 ng-click="sensor.more=!sensor.more"><i class="mdi mdi-chevron-down"></i>Display Name: {{ sensor.display_name || 'N/A' }} </h2>
+                            <div layout="row"> 
+                                <span style="font-size:1.5em" flex="50">Grid Ref: {{ (sensor.grid_ref | fill:4) || 'N/A' }}</span>
+                                <i class="mdi mdi-check-circle check" title="Valid Grid Ref" ng-if="sensor.grid_valid"></i>
+                                <i class="mdi mdi-close-circle wrong" title="Invalid Grid Ref" ng-if="sensor.grid_verify&&!sensor.grid_valid"></i>
+                                <md-progress-circular flex ng-if="!sensor.grid_verify" md-mode="indeterminate" md-diameter="45px"></md-progress-circular>
+                            </div>
+                            <div layout="row"> 
+                                <span style="font-size:1.5em" flex="50">Magnitude Ref: {{ (sensor.magnitude_ref | fill:4) || 'N/A' }}</span>
+                                <i class="mdi mdi-check-circle check" title="Valid Magniude Ref" ng-if="sensor.magnitude_valid"></i>
+                                <i class="mdi mdi-close-circle wrong" title="Invalid Magnitude Ref" ng-if="sensor.magnitudeverifyd&&!sensor.magnitude_valid"></i>
+                                <md-progress-circular flex ng-if="!sensor.magnitude_verify" md-mode="indeterminate" md-diameter="45px"></md-progress-circular>
+                            </div>
+
+                            <div ng-if="sensor.more">
+                                <p>Device Name: {{ sensor.device_name || 'N/A' }}</p>
+                                <p>Description: {{ sensor.description|| 'N/A' }}</p>
+                                <p>Unit: {{sensor.unit}}</p>
+                                <p>Is Raw Data: {{sensor.is_raw_data || 'N/A'}}</p>
+                                <p ng-if="sensor.is_raw_data">Raw Conversion: {{sensor.raw_conversion || 'N/A'}}</p>
+                            </div>
+                        </div>
+                        <md-divider ng-if="!$last"></md-divider>
+                    </md-list-item>
+                </md-list>
+
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+
+            <span flex></span>
+            <md-button ng-click="cancel()">
+                Cancel
+            </md-button>
+            <md-button ng-click="confirm()" >
+                Confirm
+            </md-button>
+
+        </md-dialog-actions>
+    </form>
+</md-dialog>

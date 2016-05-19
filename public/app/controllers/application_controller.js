@@ -1,16 +1,15 @@
 angular.module('Application')
-    .controller('ApplicationCtrl', function($rootScope, $scope, OAuthService, RequestService){
+    .controller('ApplicationCtrl', function($rootScope, $scope, OAuthService, RequestService, SensorService, $interval){
 
     $scope.user={};
 
-    $scope.array_colors=Array.apply(null, Array(27)).map(function(){return "#FF9800"});
 
     $scope.closePopoverMain=function(){
-       $scope.showMain=false;
+        $scope.showMain=false;
     }
-    
-     $scope.closePopoverOptions=function(){
-       $scope.showOptions=false;
+
+    $scope.closePopoverOptions=function(){
+        $scope.showOptions=false;
     }
 
 
@@ -27,13 +26,39 @@ angular.module('Application')
 
     $scope.logout=function(){
         OAuthService.logout()._(function(data){
-            
+
             deleteLocal("user");
 
             $rootScope.go("login");
 
         },RequestService.Error());  
     };
+
+    var fetchSensorsNotifications=function(){
+        SensorService.Notifications().get(RequestService.Data(function(data){
+            $rootScope.notifications=data;
+
+        }), RequestService.Error());
+    }
+
+    var icons=["amplifier", "apple-mobileme", "boombox", "chip", "cube", "linux"]
+
+    $scope.Icon=function(name){
+
+        var index=name.charCodeAt(0)%icons.length;
+        return "mdi-"+icons[index];
+    };
+
+
+    fetchSensorsNotifications();
+
+    $scope.goToNotificationDetail=function(id){
+        $scope.go("application.sensor.detail", {id:id});
+    }
+
+    $interval(function(){
+        fetchSensorsNotifications();
+    }, 600000)
 
 
 });

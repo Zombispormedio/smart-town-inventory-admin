@@ -1,5 +1,5 @@
 angular.module('Application')
-    .controller('DashboardCtrl',function($scope, $rootScope, SensorGridService, ThemeService,  RequestService, $window, ImportService, $mdDialog){
+    .controller('DashboardCtrl',function($scope, $rootScope, SensorGridService, ThemeService,  RequestService, $window, ImportService, $mdDialog, SensorService){
 
 
     var query={
@@ -69,7 +69,7 @@ angular.module('Application')
 
     $scope.next=function(){
         var page=query.p+1;
-        console.log($scope.list.numPages)
+        
         if(page<$scope.list.numPages){
             query.p++;
             fetch();
@@ -116,30 +116,30 @@ angular.module('Application')
 
     $scope.encoding="ISO-8859-1";
 
-    $scope.fileToImport=function(result){
+    $scope.SensorGridfileToImport=function(result){
         ImportService.CSV(result, function(r){
-            console.log(r);
-            document.getElementById("importFile").value="";
+            
+            document.getElementById("importSensorGridFile").value="";
 
-            OpenImportDialog(r);
+            OpenSensorGridImportDialog(r);
 
         })
     }
 
-    var importEvent=null;
-    $scope.import=function(ev){
-        importEvent=ev;
-        document.getElementById("importFile").click();
+    var importSensorGridEvent=null;
+    $scope.importSensorGrids=function(ev){
+        importSensorEvent=ev;
+        document.getElementById("importSensorGridFile").click();
     }
 
 
-    var OpenImportDialog=function(import_data){
+    var OpenSensorGridImportDialog=function(import_data){
         $mdDialog.show({
             controller:'SensorGridImportDialogCtrl',
             templateUrl: '/views/_application/_dashboard/_sensor_grid/sensor_grid_import_dialog.html',
             parent: angular.element(document.body),
             clickOutsideToClose:true,
-            targetEvent: importEvent,
+            targetEvent: importSensorGridEvent,
             locals:{
                 _import:import_data
             }
@@ -147,6 +147,40 @@ angular.module('Application')
              SensorGridService.Import().upload( result, RequestService.Data(function(data){
             $scope.sensor_grids=data;
         }), RequestService.Error());
+        });
+    };
+    
+    
+    
+     $scope.SensorfileToImport=function(result){
+        ImportService.CSV(result, function(r){
+            
+            document.getElementById("importSensorFile").value="";
+
+            OpenSensorImportDialog(r);
+          
+
+        })
+    }
+
+    var importSensorEvent=null;
+    $scope.importSensors=function(ev){
+        importSensorEvent=ev;
+        document.getElementById("importSensorFile").click();
+    }
+    
+     var OpenSensorImportDialog=function(import_data){
+        $mdDialog.show({
+            controller:'SensorImportDialogCtrl',
+            templateUrl: '/views/_application/_dashboard/_sensor/sensor_import_dialog.html',
+            parent: angular.element(document.body),
+            clickOutsideToClose:true,
+            targetEvent: importSensorEvent,
+            locals:{
+                _import:import_data
+            }
+        }).then(function(result){
+            SensorService.Import().upload( result, RequestService.Message(), RequestService.Error());
         });
     };
 

@@ -16,8 +16,13 @@
                     </md-button>
                 </md-menu-item>
                  <md-menu-item>
-                    <md-button ng-click="import($event)">
+                    <md-button ng-click="importSensorGrids($event)">
                         Import Sensor Grids by CSV
+                    </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button ng-click="importSensors($event)">
+                        Import Sensors by CSV
                     </md-button>
                 </md-menu-item>
             </md-menu-content>
@@ -81,4 +86,5 @@
 </div>
 
 
-<input type="file" class="hide" id="importFile" file-reader onfilechange="fileToImport" encoding="encoding">
+<input type="file" class="hide" id="importSensorGridFile" file-reader onfilechange="SensorGridfileToImport" encoding="encoding">
+<input type="file" class="hide" id="importSensorFile" file-reader onfilechange="SensorfileToImport" encoding="encoding">
