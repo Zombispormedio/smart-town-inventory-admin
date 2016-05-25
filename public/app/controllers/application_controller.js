@@ -58,7 +58,7 @@ angular.module('Application')
 
     $interval(function(){
         fetchSensorsNotifications();
-    }, 600000)
+    }, 6000)
 
 
 });
