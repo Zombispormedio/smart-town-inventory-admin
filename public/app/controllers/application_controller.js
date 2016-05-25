@@ -3,6 +3,7 @@ angular.module('Application')
 
     $scope.user={};
 
+	var notifications=null;
 
     $scope.closePopoverMain=function(){
         $scope.showMain=false;
@@ -28,6 +29,7 @@ angular.module('Application')
         OAuthService.logout()._(function(data){
 
             deleteLocal("user");
+			$interval.cancel(notifications);
 
             $rootScope.go("login");
 
@@ -56,9 +58,9 @@ angular.module('Application')
         $scope.go("application.sensor.detail", {id:id});
     }
 
-    $interval(function(){
+    notifications=$interval(function(){
         fetchSensorsNotifications();
-    }, 6000)
+    }, 15000)
 
 
 });
