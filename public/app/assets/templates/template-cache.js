@@ -2062,6 +2062,19 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '\n' +
     '        </div>\n' +
+    '        \n' +
+    '        <md-divider ></md-divider>\n' +
+    '        <div layout="row" flex class="input-create">\n' +
+    '            <div  flex="20"  flex-offset="5">\n' +
+    '                <h3>MQTT</h3>\n' +
+    '\n' +
+    '            </div>\n' +
+    '            <md-switch flex="30" class="select" ng-model="sensor_grid.mqtt" aria-label="MQTT" ng-change="MQTT()">\n' +
+    '            </md-switch>\n' +
+    '\n' +
+    '\n' +
+    '\n' +
+    '        </div>\n' +
     '\n' +
     '    </div>\n' +
     '\n' +

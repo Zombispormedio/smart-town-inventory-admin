@@ -40,6 +40,11 @@ angular.module('Application')
                 reload:{method:"GET", params:{id:"@id"}}
             });
         },
+        MQTT:function(){
+            return ApiService.rest(this.base+"/:id/mqtt", {
+                set:{method:"GET", params:{id:"@id"}}
+            });
+        },
         CommunicationCenter:function(){
             return ApiService.rest(this.base+"/:id/communication_center", {
                 set:{method:"PUT", params:{id:"@id"}}

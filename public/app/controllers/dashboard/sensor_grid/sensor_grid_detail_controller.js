@@ -84,6 +84,14 @@ angular.module('Application')
             $scope.editable.haveAccess= checkAccess();
         }), RequestService.Error());
     }
+    
+    
+    $scope.MQTT=function(){
+         SensorGridService.MQTT().set({id:sensor_grid_id}, RequestService.Data(function(data){
+            $scope.sensor_grid=data;
+        }), RequestService.Error());
+    }
+    
 
     var checkAccess=function(){
         return $scope.sensor_grid.client_secret!==void 0 && $scope.sensor_grid.client_secret!=="";
