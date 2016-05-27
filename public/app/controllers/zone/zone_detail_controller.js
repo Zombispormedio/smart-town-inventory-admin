@@ -89,6 +89,7 @@ angular.module('Application')
                     break;
                 }
                 case "circle":{
+                   
                     shape.radius=overlay.getRadius();
                     var center=overlay.getCenter();
                     shape.center=[
