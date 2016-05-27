@@ -8,6 +8,7 @@ angular.module('Application')
 
     $scope.go=function(state, params){
         $rootScope.goWithDestroy($scope, state, params);
+       
     }
     $scope.goBack=function(){
         $scope.go("application.zones.list");
@@ -243,59 +244,6 @@ angular.module('Application')
     }
 
     this.ZoneById();
-
-
-    var Others=function(){
-        ZoneService.Others().get({id:zone_id}, RequestService.Data(function(data){
-            addOthers(data);
-
-        }), RequestService.Error());
-    }
-
-    var addOthers=function(others){
-        NgMap.getMap().then(function(map) {
-            others.forEach(function(item){
-
-
-                switch(item.shape.type){
-                    case "polygon":{
-                        addPolygon(item, map); 
-                        break;
-                    }    
-
-
-                }
-
-
-            });
-
-        });
-
-
-
-
-    }
-
-    Others();
-
-
-    var addPolygon=function(item, map){
-        console.log(map);
-
-        var coords=item.shape.paths.map(function(item){
-            return {lat: item[1], lng: item[0]}
-        });
-
-        var polygon = new google.maps.Polygon({
-            paths: coords,
-            strokeColor: '#00FF00',
-            strokeOpacity: 0.8,
-            strokeWeight: 3,
-            fillColor: '#FF0000',
-            fillOpacity: 0.35
-        });
-        polygon.setMap(map);
-    }
 
 
     });
