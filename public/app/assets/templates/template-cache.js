@@ -1237,6 +1237,7 @@ module.run(['$templateCache', function($templateCache) {
     '                   stroke-opacity="1.0" stroke-weight="2"\n' +
     '                   bounds="{{zone.shape.bounds}}">\n' +
     '            </shape>\n' +
+    '            \n' +
     '\n' +
     '\n' +
     '        </ng-map>\n' +

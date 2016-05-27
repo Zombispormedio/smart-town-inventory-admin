@@ -47,6 +47,11 @@ angular.module('Application')
             return ApiService.rest(this.base+"/:id/shape", {
                 set:{method:"PUT", params:{id:"@id"}}
             });
+        },
+         Others:function(){
+            return ApiService.rest(this.base+"/:id/others", {
+                get:{method:"GET", params:{id:"@id"}}
+            });
         }
 
 
