@@ -4,11 +4,12 @@ angular.module('Application')
     var self=this;
     $scope.self=self;
 
+    $scope.Color="#FF0000";
     ThemeService.Content($scope, "background-theme-orange");
 
     $scope.go=function(state, params){
         $rootScope.goWithDestroy($scope, state, params);
-       
+
     }
     $scope.goBack=function(){
         $scope.go("application.zones.list");
@@ -134,10 +135,15 @@ angular.module('Application')
 
     $scope.changeLocation=function(){
         var shape=$scope.zone.shape;
-        var map_shape=self.getMap().shapes;
+        var shapes=self.getMap().shapes;
+        
+        var map_shape=_.find(shapes, function(o){
+           return o.strokeColor===$scope.Color;
+        });
+        console.log(map_shape)
         switch(shape.type){
             case "rectangle":{
-                var rectangle=map_shape.rectangle;
+                var rectangle=map_shape;
                 var b=rectangle.getBounds();
                 var ne=b.getNorthEast();
                 var se=b.getSouthWest();
@@ -145,7 +151,7 @@ angular.module('Application')
                 break;
             }
             case "circle":
-                var circle=map_shape.circle;
+                var circle=map_shape;
                 shape.radius=circle.getRadius();
                 var center= circle.getCenter()
                 shape.center=[
@@ -154,7 +160,7 @@ angular.module('Application')
                 ];
                 break;
             case "polygon":
-                var polygon=map_shape.polygon;
+                var polygon=map_shape;
                 shape.paths=polygon.getPath().j.map(function(a){
                     return [a.lat(), a.lng()];
                 });
@@ -246,4 +252,22 @@ angular.module('Application')
     this.ZoneById();
 
 
-    });
+    var Others=function(){
+        ZoneService.Others().get({id:zone_id}, RequestService.Data(function(data){
+            $scope.others=data.map(function(item){
+
+                item.center=reverse(item.center);
+                item.shape.center=reverse(item.shape.center);
+                item.shape.bounds=reverse2d(item.shape.bounds);
+                item.shape.paths=  reverse2d(item.shape.paths);
+
+
+                return item; 
+            });
+        }), RequestService.Error());
+    }
+
+    Others();
+
+
+});
