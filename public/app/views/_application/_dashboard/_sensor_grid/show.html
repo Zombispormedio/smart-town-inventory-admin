@@ -193,6 +193,28 @@
         </div>
         <ng-map center="{{editable.center|reverse}}">
             <marker position="{{(sensor_grid.location| reverse)||'[40.74, -74.18]'}}" title="drag me" draggable="{{editable.location}}"></marker>
+            
+            
+            
+             <shape  name="polygon"  ng-if="own_zone.shape.type==='polygon'" 
+                   stroke-color="#FF0000" 
+                   stroke-opacity="1.0" stroke-weight="2" fill-opacity="0.2"
+                   paths="{{own_zone.shape.paths}}" >
+            </shape>
+            
+            
+            <shape  name="circle"  ng-if="own_zone.shape.type==='circle'" 
+                   stroke-color='#808080' stroke-opacity="1.0"stroke-weight="2"
+                   center="{{own_zone.shape.center}}" radius="{{own_zone.shape.radius}}">
+            </shape>
+
+            <shape  name="rectangle"   ng-if="own_zone.shape.type==='rectangle'"
+                   stroke-color='#808080' 
+                   stroke-opacity="1.0" stroke-weight="2"
+                   bounds="{{own_zone.shape.bounds}}">
+            </shape>
+            
+            
         </ng-map>
 
     </div>

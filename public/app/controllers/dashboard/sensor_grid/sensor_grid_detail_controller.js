@@ -75,6 +75,7 @@ angular.module('Application')
         SensorGridService.Zone().set({id:sensor_grid_id},result, RequestService.Data(function(data){
             $scope.sensor_grid=data;
             $scope.editable.zone=false;
+            OwnZone();
         }), RequestService.Error());
     }
 
@@ -189,6 +190,7 @@ angular.module('Application')
                 $scope.editable.center=_.clone($scope.sensor_grid.location);
 
             }
+              OwnZone();
 
         }), RequestService.Error());
     }
@@ -276,6 +278,21 @@ angular.module('Application')
     };
 
     fetchSensor();
+    
+    
+    var OwnZone=function(){
+        var zone_id=$scope.sensor_grid.zone;
+        ZoneService.Basic().byId({id:zone_id}, RequestService.Data(function(data){
+            var zone=data;
 
+            zone.center=reverse(zone.center);
+            zone.shape.center=reverse(zone.shape.center);
+            zone.shape.bounds=reverse2d(zone.shape.bounds);
+            zone.shape.paths=  reverse2d(zone.shape.paths);
+            $scope.own_zone=zone;
+        }), RequestService.Error());
+    }
+
+   
 
 });

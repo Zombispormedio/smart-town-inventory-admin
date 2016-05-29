@@ -336,19 +336,6 @@ try {
   module = angular.module('Application', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('/views/_application/_dashboard/main.html',
-    '<ui-title>Dashboard</ui-title>\n' +
-    '<div layout="column" ui-view="inner"></div>');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('Application');
-} catch (e) {
-  module = angular.module('Application', []);
-}
-module.run(['$templateCache', function($templateCache) {
   $templateCache.put('/views/_application/_invite/main.html',
     '<ui-title>Invite</ui-title>\n' +
     '<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">\n' +
@@ -374,6 +361,19 @@ module.run(['$templateCache', function($templateCache) {
     '     <md-button class="md-raised md-primary md-invite" ng-click="sendInvitation()">Invite, please</md-button>\n' +
     '    </div>\n' +
     '</md-content>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('Application');
+} catch (e) {
+  module = angular.module('Application', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('/views/_application/_dashboard/main.html',
+    '<ui-title>Dashboard</ui-title>\n' +
+    '<div layout="column" ui-view="inner"></div>');
 }]);
 })();
 
@@ -2128,6 +2128,28 @@ module.run(['$templateCache', function($templateCache) {
     '        </div>\n' +
     '        <ng-map center="{{editable.center|reverse}}">\n' +
     '            <marker position="{{(sensor_grid.location| reverse)||\'[40.74, -74.18]\'}}" title="drag me" draggable="{{editable.location}}"></marker>\n' +
+    '            \n' +
+    '            \n' +
+    '            \n' +
+    '             <shape  name="polygon"  ng-if="own_zone.shape.type===\'polygon\'" \n' +
+    '                   stroke-color="#FF0000" \n' +
+    '                   stroke-opacity="1.0" stroke-weight="2" fill-opacity="0.2"\n' +
+    '                   paths="{{own_zone.shape.paths}}" >\n' +
+    '            </shape>\n' +
+    '            \n' +
+    '            \n' +
+    '            <shape  name="circle"  ng-if="own_zone.shape.type===\'circle\'" \n' +
+    '                   stroke-color=\'#808080\' stroke-opacity="1.0"stroke-weight="2"\n' +
+    '                   center="{{own_zone.shape.center}}" radius="{{own_zone.shape.radius}}">\n' +
+    '            </shape>\n' +
+    '\n' +
+    '            <shape  name="rectangle"   ng-if="own_zone.shape.type===\'rectangle\'"\n' +
+    '                   stroke-color=\'#808080\' \n' +
+    '                   stroke-opacity="1.0" stroke-weight="2"\n' +
+    '                   bounds="{{own_zone.shape.bounds}}">\n' +
+    '            </shape>\n' +
+    '            \n' +
+    '            \n' +
     '        </ng-map>\n' +
     '\n' +
     '    </div>\n' +
