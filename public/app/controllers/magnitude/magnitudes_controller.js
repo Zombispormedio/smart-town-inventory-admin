@@ -39,9 +39,7 @@ angular.module('Application')
     };
 
     $scope.delete=function(id){
-        MagnitudeService.Basic().del({id:id},RequestService.Data(function(data){
-            $scope.magnitudes=data;
-        }), RequestService.Error());
+        MagnitudeService.Basic().del({id:id},fecth, RequestService.Error());
     };
 
     $scope.goToDetail=function(id){

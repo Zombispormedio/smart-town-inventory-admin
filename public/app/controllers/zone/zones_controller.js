@@ -44,9 +44,7 @@ angular.module('Application')
     };
 
     $scope.delete=function(id){
-        ZoneService.Basic().del({id:id},RequestService.Data(function(data){
-            $scope.zones=data;
-        }), RequestService.Error());
+        ZoneService.Basic().del({id:id},fecth, RequestService.Error());
     };
 
 

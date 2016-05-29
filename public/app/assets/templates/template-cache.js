@@ -336,6 +336,19 @@ try {
   module = angular.module('Application', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('/views/_application/_dashboard/main.html',
+    '<ui-title>Dashboard</ui-title>\n' +
+    '<div layout="column" ui-view="inner"></div>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('Application');
+} catch (e) {
+  module = angular.module('Application', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('/views/_application/_invite/main.html',
     '<ui-title>Invite</ui-title>\n' +
     '<md-toolbar class="md-whiteframe-1dp" id="main-toolbar">\n' +
@@ -361,19 +374,6 @@ module.run(['$templateCache', function($templateCache) {
     '     <md-button class="md-raised md-primary md-invite" ng-click="sendInvitation()">Invite, please</md-button>\n' +
     '    </div>\n' +
     '</md-content>');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('Application');
-} catch (e) {
-  module = angular.module('Application', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('/views/_application/_dashboard/main.html',
-    '<ui-title>Dashboard</ui-title>\n' +
-    '<div layout="column" ui-view="inner"></div>');
 }]);
 })();
 
