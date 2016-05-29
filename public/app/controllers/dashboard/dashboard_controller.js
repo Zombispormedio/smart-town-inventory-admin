@@ -42,7 +42,7 @@ angular.module('Application')
         return "mdi-"+icons[index];
     };
     $scope.delete=function(id){
-        SensorGridService.Basic().del({id:id},fecth, RequestService.Error());
+        SensorGridService.Basic().del({id:id},fetch, RequestService.Error());
     };
 
     $scope.goToDetail=function(id){
