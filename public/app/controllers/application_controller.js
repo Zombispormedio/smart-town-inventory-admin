@@ -61,6 +61,10 @@ angular.module('Application')
     notifications=$interval(function(){
         fetchSensorsNotifications();
     }, 15000)
+    
+    $scope.$on("$destroy", function(){
+       $interval.cancel(notifications); 
+    });
 
 
 });
