@@ -1,5 +1,5 @@
 angular.module('Application')
-    .controller('DashboardCtrl',function($scope, $rootScope, SensorGridService, ThemeService,  RequestService, $window, ImportService, $mdDialog, SensorService){
+    .controller('DashboardCtrl',function($scope, $rootScope, SensorGridService, ThemeService,  RequestService, $window, ImportService, $mdDialog, SensorService, ZoneService){
 
 
     var query={
@@ -97,8 +97,13 @@ angular.module('Application')
         fetch();
     }
 
+    var zones=[];
     var fetch=function(){
 
+         ZoneService.Search().all( RequestService.Data(function(data){
+            zones=data;
+        }), RequestService.Error());
+        
         SensorGridService.Count().get(query, RequestService.Data(function(data){
             $scope.list.numItems=data;
 
@@ -111,6 +116,28 @@ angular.module('Application')
     };
 
     fetch();
+    
+    
+    
+    $scope.ZoneName=function(id){
+        
+         var m=_.find(zones, function(o){return o._id===id});
+        
+        return m?m.display_name:void 0;
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     $scope.encoding="ISO-8859-1";
 

@@ -15,7 +15,7 @@
                         Create new Sensor Grid
                     </md-button>
                 </md-menu-item>
-                 <md-menu-item>
+                <md-menu-item>
                     <md-button ng-click="importSensorGrids($event)">
                         Import Sensor Grids by CSV
                     </md-button>
@@ -40,7 +40,7 @@
                         <md-icon  md-font-icon="{{Icon(sensor_grid.display_name)}}" class="mdi list-type-icon"></md-icon>  
                         <p flex="15"> Ref: {{ sensor_grid.ref|fill:4 }} </p>
                         <p> {{ sensor_grid.display_name }} </p>
-
+                       <p>Zone: {{ZoneName(sensor_grid.zone)}}</p>
 
                     </md-list-item>
 

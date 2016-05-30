@@ -50,7 +50,7 @@ angular.module('Application')
     }
 
     $scope.onChangeSelectedMagnitude=function(){
-               $scope.sensor.unit="";
+        $scope.sensor.unit="";
          self.setSelectedMagnitude();
     }
     this.setSelectedMagnitude=function(){

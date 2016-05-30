@@ -1,5 +1,5 @@
 angular.module('Application')
-    .controller('DetailSensorGridCtrl',function($rootScope, $scope, $stateParams, SensorGridService, ZoneService, RequestService, ThemeService, clipboard, NgMap, $window){
+    .controller('DetailSensorGridCtrl',function($rootScope, $scope, $stateParams, SensorGridService, ZoneService, RequestService, ThemeService, clipboard, NgMap, $window, MagnitudeService){
 
     var self=this;
     ThemeService.Content($scope, "background-theme-orange");
@@ -174,32 +174,6 @@ angular.module('Application')
     this.ZoneAll();
 
 
-    this.SensorGridById=function(){
-        SensorGridService.Basic().byId({id:sensor_grid_id}, RequestService.Data(function(data){
-            $scope.sensor_grid=data;
-
-            $scope.editable.haveAccess= checkAccess();
-
-            var location= $scope.sensor_grid.location;
-
-            if( $scope.sensor_grid.location==void 0 || (location&&location.length==0) ){
-                if($scope.sensor_grid.location==void 0)$scope.sensor_grid.location=[];
-                $scope.getCurrentLocation();
-            }else{
-
-                $scope.editable.center=_.clone($scope.sensor_grid.location);
-
-            }
-              OwnZone();
-
-        }), RequestService.Error());
-    }
-
-    this.SensorGridById();
-
-
-
-
     var query={
         p:0,
         s:5,
@@ -292,7 +266,52 @@ angular.module('Application')
             $scope.own_zone=zone;
         }), RequestService.Error());
     }
+    
+    
+    var magnitudes=[];
+    var AllMagnitudes=function(cb){
+        MagnitudeService.Search().all( RequestService.Data(function(data){
+            magnitudes=data;
+            if(cb) cb();
+        }), RequestService.Error());
+    };
+    
+    $scope.MagnitudeName=function (id){
+        var m=_.find(magnitudes, function(o){return o._id===id});
+        
+        return m?m.display_name:void 0;
+    }
+    
+     var SensorGridById=function(){
+        SensorGridService.Basic().byId({id:sensor_grid_id}, RequestService.Data(function(data){
+            $scope.sensor_grid=data;
 
+            $scope.editable.haveAccess= checkAccess();
+
+            var location= $scope.sensor_grid.location;
+
+            if( $scope.sensor_grid.location==void 0 || (location&&location.length==0) ){
+                if($scope.sensor_grid.location==void 0)$scope.sensor_grid.location=[];
+                $scope.getCurrentLocation();
+            }else{
+
+                $scope.editable.center=_.clone($scope.sensor_grid.location);
+
+            }
+              OwnZone();
+             
+
+        }), RequestService.Error());
+    }
+
+   
+    var fetch=function(){
+        AllMagnitudes( SensorGridById);
+    }
+
+
+        
+    fetch();
    
 
 });
