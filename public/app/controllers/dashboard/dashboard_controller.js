@@ -94,6 +94,7 @@ angular.module('Application')
     }
 
     $scope.search=function(){
+        query.p=0;
         fetch();
     }
 

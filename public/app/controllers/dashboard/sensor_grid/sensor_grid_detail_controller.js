@@ -235,6 +235,7 @@ angular.module('Application')
     }
 
     $scope.searchSensor=function(){
+        query.p=0;
         fetchSensor();
     }
 

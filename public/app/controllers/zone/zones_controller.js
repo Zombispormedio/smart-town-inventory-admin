@@ -1,7 +1,7 @@
 angular.module('Application')
     .controller('ZonesCtrl',function($scope, $rootScope,ThemeService, ZoneService, RequestService, $window){
-    
-     var query={
+
+    var query={
         p:0,
         s:5
     }
@@ -14,9 +14,9 @@ angular.module('Application')
         numPages:0
     };
 
-    
-    
-    
+
+
+
     ThemeService.Content($scope, "background-theme-orange");
 
     $scope.go=function(state, params){
@@ -50,7 +50,7 @@ angular.module('Application')
 
 
 
-  var createPagination=function(){
+    var createPagination=function(){
         $scope.list.numPages=Math.ceil($scope.list.numItems/query.s);
         $scope.list.pagination=Array.apply(0, Array($scope.list.numPages)).map(function(_, index){
             return index;
@@ -68,7 +68,7 @@ angular.module('Application')
 
     $scope.next=function(){
         var page=query.p+1;
-    
+
         if(page<$scope.list.numPages){
             query.p++;
             fetch();
@@ -85,17 +85,18 @@ angular.module('Application')
             fetch();
         }
     }
-    
-    
+
+
     $scope.openTab=function(ev, id){
         if(ev.which===3 && ev.button===2){
-            
+
             $window.open("#/zones/"+id,'_blank');
         }
     }
 
     $scope.search=function(){
-            fetch();
+        query.p=0;
+        fetch();
     }
 
     var fetch=function(){
