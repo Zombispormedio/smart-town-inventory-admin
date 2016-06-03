@@ -136,18 +136,18 @@
                              drawingMode="null">
             </drawing-manager>
 
-            <shape  name="polygon" ng-if="!newShape&&zone.shape.type==='polygon'" 
+            <shape  name="polygon" ng-if="!newShape&&zone.shape.type==='polygon'&&zone.shape.paths.length>0" 
                    stroke-color="{{Color}}" editable="{{editable.location}}"
                    stroke-opacity="1.0" stroke-weight="2"
                    paths="{{zone.shape.paths}}" >
             </shape>
 
-            <shape  name="circle" ng-if="!newShape&&zone.shape.type==='circle'" draggable="{{editable.location}}" editable="{{editable.location}}"
+            <shape  name="circle" ng-if="!newShape&&zone.shape.type==='circle'&&zone.shape.center.length>0" draggable="{{editable.location}}" editable="{{editable.location}}"
                    stroke-color='{{Color}}' stroke-opacity="1.0"stroke-weight="2"
                    center="{{zone.shape.center}}" radius="{{zone.shape.radius}}">
             </shape>
 
-            <shape  name="rectangle"  ng-if="!newShape&&zone.shape.type==='rectangle'"
+            <shape  name="rectangle"  ng-if="!newShape&&zone.shape.type==='rectangle'&&zone.shape.bounds.length>0"
                    stroke-color='{{Color}}' editable="{{editable.location}}"
                    stroke-opacity="1.0" stroke-weight="2"
                    bounds="{{zone.shape.bounds}}">
@@ -162,12 +162,12 @@
             </shape>
             
             
-            <shape  name="circle"  ng-repeat="other in others" ng-if="other.shape.type==='circle'" 
+            <shape  name="circle"  ng-repeat="other in others" ng-if="other.shape.type==='circle'&&other.shape.center.length>0" 
                    stroke-color='#808080' stroke-opacity="1.0"stroke-weight="2"
                    center="{{other.shape.center}}" radius="{{other.shape.radius}}">
             </shape>
 
-            <shape  name="rectangle"   ng-repeat="other in others" ng-if="other.shape.type==='rectangle'"
+            <shape  name="rectangle"   ng-repeat="other in others" ng-if="other.shape.type==='rectangle'&&other.shape.bounds.length>0"
                    stroke-color='#808080' 
                    stroke-opacity="1.0" stroke-weight="2"
                    bounds="{{other.shape.bounds}}">

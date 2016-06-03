@@ -1224,18 +1224,18 @@ module.run(['$templateCache', function($templateCache) {
     '                             drawingMode="null">\n' +
     '            </drawing-manager>\n' +
     '\n' +
-    '            <shape  name="polygon" ng-if="!newShape&&zone.shape.type===\'polygon\'" \n' +
+    '            <shape  name="polygon" ng-if="!newShape&&zone.shape.type===\'polygon\'&&zone.shape.paths.length>0" \n' +
     '                   stroke-color="{{Color}}" editable="{{editable.location}}"\n' +
     '                   stroke-opacity="1.0" stroke-weight="2"\n' +
     '                   paths="{{zone.shape.paths}}" >\n' +
     '            </shape>\n' +
     '\n' +
-    '            <shape  name="circle" ng-if="!newShape&&zone.shape.type===\'circle\'" draggable="{{editable.location}}" editable="{{editable.location}}"\n' +
+    '            <shape  name="circle" ng-if="!newShape&&zone.shape.type===\'circle\'&&zone.shape.center.length>0" draggable="{{editable.location}}" editable="{{editable.location}}"\n' +
     '                   stroke-color=\'{{Color}}\' stroke-opacity="1.0"stroke-weight="2"\n' +
     '                   center="{{zone.shape.center}}" radius="{{zone.shape.radius}}">\n' +
     '            </shape>\n' +
     '\n' +
-    '            <shape  name="rectangle"  ng-if="!newShape&&zone.shape.type===\'rectangle\'"\n' +
+    '            <shape  name="rectangle"  ng-if="!newShape&&zone.shape.type===\'rectangle\'&&zone.shape.bounds.length>0"\n' +
     '                   stroke-color=\'{{Color}}\' editable="{{editable.location}}"\n' +
     '                   stroke-opacity="1.0" stroke-weight="2"\n' +
     '                   bounds="{{zone.shape.bounds}}">\n' +
@@ -1250,12 +1250,12 @@ module.run(['$templateCache', function($templateCache) {
     '            </shape>\n' +
     '            \n' +
     '            \n' +
-    '            <shape  name="circle"  ng-repeat="other in others" ng-if="other.shape.type===\'circle\'" \n' +
+    '            <shape  name="circle"  ng-repeat="other in others" ng-if="other.shape.type===\'circle\'&&other.shape.center.length>0" \n' +
     '                   stroke-color=\'#808080\' stroke-opacity="1.0"stroke-weight="2"\n' +
     '                   center="{{other.shape.center}}" radius="{{other.shape.radius}}">\n' +
     '            </shape>\n' +
     '\n' +
-    '            <shape  name="rectangle"   ng-repeat="other in others" ng-if="other.shape.type===\'rectangle\'"\n' +
+    '            <shape  name="rectangle"   ng-repeat="other in others" ng-if="other.shape.type===\'rectangle\'&&other.shape.bounds.length>0"\n' +
     '                   stroke-color=\'#808080\' \n' +
     '                   stroke-opacity="1.0" stroke-weight="2"\n' +
     '                   bounds="{{other.shape.bounds}}">\n' +
