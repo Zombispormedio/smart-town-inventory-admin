@@ -155,7 +155,7 @@
             
             <!--REST-->
             
-            <shape  name="polygon" ng-repeat="other in others" ng-if="other.shape.type==='polygon'" 
+            <shape  name="polygon" ng-repeat="other in others" ng-if="other.shape.type==='polygon'&&other.shape.paths.length>0" 
                    stroke-color="#808080" 
                    stroke-opacity="1.0" stroke-weight="2"
                    paths="{{other.shape.paths}}" >
