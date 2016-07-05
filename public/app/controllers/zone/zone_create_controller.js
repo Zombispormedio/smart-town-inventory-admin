@@ -64,7 +64,7 @@ angular.module('Application')
                     break;
                 }    
                 case "polygon":
-                    shape.paths=overlay.getPath().j.map(function(a){
+                    shape.paths=overlay.getPath().b.map(function(a){
                         return [a.lat(), a.lng()];
                     });
 
@@ -89,7 +89,7 @@ angular.module('Application')
 
                 google.maps.event.addListener(p, 'insert_at', function(){
                     $scope.$apply(function(){
-                        $scope.zone.shape.paths=polygon.getPath().j.map(function(a){
+                        $scope.zone.shape.paths=polygon.getPath().b.map(function(a){
                             return [a.lat(), a.lng()];
                         });
                     });
@@ -97,7 +97,7 @@ angular.module('Application')
 
                 google.maps.event.addListener(p, 'remove_at', function(){
                     $scope.$apply(function(){
-                        $scope.zone.shape.paths=polygon.getPath().j.map(function(a){
+                        $scope.zone.shape.paths=polygon.getPath().b.map(function(a){
                             return [a.lat(), a.lng()];
                         });
                     });
@@ -105,7 +105,7 @@ angular.module('Application')
 
                 google.maps.event.addListener(p, 'set_at', function(){
                     $scope.$apply(function(){
-                        $scope.zone.shape.paths=polygon.getPath().j.map(function(a){
+                        $scope.zone.shape.paths=polygon.getPath().b.map(function(a){
                             return [a.lat(), a.lng()];
                         });
                     });

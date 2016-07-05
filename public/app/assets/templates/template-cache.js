@@ -912,6 +912,7 @@ module.run(['$templateCache', function($templateCache) {
     '        </md-input-container>\n' +
     '\n' +
     '    </div>\n' +
+    '    \n' +
     '    <md-divider ></md-divider>\n' +
     '    <div layout="column" flex class="zone-draw">\n' +
     '        <div flex  layout="row">\n' +

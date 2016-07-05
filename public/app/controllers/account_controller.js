@@ -21,10 +21,16 @@ angular.module('Application')
 
     $scope.changeEmail=function(){
         var result=_.pick($scope.account, ["email"]);
-        OAuthService.Email().set(result, RequestService.Data(function(data){
-            $scope.account=data;
-            $scope.editable.email=false;
-        }), RequestService.Error());
+        if(result.email&&result!=""){
+            OAuthService.Email().set(result, RequestService.Data(function(data){
+                $scope.account=data;
+                $scope.editable.email=false;
+            }), RequestService.Error());
+        }else{
+             $rootScope.showSimpleToast("Empty Email Not Valid");
+        }
+
+
     }
 
     this.WhoIAm=function(){
@@ -98,11 +104,11 @@ angular.module('Application')
         .cancel('Cancel');
         $mdDialog.show(confirm).then(function() {
             OAuthService.Basic().del(RequestService.Message(function(){
-                 deleteLocal("user");
+                deleteLocal("user");
                 $rootScope.go("login");
             }), RequestService.Error());
-            
-            
+
+
         });
     }
 

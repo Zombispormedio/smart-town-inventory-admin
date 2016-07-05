@@ -76,7 +76,7 @@ angular.module('Application')
 
         self.onMapOverlayCompleted = function(e){
             $scope.newShape=false;
-
+          
             var type=e.type;
             var overlay=e.overlay;
             var shape={
@@ -102,7 +102,8 @@ angular.module('Application')
                     break;
                 }    
                 case "polygon":
-                    shape.paths=overlay.getPath().j.map(function(a){
+                    
+                    shape.paths=overlay.getPath().b.map(function(a){
                         return [a.lat(), a.lng()];
                     });
 
@@ -140,7 +141,7 @@ angular.module('Application')
         var map_shape=_.find(shapes, function(o){
            return o.strokeColor===$scope.Color;
         });
-        console.log(map_shape)
+        
         switch(shape.type){
             case "rectangle":{
                 var rectangle=map_shape;
@@ -161,7 +162,7 @@ angular.module('Application')
                 break;
             case "polygon":
                 var polygon=map_shape;
-                shape.paths=polygon.getPath().j.map(function(a){
+                shape.paths=polygon.getPath().b.map(function(a){
                     return [a.lat(), a.lng()];
                 });
 
