@@ -1634,7 +1634,7 @@ module.run(['$templateCache', function($templateCache) {
     '            <md-input-container flex="50" flex-offset="10">\n' +
     '                <input ng-model="sensor.display_name" aria-label="Display Name" ng-disabled="!editable.display_name">\n' +
     '            </md-input-container>\n' +
-    '            <div flex="10" layout="row" layout-align="center center">\n' +
+    '            <div flex="10" layout="row" layout-align="center center" style="margin-top: -7%;">\n' +
     '                <md-button flex ng-click="editable.display_name=true" ng-if="!editable.display_name" class="md-primary" aria-label="Start Update display_name">\n' +
     '                    <i class="mdi mdi-pencil orange"></i>\n' +
     '                </md-button>\n' +
